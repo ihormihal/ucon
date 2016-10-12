@@ -1,0 +1,80 @@
+/**** AngularJS IM-DATATABLE STYLING ****/
+.ng-table, .datatable {
+	@extend table.noborder;
+	@extend table.striped;
+	@extend table.hoverable;
+	width: 100%;
+}
+div[im-datatable] {
+	tbody {
+		display: none;
+		&.loaded {
+			display: table-row-group; //IE8+
+		}
+	}
+	table {
+		margin: 16*$pt 0;
+		thead tr {
+			th {
+				@include no-select();
+				position: relative;
+				&:after, &:before {
+					content: '';
+					display: table-cell;
+					vertical-align: middle;
+					font-family: FontAwesome;
+					text-rendering: auto;
+					-webkit-font-smoothing: antialiased;
+					position: absolute;
+					right: 0;
+					top: 50%;
+					margin-top: -6*$pt;
+				}
+
+				&[data-sortby] {
+					&:before {
+						margin-top: -2*$pt;
+						content: "\f107";
+						color: color(light);
+					}
+					&:after {
+						margin-top: -10*$pt;
+						content: "\f106";
+						color: color(light);
+					}
+				}
+
+				&[data-sortdir] {
+					&:before {content: '';}
+					&:after {
+						margin-top: -6*$pt;
+						color: color(dark-grey);
+					}
+				}
+
+				&[data-sortdir="ASC"]:after {
+					content: "\f107";
+				}
+				&[data-sortdir="DESC"]:after {
+					content: "\f106";
+				}
+				color: color(grey);
+				cursor: default;
+				&:hover {
+					color: color(dark-grey);
+				}
+			}
+		}
+		tbody tr {
+			&.success {
+				background-color: color(light-green) !important;
+			}
+			&.error {
+				background-color: color(amber) !important;
+			}
+		}
+	}
+	select, .select, input[type=text], input[type=email], input[type=password], input[type=date] {
+		min-width: 100px;
+	}
+}

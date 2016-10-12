@@ -1,0 +1,45 @@
+.nav {
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	li a {
+		display: block;
+		@include no-select();
+	}
+	&:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+}
+.nav-inline li {
+	float: left;
+	a:not(.btn) {
+		padding: 0 8*$pt;
+	}
+}
+.nav-col li {
+	a:not(.btn) {
+		padding: 8*$pt 0;
+	}
+}
+
+@media screen and (max-width: #{$lg - 1}px) {
+	.nav-col-md li {float: none;}
+}
+@media screen and (max-width: #{$md - 1}px) {
+	.nav-col-md li {float: none;}
+}
+@media screen and (max-width: #{$sm - 1}px) {
+	.nav-col-sm li {float: none;}
+}
+@media screen and (max-width: #{$land - 1}px) {
+	.nav-col-land li {float: none;}
+}
+@media screen and (max-width: #{$port - 1}px) {
+	.nav-col-port li {float: none;}
+}
+@media screen and (max-width: #{$xs - 1}px) {
+	.nav-col-xs li {float: none;}
+}

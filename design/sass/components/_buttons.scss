@@ -1,0 +1,284 @@
+.btn-group {
+	> * {
+		margin-right: $gap/2;
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}
+.btn {
+	font-family: $roboto;
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	text-decoration: none;
+	text-align: center;
+	line-height: 1;
+	overflow: hidden;
+	@include transition(color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease);
+	@include no-select();
+	@include border-radius(2px);
+	&[disabled] {
+		opacity: 0.5;
+		cursor: not-allowed;
+		.ink {
+			display: none;
+		}
+	}
+	i {
+		margin-right: 8*$pt;
+		top: 0;
+	}
+}
+
+button.btn, input[type="button"].btn, input[type="submit"].btn {
+	vertical-align: bottom;
+	position: relative;
+	top: -2px;
+}
+
+.btn-mt {
+	font-weight: 500;
+	text-transform: uppercase;
+	@include box-shadow(1px 1px 3px rgba(0,0,0,0.4));
+	will-change: box-shadow;
+	&:active, .active {
+		@include box-shadow(1px 3px 3px rgba(0,0,0,0.4));
+	}
+}
+
+.btn-tr {
+	background-color: transparent;
+	border: 1px solid color(black);
+	&:hover, &.active {
+		background-color: rgba(0,0,0,0.1);
+	}
+}
+.btn-flat {
+	font-weight: 500;
+	text-transform: uppercase;
+	background-color: transparent !important;
+	&:hover, &.active {
+		background-color: color(lighten) !important;;
+	}
+	&:active {
+		background-color: color(light) !important;;
+	}
+}
+
+.btn-fl {
+	border: none;
+	overflow: hidden;
+	display: inline-block;
+	line-height: 56px;
+	text-align: center;
+	height: 56px;
+	width: 56px;
+	padding: 0 !important;
+	top: 2px;
+	@include border-radius(50%);
+	@include box-shadow(1px 1px 3px rgba(0,0,0,0.4));
+	@include transition(color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease);
+	@include no-select();
+	will-change: box-shadow;
+	&:active, .active {
+		@include box-shadow(1px 3px 3px rgba(0,0,0,0.4));
+	}
+	i {
+		margin: 0;
+		position: static;
+		font-size: 24px;
+		vertical-align: middle;
+	}
+}
+
+
+//COLORS
+.btn {
+	background-color: color(lighten);
+	color: color(darken);
+	&:hover, &.active {
+		background-color: color(light);
+	}
+	//for ripple
+	.ink {
+		background-color: #fff;
+	}
+}
+.btn-white {
+	background-color: color(white);
+	color: color(black);
+	&:hover, &.active {
+		background-color: color(lighten);
+	}
+	&.btn-tr {
+		color: color(white);
+		border-color: color(white);
+		background-color: transparent;
+		&:hover, &.active {
+			color: color(black);
+			background-color: color(white);
+		}
+	}
+	&.btn-flat {
+		color: color(white);
+	}
+}
+.btn-black {
+	background-color: color(black);
+	color: color(white);
+	&:hover, &.active {
+		background-color: color(darken);
+	}
+	&.btn-tr {
+		color: color(black);
+		border-color: color(black);
+		background-color: transparent;
+		&:hover, &.active {
+			color: color(white);
+			background-color: color(black);
+		}
+	}
+	&.btn-flat {
+		color: color(black);
+	}
+}
+.btn-primary {
+	background-color: $colorPrimary;
+	color: color(white);
+	&:hover, &.active {
+		background-color: darken($colorPrimary,5%);
+	}
+	&.btn-tr {
+		color: $colorPrimary;
+		border-color: $colorPrimary;
+		background-color: transparent;
+		&:hover, &.active {
+			color: color(white);
+			background-color: $colorPrimary;
+		}
+	}
+	&.btn-flat {
+		color: $colorPrimary;
+	}
+}
+.btn-success {
+	background-color: color(green);
+	color: color(white);
+	&:hover, &.active {
+		background-color: darken(color(green),5%);
+	}
+	&.btn-tr {
+		color: color(green);
+		border-color: color(green);
+		background-color: transparent;
+		&:hover, &.active {
+			color: color(white);
+			background-color: color(green);
+		}
+	}
+	&.btn-flat {
+		color: color(green);
+	}
+}
+.btn-warning {
+	background-color: color(orange);
+	color: color(white);
+	&:hover, &.active {
+		background-color: darken(color(orange),5%);
+	}
+	&.btn-tr {
+		color: color(orange);
+		border-color: color(orange);
+		background-color: transparent;
+		&:hover, &.active {
+			color: color(white);
+			background-color: color(orange);
+		}
+	}
+	&.btn-flat {
+		color: color(orange);
+	}
+}
+.btn-danger {
+	background-color: color(red);
+	color: color(white);
+	&:hover, &.active {
+		background-color: darken(color(red),5%);
+	}
+	&.btn-tr {
+		color: color(red);
+		border-color: color(red);
+		background-color: transparent;
+		&:hover, &.active {
+			color: color(white);
+			background-color: color(red);
+		}
+	}
+	&.btn-flat {
+		color: color(red);
+	}
+}
+
+//SIZES
+.btn {
+	font-size: 14*$pt;
+	padding: 11*$pt 16*$pt;
+	&.btn-tr {
+		padding: 10*$pt 15*$pt;
+	}
+}
+
+.btn-wide {
+	padding-left: 48*$pt;
+	padding-right: 48*$pt;
+}
+//height 24*$pt
+.btn-xs {
+	font-size: 14*$pt;
+	padding: 5*$pt 8*$pt;
+	&.btn-tr {
+		padding: 4*$pt 7*$pt;
+	}
+}
+//a.btn-xs {padding-top: 5*$pt + 3px;}
+
+//height 32*$pt
+.btn-sm {
+	font-size: 16*$pt;
+	padding: 8*$pt 16*$pt;
+	&.btn-tr {
+		padding: 7*$pt 15*$pt;
+	}
+}
+//a.btn-sm {padding-top: 8*$pt + 3px;}
+
+//height 48*$pt
+.btn-lg {
+	font-size: 24*$pt;
+	padding: 14*$pt 32*$pt;
+	&.btn-tr {
+		padding: 13*$pt 31*$pt;
+	}
+}
+//a.btn-lg {padding-top: 14*$pt + 3px;}
+
+//height 72*$pt
+.btn-xl {
+	font-size: 40*$pt;
+	padding: 16*$pt 40*$pt;
+	&.btn-tr {
+		padding: 15*$pt 39*$pt;
+	}
+}
+//a.btn-xl {padding-top: 16*$pt + 3px;}
+
+.floating-button {
+    position: absolute;
+    z-index: 100;
+    bottom: 0;
+    right: 2%;
+    margin-right: $gap;
+    @include transform(translate(0,50%));
+}

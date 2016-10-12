@@ -1,0 +1,19 @@
+<input type="hidden" name="{{name}}" value="{{input}}">
+
+<div class="btn upload-button mb1"
+	ngf-select="uploadFiles($files, $invalidFiles)"
+	accept="image/*"
+	ng-hide="files.length && !multiple"
+	ngf-multiple="{{multiple}}">
+	<i class="fa fa-image"></i>{{title}}
+</div>
+
+<div class="image-preview-box" ng-repeat="file in files" ng-show="file" ng-class="{'loaded': file.loaded, 'loading': file.loading}">
+
+	<im-progress radius="60" width="3" progress="{{file.progress}}"></im-progress>
+
+	<img ngf-thumbnail="file" class="thumb" ng-src="{{file.src}}">
+	<img class="popup-img" ng-src="{{file.src}}" >
+	<div class="error" ng-show="file.error">{{file.error}}</div>
+	<div ng-hide="{{locked}}" class="remove deep-orange" ng-click="deleteImg($index)" title="Удалить фото"></div>
+</div>

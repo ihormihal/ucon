@@ -1,0 +1,62 @@
+$tabColor: $colorPrimary;
+
+.fade {
+	opacity: 0;
+	@include transition(opacity 0.15s linear);
+	&.in {
+		opacity: 1;
+	}
+}
+
+.tab-content {
+	.tab {
+		display: none;
+		visibility: hidden;
+		&.active {
+			display: block;
+			visibility: visible;
+		}
+	}
+}
+.tab-control.nav {
+	&:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+	li {
+		a {
+			padding: 16*$pt 24*$pt;
+			color: color(dark);
+			border-style: solid;
+			border-color: transparent;
+		}
+		&.active {
+			a {
+				color: $tabColor;
+				border-color: $tabColor;
+			}
+		}
+	}
+}
+
+//Additional example styles
+.nav-inline.tab-control {
+	border-bottom: 1px solid $tabColor;
+	li {
+		a {
+			padding-bottom: 14*$pt;
+			border-width: 0 0 2px 0;
+		}
+	}
+}
+.nav-col.tab-control {
+	border-right: 1px solid $tabColor;
+	li {
+		a {
+			padding-right: 14*$pt;
+			border-width: 0 2px 0 0;
+			text-align: left;
+		}
+	}
+}

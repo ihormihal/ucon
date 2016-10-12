@@ -1,0 +1,194 @@
+@mixin setGeneral($prefix){
+	//скрываем для всех экранов
+	.show-#{$prefix}-over, .show-#{$prefix}-under {
+		display: none;
+	}
+	.hide-#{$prefix}-over, .hide-#{$prefix}-under {
+		display: block;
+	}
+}
+//Для экранов больше префикса, больше - в приоритете
+@mixin setForBigger($prefix){
+	@for $i from 1 through $columns {
+		//ширина колонки
+		.col-#{$prefix}-#{$i} {
+			width : ($i / $columns)*100%;
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+		//смещение колонок
+		.col-#{$prefix}-offset-#{$i} {
+			margin-left: ($i / $columns)*100%;
+		}
+	}
+
+	//ширина колонки 20%
+	.col-#{$prefix}-five {
+		width : 20%;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+	//смещение колонок 20%
+	.col-#{$prefix}-offset-five {
+		margin-left: 20%;
+	}
+
+	//показываем для экранов меньше $prefix
+	.show-#{$prefix}-over {
+		display: block;
+	}
+	//скрываем для экранов меньше $prefix
+	.hide-#{$prefix}-over {
+		display: none;
+	}
+
+	//обтекание для экранов больше $prefix
+	.left-#{$prefix} {
+		float: left;
+	}
+	.right-#{$prefix} {
+		float: right;
+	}
+	//текст справа для экранов больше $prefix
+	.text-#{$prefix}-right {
+		text-align: right;
+	}
+}
+//для экранов меньше префикса, меньше - в приоритете
+@mixin setForSmaller($prefix){
+	//скрываем для экранов больше $prefix
+	.hide-#{$prefix}-under {
+		display: none;
+	}
+	//показываем для экранов больше $prefix
+	.show-#{$prefix}-under {
+		display: block;
+	}
+
+	//центрируем блок для экранов меньше $prefix
+	.center-#{$prefix} {
+		display: table;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	//центрируем текст для экранов меньше $prefix
+	.text-#{$prefix}-center {
+		text-align: center;
+	}
+}
+* {box-sizing: border-box;}
+.container {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: $max;
+	padding-left: $gap;
+	padding-right: $gap;
+	margin: 0 auto;
+	&.wide {
+		max-width: $max-wide;
+	}
+	&.fit {
+		max-width: 100%;
+	}
+	&.full {
+		width: 100%;
+		max-width: 100%;
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+*[class ^= "col-xs-"],
+*[class ^= "col-sm-"],
+*[class ^= "col-md-"],
+*[class ^= "col-lg-"],
+*[class ^= "col-xl-"] {
+	min-height: 1px;
+	padding: 0 $gap;
+	box-sizing: border-box;
+	width: 100%;
+	float: left;
+}
+.row {
+	clear: both;
+	margin-left: -$gap;
+	margin-right: -$gap;
+	@include flexbox;
+	flex-wrap: wrap;
+
+	&:after {content: ''; display: block; clear: both;}
+	//плитка - если колонки не помещаются по ширине, нужен вертикальный отступ
+	&.wide {
+		margin-left: -$gap*2;
+		margin-right: -$gap*2;
+		> *[class ^= "col-"] {
+			padding-left: $gap*2;
+			padding-right: $gap*2;
+		}
+	}
+	&.thin {
+		margin-left: -$gap/2;
+		margin-right: -$gap/2;
+		> *[class ^= "col-"] {
+			padding-left: $gap/2;
+			padding-right: $gap/2;
+		}
+	}
+	&.condensed {
+		margin-left: 0;
+		margin-right: 0;
+		> *[class ^= "col-"] {
+			padding: 0;
+		}
+	}
+	&.tile {
+		margin-top: -$gap;
+		margin-bottom: -$gap;
+		> *[class ^= "col-"] {padding-top: $gap; padding-bottom: $gap;}
+		&.thin {
+			margin-top: -$gap/2;
+			margin-bottom: -$gap/2;
+			> *[class ^= "col-"] {padding-top: $gap/2; padding-bottom: $gap/2;}
+		}
+	}
+	&.gaprow {
+		> *[class ^= "col-"] {margin-bottom: $gap;}
+	}
+}
+
+
+@include setGeneral(xs);
+@include setGeneral(sm);
+@include setGeneral(md);
+@include setGeneral(lg);
+@include setGeneral(xl);
+
+/**** SET FOR BIGGER SCREEN ****/
+@include setForBigger(xs);
+@media screen and (min-width: #{$xs}px) {
+	@include setForBigger(sm);
+}
+@media screen and (min-width: #{$sm}px) {
+	@include setForBigger(md);
+}
+@media screen and (min-width: #{$md}px) {
+	@include setForBigger(lg);
+}
+@media screen and (min-width: #{$lg}px) {
+	@include setForBigger(xl);
+}
+/**** SET FOR SMALLER SCREEN ****/
+@media screen and (min-width: #{$lg - 1}px) {
+	@include setForSmaller(xl);
+}
+@media screen and (max-width: #{$lg - 1}px) {
+	@include setForSmaller(lg);
+}
+@media screen and (max-width: #{$md - 1}px) {
+	@include setForSmaller(md);
+}
+@media screen and (max-width: #{$sm - 1}px) {
+	@include setForSmaller(sm);
+}
+@include setForSmaller(xs);
+
+

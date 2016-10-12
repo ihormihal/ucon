@@ -1,0 +1,64 @@
+.card-box, .card-row, .card-image {
+	@extend .box;
+	overflow: hidden;
+	background-color: #fff;
+	.title {
+		padding: 0 0 16*$pt 0;
+	}
+	.image {
+		img {width: 100%;}
+	}
+	.content .box {
+		padding: 24*$pt;
+	}
+	.actions {
+		padding: 8*$pt;
+		border-top: 1px solid color(lighten);
+		.btn {
+			margin: 0;
+		}
+	}
+}
+.card-box {
+	@extend .box;
+	padding: 0;
+	a {text-decoration: none;}
+}
+.card-row {
+	@extend .box;
+	padding: 0;
+	.header, .content {
+		@include flexbox;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	.header {
+		justify-content: center;
+		background-color: color(lighten);
+	}
+}
+.card-image {
+	padding: 0;
+	position: relative;
+	.content {
+		position: absolute;
+		left: 0; right: 0; bottom: 0;
+	}
+	&.slide {
+		.content {
+			height: 100%;
+			top: 100%;
+			margin-top: -56*$pt;
+			background-color: rgba(0,0,0,0);
+			@include transition(top 0.25s ease, margin-top 0.25s ease, background-color 0.25s ease);
+		}
+		&:hover {
+			.content {
+				background-color: color(dark);
+				top: 0;
+				margin-top: 0;
+			}
+		}
+	}
+
+}

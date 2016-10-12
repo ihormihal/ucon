@@ -1,0 +1,14 @@
+{
+  "name": "im-framework",
+  "version": "1.0.0",
+  "description": "IM Framework",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ihor Mykhalchenko",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp-sass": "^2.3.2"
+  }
+}

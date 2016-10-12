@@ -1,0 +1,11 @@
+footer {
+	img.logo {
+		height: 49px; width: auto;
+	}
+	.nav li a {
+		height: 50px;
+		line-height: 50px;
+		padding: 0 24*$pt;
+		font-size: 16*$pt;
+	}
+}

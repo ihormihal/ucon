@@ -1,0 +1,48 @@
+body {
+	font-family: $roboto;
+	font-size: 12*$pt;
+}
+p {margin-bottom: 16*$pt; line-height: 24*$pt; font-size: 12*$pt;}
+
+.huge, h1,h2,h3,h4,.h1,.h2,.h3,.h4 {font-family: $roboto; font-weight: 100;}
+h2,h3,h4,.h2,.h3,.h4 {font-weight: 300;}
+
+$fs0 : 72*$pt;
+$fs1 : 52*$pt;
+$fs2 : 34*$pt;
+$fs3 : 28*$pt;
+$fs4 : 20*$pt;
+$fs5 : 16*$pt;
+$fs6 : 12*$pt;
+
+.huge  {font-size: $fs0;}
+h1,.h1 {font-size: $fs1;}
+h2,.h2 {font-size: $fs2;}
+h3,.h3 {font-size: $fs3;}
+h4,.h4 {font-size: $fs4;}
+h5,.h5 {font-size: $fs5;}
+h6,.h6 {font-size: $fs6;}
+
+.huge,.lhuge {line-height: $fs0 + 8*$pt;}
+h1,.h1,.lh1 {line-height: $fs1 + 8*$pt;}
+h2,.h2,.lh2	{line-height: $fs2 + 6*$pt;}
+h3,.h3,.lh3	{line-height: $fs3 + 4*$pt;}
+h4,.h4,.lh4	{line-height: $fs4 + 4*$pt;}
+h5,.h5,.lh5	{line-height: $fs5 + 4*$pt;}
+h6,.h6,.lh6	{line-height: $fs6 + 4*$pt;}
+
+.lh-btn {line-height: 42*$pt;}
+
+.slim {font-weight: 100;}
+p,h1,h2,h3,h4,h5,span {
+	&.thin {font-weight: 100;}
+}
+
+.normal {font-weight: 400;}
+.bold {font-weight: 600;}
+.italic {font-style: italic;}
+.link {text-decoration: none;}
+.up {text-transform: uppercase;}
+.underline {text-decoration: underline;}
+.valign {vertical-align: middle;}
+.nowrap {white-space: nowrap;}

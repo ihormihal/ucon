@@ -1,0 +1,175 @@
+.btn-group {
+	> * {
+		margin-right: 8*$pt;
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}
+.btn {
+	font-family: $roboto;
+	display: inline-block;
+	font-size: 14*$pt;
+	border-width: 0px;
+	padding: 11*$pt 16*$pt;
+	cursor: pointer;
+	outline: none;
+	border: 1px solid transparent;
+	text-decoration: none;
+	text-align: center;
+	line-height: 1;
+	@include transition(color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease);
+	@include no-select();
+	&.rd {
+		@include border-radius(2px);
+	}
+	&.shd {
+		@include box-shadow(1px 1px 3px rgba(0,0,0,0.4));
+	}
+	i {
+		margin-right: 8*$pt;
+		top: 0;
+	}
+	&.underline {
+		@extend .underline;
+	}
+	&.flat {
+		background-color: transparent;
+		&:hover, &.active {
+			background-color: color(lighten);
+		}
+		&:active {
+			background-color: color(light);
+		}
+	}
+	&.wide {
+		padding-left: 48*$pt;
+		padding-right: 48*$pt;
+	}
+	&[disabled] {
+		opacity: 0.5;
+		cursor: not-allowed;
+		.ink {
+			display: none;
+		}
+	}
+}
+
+button.btn, input[type="button"].btn, input[type="submit"].btn {
+	vertical-align: top;
+}
+
+.btn-mt {
+	@extend .btn;
+	@extend .btn.rd;
+	@extend .btn.shd;
+	border: none;
+	font-weight: 500;
+	will-change: box-shadow;
+	&:active {
+		@include box-shadow(1px 3px 3px rgba(0,0,0,0.4));
+	}
+	&.flat {
+		@include box-shadow(none);
+		&:active {
+			@include box-shadow(none);
+		}
+	}
+}
+
+.btn-fl {
+	@extend .btn;
+	@extend .btn.rd;
+	@extend .btn.shd;
+	line-height: 56px;
+	text-align: center;
+	height: 56px;
+	width: 56px;
+	padding: 0 !important;
+	top: 2px;
+	@include border-radius(50%);
+	i {
+		margin: 0;
+		position: static;
+		font-size: 24px;
+		vertical-align: middle;
+	}
+	&:active {
+		@include box-shadow(1px 2px 4px rgba(0,0,0,0.4));
+	}
+}
+
+.btn-tr {
+	@extend .btn;
+	background-color: transparent;
+	border-width: 1px;
+	border-style: solid;
+	padding: 10*$pt 16*$pt;
+	&.tr-white {
+		color: color(white);
+		border-color: color(white);
+		&:hover, &.active {
+			background-color: color(white);
+			color: color(dark);
+		}
+		.ink {
+			background-color: color(grey);
+		}
+	}
+	&.tr-dark {
+		color: color(dark);
+		border-color: color(dark);
+		&:hover, &.active {
+			background-color: color(dark);
+			color: color(white);
+		}
+		.ink {
+			background-color: color(white);
+		}
+	}
+}
+.btn-mtr {
+	@extend .btn-tr;
+	@extend .btn.rd;
+	@extend .btn.shd;
+	background-color: transparent;
+	border-width: 1px;
+	border-style: solid;
+}
+
+//height 24*$pt
+.btn-xs {
+	font-size: 14*$pt;
+	padding: 5*$pt 8*$pt;
+}
+a.btn-xs {padding-top: 5*$pt + 3px;}
+//height 32*$pt
+.btn-sm {
+	font-size: 16*$pt;
+	padding: 8*$pt 16*$pt;
+}
+a.btn-sm {padding-top: 8*$pt + 3px;}
+//height 48*$pt
+.btn-lg {
+	font-size: 24*$pt;
+	padding: 14*$pt 32*$pt;
+}
+a.btn-lg {padding-top: 14*$pt + 3px;}
+//height 72*$pt
+.btn-xl {
+	font-size: 40*$pt;
+	padding: 16*$pt 40*$pt;
+}
+a.btn-xl {padding-top: 16*$pt + 3px;}
+
+.floating-button {
+    position: absolute;
+    z-index: 100;
+    bottom: 0;
+    right: 2%;
+    margin-right: $gap;
+    @include transform(translate(0,50%));
+}
+.form-group-btn {
+	margin-top: 22px;
+}

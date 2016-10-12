@@ -1,0 +1,114 @@
+.owl-carousel {
+	.item {
+		div {
+			position: relative;
+		}
+		img {max-width: 100%; height: auto;}
+	}
+}
+.owl-controls {
+	@include no-select;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+	.owl-pagination {
+		text-align: center;
+		.owl-page {
+			cursor: pointer;
+			display: inline-block;
+			zoom: 1;
+			span {
+				display: block;
+				width: 12px;
+				height: 12px;
+				margin: 10px 5px;
+				@include opacity(0.5);
+				@include border-radius(50%);
+				background-color: color(white);
+			}
+			&.active span {
+				@include opacity(1);
+			}
+		}
+	}
+	&.clickable .owl-pagination .owl-page:hover span {
+		@include opacity(1);
+	}
+
+	.owl-buttons {
+		div {
+			cursor: pointer;
+			position: absolute;
+			top: 50%;
+			z-index: 1000;
+			margin-top: -25px;
+			height: 50px;
+			width: 50px;
+			line-height: 50px;
+			text-align: center;
+			background-color: rgba(255,255,255,0.4);
+			color: color(white);
+		}
+		.owl-prev {
+			left: 0;
+		}
+		.owl-next {
+			right: 0;
+		}
+	}
+	&.clickable .owl-buttons div:hover {
+		background-color: rgba(255,255,255,0.7);
+	}
+}
+.nav-dark {
+	.owl-controls {
+		.owl-buttons div {
+			background-color: rgba(0,0,0,0.4);
+		}
+		&.clickable .owl-buttons div:hover {
+			background-color: rgba(0,0,0,0.7);
+		}
+		.owl-pagination .owl-page span {background-color: rgba(0,0,0,0.7);}
+	}
+}
+.carousel {
+	.owl-controls {
+		.owl-pagination {}
+		.owl-buttons div {margin-top: -42px;}
+	}
+	&.aside-nav {padding: 0 60px;}
+	&.bottom-nav {
+		.owl-controls .owl-buttons {
+			text-align: center;
+			width: 100%;
+			div {
+				display: inline-block;
+				position: static;
+				margin: 0 2px;
+			}
+		}
+	}
+}
+.slider {
+	.owl-controls {
+		.owl-pagination {
+			position: absolute;
+			bottom: 0; left: 0; right: 0;
+			z-index: 1000;
+		}
+	}
+	.item {
+		min-height: 300px;
+		.background {
+			position: absolute;
+			top: 0;
+			left: 0;
+			min-height: 100%;
+			min-width: 100%;
+			width: 100%;
+			height: auto;
+		}
+	}
+}
+.owl-custom-nav {
+	i {margin: 0;}
+}

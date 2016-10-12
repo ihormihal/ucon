@@ -1,0 +1,73 @@
+/*grid*/
+$pt: 1px;
+$gap: 16px;
+$columns: 12;
+$max: 1200px;
+$max-wide: 96%;
+
+/*breackpoints*/
+$xs : 361;
+$port: 412;
+$land: 600;
+$sm : 769;
+$md : 1008;
+$lg : 1265;
+
+/* sizes */
+$inputHeight: 36px;
+
+/*www.google.com/design/spec/style/color.html*/
+$colors: (
+	//material colors
+	'blue-grey': #607d8b,
+	'green': #4caf50,
+	'light-green': #8bc34a,
+	'lime': #cddc39,
+	'amber' : #ffc107,
+	'yellow' : #ffeb3b,
+	'orange' : #ff9800,
+	'deep-orange': #ff5722,
+	'brown' : #795548,
+	'red': #f44336,
+	'pink': #e91e63,
+	'purple': #9c27b0,
+	'deep-purple': #673ab7,
+	'indigo': #3f51b5,
+	'blue': #2196f3,
+	'light-blue': #03a9f4,
+	'cyan': #00bcd4,
+	'teal': #009688,
+
+	//general colors
+	'black' : #000000,
+	'darken' : #222222,
+	'dark' : #3d3d3d,
+	'dark-grey' : #555555,
+	'grey' : #7a7a7a,
+	'light-grey' : #9e9e9e,
+	'light' : #d7d7d7,
+	'lighten' : #f0f0f0,
+	'bright' : #fafafa,
+	'white' : #ffffff
+
+	//social
+	,'fb': #3b5998
+	,'vk': #45688e
+
+	//custom
+	,'c-grey' : #403e3f
+	,'main' : #92c005
+);
+
+$colorPrimary: #92c005; //corporate
+
+$colorFacebook: #3b5998;
+$colorInstagram: #e1306c;
+$colorVkontakte: #45668e;
+$colorLinkedIn: #0077b5;
+$colorTwitter: #1da1f2;
+$colorFoursquare: #f94877;
+
+@function color($color) {
+	@return map-get($colors, '#{$color}');
+}

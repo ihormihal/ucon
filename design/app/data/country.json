@@ -1,0 +1,11 @@
+[{
+  "id": 250,
+  "name": "New Country",
+  "code": "ZZ",
+  "iso_code": "ZZZ",
+  "continent": "ZZ",
+  "capital": "Z-Capital",
+  "phone": "500",
+  "currency": "ZZZ",
+  "active": true
+}]

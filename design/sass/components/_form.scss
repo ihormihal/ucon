@@ -1,0 +1,509 @@
+.form-group {
+	margin-bottom: 16*$pt;
+	.help-block {
+		display: block;
+		&.help-block-error {
+			color: color(red);
+			padding: 8*$pt 0;
+		}
+	}
+	sup {
+		color: color(red);
+	}
+	&.has-error {
+		select, input[type=text], input[type=email], input[type=password], textarea {
+			border-color: color(red);
+		}
+		.help-block {
+			padding: 8px 0;
+			color: color(red);
+		}
+	}
+	&.form-group-inline {
+		> * {
+			margin-right: $gap;
+			vertical-align: bottom;
+		}
+	}
+	&.floating-label {
+		label {
+			position: relative;
+			z-index: -1;
+			top: 32*$pt;
+			font-weight: 400;
+			color: color(light-grey);
+			@include transition(top 0.25s ease);
+		}
+		&.focus {
+			label {
+				color: inherit;
+				font-weight: 600;
+				top: 0;
+			}
+		}
+	}
+	&.no-label {
+		padding-top: 36px;
+	}
+}
+
+label {
+	font-size: 14*$pt; 
+	padding: ($inputHeight - 14px)/2 0;
+	margin-right: $gap; 
+	display: inline-block; 
+	font-weight: 500;
+}
+
+select, .select, .selection, input[type=text], input[type=email], input[type=password], input[type=date], input[type=number], textarea {
+	border: 1px solid color(light);
+	border-width: 0 0 1px 0;
+	height: $inputHeight;
+	line-height: 1; /* safari fix */
+	vertical-align: middle;
+	font-size: 14*$pt;
+	padding: 0;
+	outline: none;
+	background-color: transparent;
+	min-width: 140px;
+	@include border-radius(0);
+	@include transition(border-color 0.25s ease);
+	@include placeholder {
+		color: color(light-grey);
+		text-overflow: ellipsis;
+		font-family: $roboto;
+	}
+	&:focus, &.focus {
+		border-color: color(grey);
+	}
+	&:focus + .under {
+		width: 100%;
+	}
+	&[disabled] {
+		color: color(grey);
+		background-color: transparent;
+		border-style: dotted;
+		cursor: not-allowed;
+	}
+	&.default {
+		border-width: 1px;
+		padding-left: 8*$pt;
+		padding-right: 8*$pt;
+		background-color: #fff;
+		&[disabled] {
+			background-color: color(bright);
+		}
+	}
+	&.transparent {
+		border-width: 1px;
+		padding-left: 8*$pt;
+		padding-right: 8*$pt;
+	}
+	//animated underline
+	&.mt, &.mtr {
+		border-color: transparent;
+		@include linear-gradient-double($colorPrimary, color(light));
+		background-repeat: no-repeat;
+		background-position: center bottom, center 100%;
+		@include background-size(0 2px, 100% 1px);
+		&:focus {
+			outline: none;
+			@include transition(background 0.3s ease-out);
+			@include background-size(100% 2px, 100% 1px);
+		}
+	}
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	padding-left: 8px;
+	padding-right: 8px;
+}
+select, .select {
+	background-image: url(../img/ico-select.svg);
+	background-position: right center;
+	background-repeat: no-repeat;
+	padding-right: 32*$pt;
+	cursor: pointer;
+	@include transition(background-position 0.25s ease);
+
+	//for Chrome
+	-webkit-appearance: none;
+	//for FF
+	-moz-appearance: none;
+	text-indent: 0.01px;
+	text-overflow: '';
+	//for IE
+	-ms-appearance: none;
+	appearance: none!important;
+
+	&.empty {
+		color: color(light-grey);
+	}
+	&:focus, &.focus {
+		//background-position: right -32px;
+	}
+	&::-ms-expand {
+		display: none;
+	}
+	option[disabled] {
+		color: color(grey);
+	}
+}
+input[type=file]{
+	//for Chrome
+	-webkit-appearance: none;
+	//for FF
+	-moz-appearance: none;
+	text-indent: 0.01px;
+	text-overflow: '';
+	//for IE
+	-ms-appearance: none;
+	appearance: none !important;
+}
+
+textarea {
+	height: auto;
+	resize: vertical;
+	line-height: 22*$pt;
+	&.default {
+		padding-top: 8*$pt;
+		padding-bottom: 8*$pt;
+	}
+}
+
+/* CHECKBOX */
+.checkbox {
+	vertical-align: middle;
+	input { display:none; }
+	label {
+		cursor: pointer;
+		padding: 8px 0;
+		input {display: none;}
+		@include no-select();
+		label {
+			padding: 0;
+		}
+		.check {text-align: left;}
+		.check, input[disabled] + .check {
+			content: "";
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			margin-right: $gap;
+			vertical-align: middle;
+			background-color: transparent;
+			border: 2px solid $colorPrimary;
+			position: relative;
+			@include border-radius(2px);
+			@include transition(background 0.3s ease);
+		}
+		.check:after, .check:before {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			content: "";
+			display: block;
+		}
+		.check:before {
+			top: 1px;
+			left: 5px;
+		}
+		.check:after {
+			@include border-radius(20px);
+			@include transition(left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease);
+		}
+		input {
+			& +.check:active:after, &[disabled] + .check:active:after {
+				background-color: rgba(0, 0, 0, 0.1);
+				@include box-shadow(0 0 0 15px rgba(0, 0, 0, 0.1));
+			}
+			&[disabled] + .check { 
+				cursor: default;
+				cursor: not-allowed;
+				border-color: color(grey);
+			}
+		}
+		input:checked {
+			+.check {
+				background-color: $colorPrimary; // Switch bg on
+			}
+			+ .check:before {
+				width: 5px;
+				height: 10px;
+				border: solid #fff;
+				border-width: 0 2px 2px 0;
+				transform: rotate(45deg);
+			}
+			+ .check:active:after {
+				background-color: rgba($colorPrimary, 0.1);
+				@include box-shadow(0 0 0 15px rgba($colorPrimary, 0.1));
+			}
+			&[disabled] + .check { 
+				border-color: color(grey);
+				background-color: color(grey);
+			}
+		}
+	}
+}
+
+/* TOOGLE SWITCH */
+.switch {
+	vertical-align: middle;
+	label {
+		input {display: none;}
+		cursor: pointer;
+		@include no-select();
+		.toggle {text-align: left;}
+		// Switch bg off and disabled
+		.toggle, input[disabled] + .toggle {
+			content: "";
+			display: inline-block;
+			width: 30px;
+			height: 12px;
+			margin-right: $gap;
+			vertical-align: middle;
+			background-color: color(grey);
+			@include border-radius(15px);
+			@include transition(background 0.3s ease);
+		}
+		// Handle off
+		.toggle:after {
+			content: "";
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			background-color: color(lighten);
+			position: relative;
+			left: -5px;
+			top: -4px;
+			@include border-radius(20px);
+			@include box-shadow(0 1px 3px 1px rgba(0, 0, 0, 0.4));
+			@include transition(left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease);
+		}
+		input {
+			// Handle disabled
+			&[disabled] { 
+				& + .toggle {
+					cursor: default;
+					cursor: not-allowed;
+				}
+				& + .toggle:after, &:checked + .toggle:after {
+					background-color: color(light);
+				}
+			}
+
+			& +.toggle:active:after, &[disabled] + .toggle:active:after {
+				@include box-shadow(0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba(0, 0, 0, 0.1));
+			}
+
+			// Ripple off and disabled
+			&:checked + .toggle:after {
+				left: 15px;
+			}
+		}
+
+		// set bg when checked
+		input:checked {
+			+.toggle {
+				background-color: rgba($colorPrimary, 0.7); // Switch bg on
+			}
+			+ .toggle:after {
+				background-color: $colorPrimary; // Handle on
+			}
+			+ .toggle:active:after {
+				@include box-shadow(0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px rgba($colorPrimary, 0.1));
+			}
+		}
+	}
+}
+
+/* RADIO BUTTON */
+.radio {
+	vertical-align: middle;
+	input { display:none; }
+	label {
+		cursor: pointer;
+		padding: 8px 0;
+		input {display: none;}
+		@include no-select();
+		.circle {text-align: left;}
+		.circle, input[disabled] + .circle {
+			content: "";
+			display: inline-block;
+			vertical-align: middle;
+			width: 20px;
+			height: 20px;
+			margin-right: $gap;
+			position: relative;
+			background-color: transparent;
+			border: 2px solid $colorPrimary;
+			@include border-radius(20px);
+			@include transition(background 0.3s ease);
+		}
+		.circle:after {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 2px;
+			left: 2px;
+			width: 12px;
+			height: 12px;
+			background-color: transparent;
+			@include border-radius(10px);
+			@include transform(scale(0,0));
+			@include transition(transform 0.3s ease, background 0.3s ease, box-shadow 0.1s ease);
+		}
+		input {
+			& +.circle:active:after, &[disabled] + .circle:active:after {
+				@include transform(scale(1,1));
+				background-color: rgba(0, 0, 0, 0.1);
+				@include box-shadow(0 0 0 15px rgba(0, 0, 0, 0.1));
+			}
+			&[disabled] + .circle { 
+				cursor: default;
+				cursor: not-allowed;
+				border-color: $colorPrimary;
+			}
+		}
+		input:checked {
+			+.circle {
+				background-color: color(white); // Switch bg on
+			}
+			+ .circle:after {
+				@include transform(scale(1,1));
+				background-color: $colorPrimary;
+			}
+			+ .circle:active:after {
+				background-color: $colorPrimary;
+				@include box-shadow(0 0 0 15px rgba($colorPrimary, 0.1));
+			}
+			&[disabled] + .circle { 
+				border-color: color(grey);
+				&:after {
+					background-color: color(grey);
+				}
+			}
+		}
+	}
+}
+
+.radio1 {
+	display: inline-block;
+}
+.radio1 input {
+	display:none;
+	& + label {
+		padding: 8*$pt 0;
+		@include no-select();
+		&:before {
+			content: "";
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			vertical-align: middle;
+			margin-right: 16*$pt;
+			background-color: color(light);
+			background-size: 0;
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			@include border-radius(50%);
+			@include transition(background-color 0.25s ease, background-size 0.25s ease);
+			background-color: color(white);
+			border: 2px solid color(light);
+		}
+	}
+	&:checked + label:before {
+		font-family: FontAwesome;
+		content: "";
+		color: white;
+		background-color: color(dark);
+		background-image: url(../img/circle.svg);
+		background-size: 100%;
+		font-size: 9px;
+		text-align:center;
+		line-height: 20px;
+		background-color: color(white);
+	}
+}
+
+// @each $colorName, $color in $colors {
+// 	/*color*/
+// 	.checked-#{$colorName} {
+// 		input:checked + label:before {
+// 			background-color: #{$color};
+// 		}
+// 	}
+// }
+
+.input-icon {
+	position: relative;
+	input[type=text], input[type=email], input[type=password] {
+		padding-right: 16*$pt;
+	}
+	i {
+		color: color(light);
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 16*$pt;
+		line-height: 36*$pt;
+		text-align: center;
+		display: block;
+	}
+	&.default {
+		.default {
+			padding-right: 24*$pt;
+		}
+		i {
+			width: 24*$pt;
+		}
+	}
+}
+
+.fileinput {
+	position: relative;
+	display: inline-block;
+	input[type=file] {
+		background-color: #ccc;
+		position: absolute;
+		z-index: 100;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		@include opacity(0);
+		&:focus {
+			+ input[type=text] {
+				border-color: color(grey);
+			}
+		}
+	}
+	input[type=text] {
+		width: 100%;
+		position: relative;
+		z-index: 1;
+	}
+	&:after {
+		content: "\f0c6";
+		font-family: FontAwesome;
+		font-size: inherit;
+		display: block;
+		color: color(light);
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 16*$pt;
+		line-height: 32*$pt;
+		text-align: center;
+	}
+}

@@ -1,0 +1,144 @@
+.menu-open-bar {
+	font-size: 24*$pt;
+	cursor: pointer;
+	vertical-align: middle;
+	@include no-select;
+}
+
+.menu-slide {
+	position: fixed;
+	z-index: 9100;
+	left: 0; top: 0; bottom: 0;
+	height: 100%;
+	min-width: 260px;
+	max-width: 75%;
+	overflow-y: auto;
+	@include transition(transform 0.25s ease);
+	&.slide-left {
+		@include transform(translate(-100%,0));
+	}
+	.nav.nav-col li {
+		a {
+			padding: 16*$pt 32*$pt;
+			color: color(dark);
+			text-transform: uppercase;
+			&:not(.btn) .ink {
+				background-color: color(dark);
+			}
+		}
+		.btn {
+			margin: 8*$pt 32*$pt;;
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+	&.opened {
+		visibility: visible;
+		@include box-shadow(0px 2px 7px rgba(0,0,0,0.4));
+		@include transform(translate(0%,0));
+		& + .page-overlay {
+			content: '';
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1100;
+			background-color: rgba(0,0,0,0.5);
+		}
+	}
+}
+
+$navbar-height: 50px;
+header {
+	.menu-open-bar {line-height: $navbar-height; width: 54px;}
+	.nav-inline {
+		display: block;
+		font-size: 16*$pt;
+		> li {
+			line-height: $navbar-height;
+			> a:not(.btn) {
+				line-height: $navbar-height;
+				padding: 0 24*$pt;
+				.ink {
+					background: color(grey);
+				}
+			}
+			.btn {
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.btn-flat {
+				line-height: $navbar-height;
+				padding: 0 24*$pt;
+				@include border-radius(0);
+			}
+		}
+	}
+	.list-with-icons i {width: 32px; display: inline-block; text-align: left;}
+}
+.navbar {
+	&.fixed {
+		z-index: 1100;
+		& + .navbar-fixed-space {
+			height: $navbar-height;
+		}
+	}
+	&.navbar-style-1 {
+		.menu-open-bar {line-height: 80px;}
+		.logo {
+			height: 80px;
+			padding: 16*$pt 0;
+			img {
+				height: 100%;
+				width: auto;
+			}
+		}
+		.nav-inline > li {
+			line-height: 80px;
+			> a, .btn-flat {line-height: 80px;}
+		}
+	}
+	&.navbar-style-2 {
+		.logo {
+			padding: 16*$pt 0;
+			img {
+				height: 80px;
+				width: auto;
+			}
+		}
+	}
+	&.navbar-style-3 {
+		padding: 16*$pt 0;
+		.logo {
+			img {
+				height: 80px;
+				width: auto;
+			}
+		}
+	}
+	&.navbar-style-4 {
+		.logo {
+			img {
+				height: 80px;
+				padding: 16*$pt 0;
+			}
+		}
+		.nav-inline {
+			margin: 21px 0;
+			> li {
+				margin-left: 16*$pt;
+				> a, >.btn {
+					line-height: 1em;
+					padding: 11*$pt 16*$pt;
+				}
+			}
+		}
+	}
+	button {
+		position: relative;
+	}
+}
+.navbar-target {
+	height: $navbar-height;
+}

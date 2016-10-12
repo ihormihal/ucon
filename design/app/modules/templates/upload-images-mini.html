@@ -1,0 +1,29 @@
+<input type="hidden" name="{{name}}" value="{{input}}">
+<div class="row thin tile">
+	<div class="col-md-2" ng-repeat="file in files" ng-show="file">
+		<div class="image-preview-box">
+			<a ng-href="{{file.src}}">
+				<div class="image hover-scale">
+					<img class="popup-img" ng-src="{{file.src}}" ng-show="file.loaded">
+				</div>
+			</a>
+			<div ng-hide="{{locked}}" class="remove deep-orange" ng-click="deleteImg($index)" title="Удалить фото"></div>
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div
+			class="upload-box"
+			title="{{title}}"
+			ngf-select="uploadFiles($files, $invalidFiles)"
+			accept="image/*"
+			ngf-pattern="'image/*'"
+			ngf-multiple="{{multiple}}"
+			ng-hide="(files.length && !multiple) || locked"
+			>
+			<img src="design/img/transparent.png" alt="">
+			<div class="inner">
+				<i class="fa fa-file-image-o"></i>
+			</div>
+		</div>
+	</div>
+</div>

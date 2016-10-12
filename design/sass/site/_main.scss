@@ -1,0 +1,337 @@
+body {
+	min-height: 100vh;
+	flex-direction: column;
+	background-color: #f5f5f5;
+	@include flexbox();
+	main {
+		flex: 1 0 auto;
+	}
+}
+a {
+	color: color(orange);
+	text-decoration: none;
+}
+p {
+	color: color(grey);
+}
+ul {
+	text-align: left;
+}
+
+label {
+	font-weight: 300;
+}
+
+.icon-circle {
+    height: 32px;
+    width: 32px;
+    line-height: 32px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+    color: $colorPrimary;
+    border: 1px solid $colorPrimary;
+    @include border-radius(50%);
+}
+
+.icon-square {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	line-height: 32px;
+	text-align: center;
+	font-size: 12px;
+	color: $colorPrimary;
+	border: 1px solid $colorPrimary;
+	@include border-radius(2px);
+}
+
+.icons {
+	.icon-circle, .icon-square {
+		margin-right: 5px;
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+	.facebook {color: $colorFacebook; border-color: $colorFacebook;}
+	.foursquare {color: $colorFoursquare; border-color: $colorFoursquare;}
+	.vk {color: $colorVkontakte; border-color: $colorVkontakte;}
+	.instagram {color: $colorInstagram; border-color: $colorInstagram;}
+	.linkedin {color: $colorLinkedIn; border-color: $colorLinkedIn;}
+}
+
+a.phone, a.email {
+	display: block;
+	color: color(black);
+	font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+}
+
+.rating	{
+	border-width: 1px 0;
+	color: color(grey);
+	text-transform: uppercase;
+	font-size: 14px;
+	.reviews {
+		font-size: 10px;
+	}
+	.fa-star {
+		color: color(light);
+		&.active {
+			color: color(orange);
+		}
+	}
+}
+
+//black color for all titles
+.title a {
+	color: color(black);
+	@include transition(color 0.3s ease);
+	&:hover {
+		color: $colorPrimary;
+	}
+}
+
+.logo img {
+	width: 200px;
+    margin-top: 6px;
+}
+
+.grid-view {
+	.summary {
+		padding: 8px 0;
+	}
+}
+
+.datatable {
+	th, td {
+		padding: 16px;
+	}
+}
+
+.tooltip {
+	position: relative;
+	span.tip {
+		position: absolute;
+		width: 200px;
+		color: #fff;
+		background: $colorPrimary;
+		height: 25px;
+		line-height: 25px;
+		text-align: center;
+		visibility: hidden;
+		@include border-radius(2px);
+		&:after {
+			content: '';
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			margin-left: -8px;
+			width: 0; height: 0;
+			border-top: 8px solid $colorPrimary;
+			border-right: 8px solid transparent;
+			border-left: 8px solid transparent;
+		}
+	}
+	&:hover span.tip {
+		visibility: visible;
+		bottom: 40px;
+		left: 50%;
+		z-index: 999;
+		@include transform(translate(-50%, 0));
+	}
+}
+
+header {
+	.top-menu {
+		background-color: $colorPrimary;
+		text-transform: uppercase;
+
+		a {
+			font-size: 12px;
+			color: #fff;
+		}
+
+		.nav-inline > li {
+			> a {
+				line-height: 30px;
+				@include transition(background-color 0.3s ease);
+			}
+			&:hover > a {
+				background-color: darken($colorPrimary, 15%);
+			}
+		}
+	}
+	.nav-main {
+		a {
+			color: color(black);
+			text-transform: uppercase;
+		}
+		.nav-inline > li {
+			> a {
+				@include transition(background-color 0.3s ease);
+			}
+			&:hover > a {
+				background-color: color(lighten);
+			}
+		}
+	}
+}
+
+.slider-home .slide {
+	padding: 240px 200px;
+	h2 {
+		font-size: 72px;
+		font-weight: 600;
+		text-transform: uppercase;
+		text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+	}
+	h3 {
+		font-size: 40px;
+		margin-top: 32px;
+		text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+	}
+}
+
+.room {
+	.price {
+		font-size: 20px;
+		line-height: 24px;
+		font-weight: 300;
+		color: color(green);
+		.currency {
+			margin-right: 5px;
+		}
+		.value {
+		
+		}
+	}
+}
+
+.card-box.room {
+	.rating {
+		margin: 10px 0;
+		padding: 5px 0;
+		border: 1px solid color(lighten);
+		border-width: 1px 0;
+		line-height: 15px;
+	}
+	p {
+		margin: 0;
+	}
+	.title {
+		font-size: 20px;
+		line-height: 24px;
+		padding: 0;
+	}
+	.description {
+		
+	}
+}
+.breadcrumbs {
+	li {
+		color: rgba(255,255,255,0.7);
+		a {
+			color: #fff;
+		}
+	}
+}
+
+.page-hotel {
+	.nav-inline.tab-control {
+		border-bottom-width: 3px;
+		li {
+			a {
+				padding: 16px 24px;
+				font-size: 16px;
+				border: none;
+			}
+			&.active a {
+				background-color: $colorPrimary;
+				color: #fff;
+			}
+		}
+	}
+	.tab-content {
+		padding: 32px 0;
+	}
+	.rating {
+		font-size: 22px;
+		color: $colorPrimary;
+	}
+}
+
+.card-row.room {
+	overflow: visible;
+	margin-bottom: 32px;
+	.persons {
+		float: right;
+		color: $colorPrimary;
+		line-height: 32px;
+	}
+	.services {
+		.icon-square {
+			color: color(grey);
+			border-color: color(light);
+			@include border-radius(2px);
+			@include transition(border-color 0.3s ease, color 0.3s ease);
+			&:hover {
+				border-color: $colorPrimary;
+				color: $colorPrimary;
+			}
+		}
+	}
+	.price {
+		line-height: 36px;
+	}
+}
+
+.contacts {
+	h5 {
+		color: $colorPrimary;
+		font-weight: 400;
+		margin-bottom: 8px;
+	}
+	.icon-circle {
+		background-color: $colorPrimary;
+		color: #fff;
+		border-color: #fff;
+	}
+}
+
+.inline-rate {
+	margin-bottom: 16px;
+	.name {
+		color: color(dark);
+		height: 16px;
+	}
+	.rate {
+		margin-top: 5px;
+		float: left;
+		width: 80%;
+		height: 10px;
+		background-color: #fff;
+		border: 1px solid $colorPrimary;
+		@include border-radius(2px);
+		overflow: hidden;
+		span {
+			height: 8px;
+			display: block;
+			background-color: $colorPrimary;
+		}
+	}
+	.value {
+		float: left;
+		width: 20%;
+		text-align: right;
+		line-height: 20px;
+		font-size: 16px;
+		color: $colorPrimary;	
+	}
+	&:after {
+		display: block;
+		content: '';
+		clear: both;
+	}
+}

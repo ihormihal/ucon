@@ -1,0 +1,23 @@
+.image {
+	width: 100%;
+	text-align: center;
+	overflow: hidden;
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+	&.hover-scale {
+		img {
+			@include transform(scale(1));
+			@include transition(transform 2s ease);
+		}
+		&:hover img {
+			@include transform(scale(1.2));
+		}
+	}
+	&.circle {
+		img {
+			@include border-radius(50%);
+		}
+	}
+}
