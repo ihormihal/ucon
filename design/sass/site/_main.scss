@@ -175,6 +175,9 @@ header {
 			&:hover > a {
 				background-color: color(lighten);
 			}
+			&.active a {
+				background-color: rgba($colorPrimary, 0.2);
+			}
 		}
 	}
 }

@@ -23,6 +23,12 @@ return [
                         'design/plugins/jquery/jquery-2.1.4.min.js',
                     ]
                 ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [],
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js'=>[]
+                ],
             ],
         ],
         'request' => [
@@ -54,7 +60,9 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [],
+            'rules' => [
+                '<action:.*>'=>'site/<action>',
+            ],
         ],
         
     ],

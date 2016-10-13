@@ -10,6 +10,13 @@ use common\widgets\Alert;
 
 AppAsset::register($this);
 
+
+$menuItems = [
+	['label' => 'Home', 'url' => ['/site/index']],
+	['label' => 'About', 'url' => ['/site/about']],
+	['label' => 'Contact', 'url' => ['/site/contact']],
+];
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -29,7 +36,7 @@ AppAsset::register($this);
 	<body ng-app="app">
 		<?php $this->beginBody() ?>
 		<header>
-			<?= $this->render('/site/_navbar'); ?>
+			<?= $this->render('main/_navbar', ['menuItems' => $menuItems]); ?>
 		</header>
 		<main ng-controller="mainController">
 
@@ -39,7 +46,7 @@ AppAsset::register($this);
 		</main>
 
 		<footer>
-			<?= $this->render('/site/main/_footer'); ?>
+			<?= $this->render('main/_footer'); ?>
 		</footer>
 
 	<?php $this->endBody() ?>

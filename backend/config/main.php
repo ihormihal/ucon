@@ -7,7 +7,7 @@ $params = array_merge(
 );
 
 return [
-    'homeUrl' => '/admin',
+    //'homeUrl' => '',
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
@@ -72,7 +72,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-
+                '<action>'=>'site/<action>',
             ],
         ],
         

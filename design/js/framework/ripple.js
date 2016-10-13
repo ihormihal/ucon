@@ -1,7 +1,7 @@
 var cssTransitionEnd = 'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd';
 var cssAnimationEnd = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
 
-$(document).on('click', '.ripple, .btn-mt', function(event){
+$(document).on('click', '.ripple, .btn-mt, .nav a', function(event){
 	var that, ink, d, x, y;
 	that = $(this);
 	if(that.find('.ink').length == 0){

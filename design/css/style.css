@@ -2154,10 +2154,10 @@ p.thin, h1.thin, h2.thin, h3.thin, h4.thin, h5.thin, span.thin {
     -moz-border-radius: 50%;
     border-radius: 50%; }
 
-.ripple, .btn-mt {
+.ripple, .btn-mt, .nav a {
   position: relative;
   overflow: hidden; }
-  .ripple .ink, .btn-mt .ink {
+  .ripple .ink, .btn-mt .ink, .nav a .ink {
     display: block;
     position: absolute;
     background: #fff;
@@ -2165,16 +2165,16 @@ p.thin, h1.thin, h2.thin, h3.thin, h4.thin, h5.thin, span.thin {
     transform: scale(0);
     opacity: 0.4;
     filter: alpha(opacity=40); }
-  .ripple .ink.animate, .btn-mt .ink.animate {
+  .ripple .ink.animate, .btn-mt .ink.animate, .nav a .ink.animate {
     animation: ripple 0.65s linear; }
 
 @keyframes ripple {
   100% {
     opacity: 0;
     transform: scale(2.5); } }
-  .ripple.wave-grey .ink, .btn-mt.wave-grey .ink {
+  .ripple.wave-grey .ink, .btn-mt.wave-grey .ink, .nav a.wave-grey .ink {
     background: #dfdfdf; }
-  .ripple.wave-slow .ink.animate, .btn-mt.wave-slow .ink.animate {
+  .ripple.wave-slow .ink.animate, .btn-mt.wave-slow .ink.animate, .nav a.wave-slow .ink.animate {
     animation: ripple 2.5s linear; }
 
 table td, table th {
@@ -4134,6 +4134,9 @@ header .nav-main .nav-inline > li > a {
 
 header .nav-main .nav-inline > li:hover > a {
   background-color: #f0f0f0; }
+
+header .nav-main .nav-inline > li.active a {
+  background-color: rgba(146, 192, 5, 0.2); }
 
 .slider-home .slide {
   padding: 240px 200px; }

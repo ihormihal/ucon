@@ -1,4 +1,11 @@
-<div class="top-menu">
+<?php
+
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+
+?>
+
+<div class="top-menu hide-md-under">
   <div class="container wide">
     <div class="row">
       <div class="col-md-6">
@@ -45,13 +52,10 @@
       <div class="col-md-9 col-xs-4">
         <div class="right">
           <nav class="show-lg-over">
-            <ul class="nav nav-inline">
-              <li><a class="ripple" href="/">Главная</a></li>
-              <li><a class="ripple" href="hotel.php">Отели</a></li>
-              <li><a class="ripple" href="#">Санатории</a></li>
-              <li><a class="ripple" href="#">О нас</a></li>
-              <li><a class="ripple" href="/site/contact">Контакты</a></li>
-            </ul>
+            <?= Nav::widget([
+              'options' => ['class' => 'nav nav-inline'],
+              'items' => $menuItems,
+            ]); ?>
           </nav>
           <div class="menu-open-bar text-right show-md-under"><i class="mti">menu</i></div>
         </div>
@@ -62,13 +66,10 @@
 <div class="navbar-fixed-space"></div>
 <div class="menu-slide slide-left white-bg">
   <nav>
-    <ul class="nav nav-col border-bottom">
-      <li><a class="ripple" href="/">Главная</a></li>
-      <li><a class="ripple" href="hotel.php">Отели</a></li>
-      <li><a class="ripple" href="#">Санатории</a></li>
-      <li><a class="ripple" href="#">О нас</a></li>
-      <li><a class="ripple" href="/site/contact">Контакты</a></li>
-    </ul>
+    <?= Nav::widget([
+      'options' => ['class' => 'nav nav-col border-bottom'],
+      'items' => $menuItems,
+    ]); ?>
     <ul class="nav nav-col">
       <li><a href="#">Login</a></li>
       <li><a href="#">Signup</a></li>
