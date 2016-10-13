@@ -75,11 +75,11 @@ use yii\widgets\ActiveForm;
 	</div>
 </div>
 
-<div class="form-group btn-group">
+<div class="form-group btn-group mt1">
         
     <?= Html::submitButton(
             $model->isNewRecord ? '<i class="fa fa-check"></i> Create' : '<i class="fa fa-check"></i> Update', 
-            ['class' => $model->isNewRecord ? 'btn btn-mt btn-success' : 'btn btn-mt btn-success']
+            ['class' => $model->isNewRecord ? 'btn btn-mt btn-primary' : 'btn btn-mt btn-primary']
         ) 
     ?>
 

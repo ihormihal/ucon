@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $model->name;
         </div>
     </section>
 
-    <section class="pt1 pb1 orange-bg">
+    <section class="pt1 pb1 green-bg">
         <div class="container wide">
             <span class="thin">Статус:</span> редактирование языка
         </div>

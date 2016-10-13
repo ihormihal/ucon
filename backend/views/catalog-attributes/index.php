@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <section class="pt1 pb1">
     	<div class="container wide">
     		<div class="btn-group">
-	            <?= Html::a('<i class="fa fa-plus"></i> Add Object', ['create', 'model_name' => $category->model_name], ['class' => 'btn btn-mt btn-success']) ?>
+	            <?= Html::a('<i class="fa fa-plus"></i> Add Object', ['create', 'model_name' => $category->model_name], ['class' => 'btn btn-mt btn-warning']) ?>
 	        </div>
     	</div>
     </section>

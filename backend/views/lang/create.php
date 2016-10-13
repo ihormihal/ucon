@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </section>
 
-    <section class="pt1 pb1 green-bg">
+    <section class="pt1 pb1 orange-bg">
         <div class="container wide">
             <span class="thin">Статус:</span> добавление языка
         </div>

@@ -29,54 +29,7 @@ AppAsset::register($this);
 	<body ng-app="app">
 		<?php $this->beginBody() ?>
 		<header>
-			<div class="navbar fixed top left full white-bg shadow-2">
-				<div class="container wide">
-					<div class="row">
-						<div class="col-md-3 col-xs-8">
-							<div class="">
-								<div class="logo">
-									<img src="/design/images/logo.png" alt="">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-9 col-xs-4">
-							<div class="right">
-								<nav class="show-lg-over">
-									<ul class="nav nav-inline">
-										<?php if (Yii::$app->user->isGuest): ?>
-											<li><a class="btn btn-mt btn-primary" href="/site/login"><i class="fa fa-sign-in"></i> Login</a></li>
-										<?php else: ?>
-											<li>
-											<?= Html::beginForm(['/site/logout'], 'post'); ?>
-											<?= Html::submitButton('<i class="fa fa-sign-out"></i> Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-mt btn-primary']); ?>
-											<?= Html::endForm(); ?>
-											</li>
-										<?php endif ?>
-									</ul>
-								</nav>
-								<div class="menu-open-bar text-right show-md-under"><i class="mti">menu</i></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="navbar-fixed-space"></div>
-			<div class="menu-slide slide-left white-bg">
-				<nav>
-					<ul class="nav nav-col border-bottom">
-						<?php if (Yii::$app->user->isGuest): ?>
-							<li><a class="btn btn-mt btn-primary" href="/site/login"><i class="fa fa-sign-in"></i> Login</a></li>
-						<?php else: ?>
-							<li>
-							<?= Html::beginForm(['/site/logout'], 'post'); ?>
-							<?= Html::submitButton('<i class="fa fa-sign-out"></i> Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-mt btn-primary']); ?>
-							<?= Html::endForm(); ?>
-							</li>
-						<?php endif ?>
-					</ul>
-				</nav>
-			</div>
-			<div class="page-overlay"></div>
+			<?= $this->render('/site/_navbar'); ?>
 		</header>
 		<main ng-controller="mainController">
 

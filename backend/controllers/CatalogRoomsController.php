@@ -87,15 +87,26 @@ class CatalogRoomsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($accommodation_id = null)
     {
-        $model = new CatalogRooms();
+        $accommodation_id = ($accommodation_id === null) ? 0 : (int)$accommodation_id;
+
+        $accomodation = CatalogAccommodation::findOne(['id' => $accommodation_id]);
+
+        if($accomodation === null){
+            return false;
+        }
+
+        $model = new CatalogRooms([
+            'accommodation_id' => $accommodation_id
+        ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'accomodation' => $accomodation
             ]);
         }
     }

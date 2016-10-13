@@ -8,7 +8,8 @@ use yii\widgets\Breadcrumbs;
 /* @var $model backend\models\CatalogSanatoriums */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => $category->getTitle(), 'url' => ['category/view', 'id' => $category->id]];
+$this->params['breadcrumbs'][] = $category->getTitle();
+//$this->params['breadcrumbs'][] = ['label' => $category->getTitle(), 'url' => ['category/view', 'id' => $category->id]];
 $this->params['breadcrumbs'][] = ['label' => 'Атрибуты', 'url' => ['index', 'model_name' => $category->model_name]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -24,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </section>
 
-    <section class="pt1 pb1 orange-bg">
+    <section class="pt1 pb1 green-bg">
         <div class="container wide">
             <span class="thin">Статус:</span> редактирование атрибута
         </div>

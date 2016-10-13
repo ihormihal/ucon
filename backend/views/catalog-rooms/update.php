@@ -11,7 +11,7 @@ use dosamigos\ckeditor\CKEditor;
 /* @var $model backend\models\Category */
 
 //$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $content->title, 'url' => ['view', 'id' => $model->id]];
+//$this->params['breadcrumbs'][] = ['label' => $content->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = ['label' => $accomodation->getTitle(), 'url' => ['catalog-accommodation/update', 'id' => $accomodation->id]];
 $this->params['breadcrumbs'][] = 'Update Room';
 ?>

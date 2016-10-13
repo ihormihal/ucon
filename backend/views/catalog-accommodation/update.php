@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $content->title;
         </div>
     </section>
 
-    <section class="pt1 pb1 orange-bg">
+    <section class="pt1 pb1 green-bg">
         <div class="container wide">
             <span class="thin">Статус:</span> редактирование отеля
         </div>
@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = $content->title;
 			    <div class="tab fade">
 			    	<div class="mt1"></div>
 					<?php 
-						echo $this->render('_rooms', ['collection' => $collection]);
+						echo $this->render('_rooms', ['collection' => $collection, 'accommodation_id' => $model->id]);
 					?>
 			    </div>
 			</div>
@@ -140,7 +140,7 @@ $this->params['breadcrumbs'][] = $content->title;
     <section>
     	<div class="container wide">
     		<div class="form-group btn-group border-top border-blue pt1">
-				<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-success']) ?>
+				<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-primary']) ?>
 
 				<?= Html::a('<i class="fa fa-trash"></i> Delete', ['delete', 'id' => $model->id], [
 					'class' => 'btn btn-mt btn-danger',

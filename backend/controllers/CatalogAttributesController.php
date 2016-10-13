@@ -68,7 +68,7 @@ class CatalogAttributesController extends Controller
         if($model->load(Yii::$app->request->post()) && $model->save()){
             return $this->redirect(['update', 'id' => $model->id, 'model_name' => $category->model_name]);
         }else{
-            return $this->render('update', [
+            return $this->render('create', [
                 'category' => $category,
                 'model' => $model,
             ]);

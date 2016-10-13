@@ -11,7 +11,7 @@ $this->title = 'My Yii Application';
     <div class="container wide">
 
         <div class="pt1 pb3 text-center">
-            <h2>Популярные отели</h2>
+            <h2>Отели</h2>
         </div>
         
         <?= $this->render('/site/home/_hotels'); ?>

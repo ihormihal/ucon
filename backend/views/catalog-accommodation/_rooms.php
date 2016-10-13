@@ -1,6 +1,11 @@
 <?php
 use yii\helpers\Url;
+use yii\helpers\Html;
 ?>
+
+<div class="form-group btn-group">
+    <?= Html::a('<i class="fa fa-plus"></i> Add Room', ['/catalog-rooms/create', 'accommodation_id' => $accommodation_id], ['class' => 'btn btn-mt btn-warning']) ?>
+</div>
 
 <div im-datatable>
     <div class="row">

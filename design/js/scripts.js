@@ -66,6 +66,10 @@ $(document).on('click', 'tr.clickable', function() {
 	window.document.location = $(this).attr('data-href');
 });
 
+$(document).on('click', 'table.clickable tr', function() {
+	window.document.location = $(this).attr('data-href');
+});
+
 //input-icon fix
 $(document).on('click', '.input-icon i', function() {
 	$(this).parent().find('input').focus();
