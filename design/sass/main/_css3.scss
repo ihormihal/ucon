@@ -1,10 +1,10 @@
 @mixin no-select {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @mixin border-radius($radius: 0.5em) {
@@ -14,14 +14,14 @@
 }
 
 @mixin linear-gradient($top, $bottom){
-	background: $top; /* Old browsers */
-	background: -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  $top 0%,$bottom 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  $top 0%,$bottom 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
-	//filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+  background: $top; /* Old browsers */
+  background: -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  $top 0%,$bottom 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  $top 0%,$bottom 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
+  //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
 
 @mixin linear-gradient-double($to, $from){
@@ -38,6 +38,52 @@
   transition-#{$property}: none;
 }
 
+@mixin transition-delay($time) {
+  -moz-transition-delay: $time;
+  -o-transition-delay: $time;
+  -webkit-transition-delay: $time;
+  transition-delay: $time;
+}
+
+@mixin transition-duration($time) {
+  -moz-transition-duration: $time;
+  -o-transition-duration: $time;
+  -webkit-transition-duration: $time;
+  transition-duration: $time;
+}
+
+@mixin transition-property($property) {
+  -moz-transition-property: $property;
+  -o-transition-property: $property;
+  -webkit-transition-property: $property;
+  transition-property: $property;
+}
+
+@mixin animation-duration($time) {
+  -moz-animation-duration: $time;
+  -o-animation-duration: $time;
+  -webkit-animation-duration: $time;
+  animation-duration: $time;
+}
+
+@mixin animation-iteration-count($value) {
+  -moz-animation-iteration-count: $value;
+  -webkit-animation-iteration-count: $value;
+  animation-iteration-count: $value;
+}
+
+@mixin animation-name($value) {
+  -moz-animation-name: $value;
+  -webkit-animation-name: $value;
+  animation-name: $value;
+}
+
+@mixin animation-timing-function($value) {
+  -moz-animation-timing-function: $value;
+  -webkit-animation-timing-function: $value;
+  animation-timing-function: $value;
+}
+
 @mixin background-size($args...){
   background-size: $args;
   -webkit-background-size: $args;
@@ -52,30 +98,30 @@
 }
 
 @mixin box-shadow($shadow...) {
-	-webkit-box-shadow: $shadow;
-	-moz-box-shadow: $shadow;
-	box-shadow: $shadow;
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
 }
 
 @mixin transform($transforms) {
-	-moz-transform: $transforms;
-	-o-transform: $transforms;
-	-ms-transform: $transforms;
-	-webkit-transform: $transforms;
-	transform: $transforms;
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
 }
 
 @mixin opacity($opacity) {
-	opacity: $opacity;
-	$opacity-ie: $opacity * 100;
-	filter: alpha(opacity=$opacity-ie); //IE8
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
 }
 
 @mixin flexbox {
-	display: flex;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: -moz-flex;
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -moz-flex;
 }
 
 @mixin placeholder {

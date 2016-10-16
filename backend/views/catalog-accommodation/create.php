@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				</div>
 				<div class="col-md-3">
 
-					<?= $form->field($model, 'active', [
+					<?= $form->field($model, 'published', [
 						'options' => ['class' => 'form-group no-label'],
 						'template' => '<div class="checkbox"><label>{input}<span class="check"></span>{label}</label>{error}</div>'
 					])->checkbox([],false) ?>

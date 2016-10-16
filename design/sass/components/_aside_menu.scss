@@ -48,25 +48,30 @@
 				color: color(white);
 				background-color: color(darken);
 			}
-			&.parent > a:after {
-				display: block;
-				position: absolute;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				padding: $gap 0;
-				width: 32px;
-				text-align: center;
-				font-family: FontAwesome;
-				content: "\f105";
-				cursor: default;
-			}
-			&.parent.active {
-				> a:after {
-					content: "\f106";
+			&.parent, &.dropdown {
+				.caret {
+					display: none;
 				}
-				ul {
+				> a:after {
 					display: block;
+					position: absolute;
+					right: 0;
+					top: 0;
+					bottom: 0;
+					padding: $gap 0;
+					width: 32px;
+					text-align: center;
+					font-family: FontAwesome;
+					content: "\f105";
+					cursor: default;
+				}
+				&.active {
+					> a:after {
+					content: "\f106";
+					}
+					ul {
+						display: block;
+					}
 				}
 			}
 			

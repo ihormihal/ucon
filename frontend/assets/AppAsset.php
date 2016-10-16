@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
         'design/css/animate.css'
     ];
     public $js = [
+        'http://maps.google.com/maps/api/js?key=AIzaSyCtgv6ZsLiaUTE0xlRioaFXkGxcTfmXcQc&sensor=false',
         'design/plugins/jquery/jquery-2.1.4.min.js',
         'design/plugins/fancybox/js/jquery.fancybox.pack.js',
         'design/plugins/owl/js/owl.carousel.min.js',

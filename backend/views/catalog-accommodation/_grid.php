@@ -5,7 +5,7 @@
         ['class' => CheckboxColumn::className()],
         'id',
         'alias',
-        'active',
+        'published',
         [
             'class' => 'yii\grid\ActionColumn',
             'template' => '{update} {delete}',

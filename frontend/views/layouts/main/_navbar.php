@@ -2,6 +2,7 @@
 
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use frontend\widgets\WLang;
 
 ?>
 
@@ -19,11 +20,7 @@ use yii\bootstrap\NavBar;
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#">Русский <i class="fa fa-angle-down"></i></a>
-              <ul class="collection">
-                <li><a href="#">Українська</a></li>
-                <li><a href="#">English</a></li>
-              </ul>
+              <?= WLang::widget();?>
             </li>
           </ul>
         </nav>

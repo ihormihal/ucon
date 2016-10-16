@@ -57,10 +57,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php foreach ($collection as $key => $item): ?>
                     <tr data-href="<?= Url::toRoute(['update', 'id' => $item->id]) ?>">
                         <td><?= $item->id ?></td>
-                        <td><?= $item->lng ?></td>
+                        <td><?= $item->url ?></td>
                         <td><?= $item->locale ?></td>
                         <td><?= $item->name ?></td>
-                        <td><?= $item->active ?></td>
+                        <td><?= $item->published ?></td>
                         <td><?= $item->default ?></td>
                     </tr>
                     <?php endforeach ?>

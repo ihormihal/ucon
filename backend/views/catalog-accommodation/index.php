@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <th data-type="numeric">ID</th>
                             <th>Alias</th>
                             <th data-type="numeric">Author</th>
-                            <th data-type="numeric">Active</th>
+                            <th data-type="numeric">Published</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td><?= $item->id ?></td>
                             <td><?= $item->alias ?></td>
                             <td><?= $item->author ?></td>
-                            <td><?= $item->active ?></td>
+                            <td><?= $item->published ?></td>
                         </tr>
                         <?php endforeach ?>
                     </tbody>

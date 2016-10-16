@@ -10,7 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $alias
  * @property integer $author
- * @property integer $active
+ * @property integer $published
  */
 class CatalogAccommodation extends \yii\db\ActiveRecord
 {
@@ -32,7 +32,7 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
     {
         return [
             [['alias', 'author'], 'required'],
-            [['author', 'active'], 'integer'],
+            [['author', 'published'], 'integer'],
             [['alias'], 'string', 'max' => 255],
         ];
     }
@@ -46,7 +46,7 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
             'id' => 'ID',
             'alias' => 'Alias',
             'author' => 'Author',
-            'active' => 'Active',
+            'published' => 'Published',
             'contents' => 'Contents',
             'attrs' => 'Attributes'
         ];
@@ -103,4 +103,16 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
         }
         return $attributes;
     }
+
+    // public function getAttrs()
+    // {
+
+    //     //$attrs = $this->hasMany(CatalogAttributesValues::className(), ['object_id' => 'id'])->innerJoinWith('attr AS a')->where(['a.model_name' => 'CatalogAccommodation']);
+    //     $attrs = CatalogAttributesValues::find()->alias('v')->joinWith('attr AS a')->where(['v.object_id' => $this->id, 'a.model_name' => 'CatalogAccommodation'])->asArray()->all();
+    //     $attributes = [];
+    //     foreach ($attrs as $attr) {
+    //         $attributes[$attr['attr']['alias']] = htmlentities($attr['value'], ENT_QUOTES, 'UTF-8');
+    //     }
+    //     return $attributes;
+    // }
 }

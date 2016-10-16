@@ -14,12 +14,12 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-md-8">
-            <?= $form->field($model, 'lng')->textInput(['maxlength' => true, 'class' => 'default full']) ?>
+            <?= $form->field($model, 'url')->textInput(['maxlength' => true, 'class' => 'default full']) ?>
             <?= $form->field($model, 'locale')->textInput(['maxlength' => true, 'class' => 'default full']) ?>
             <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'default full']) ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'active', [
+            <?= $form->field($model, 'published', [
                 'options' => ['class' => 'form-group no-label'],
                 'template' => '<div class="checkbox"><label>{input}<span class="check"></span>{label}</label>{error}</div>'
             ])->checkbox([],false) ?>

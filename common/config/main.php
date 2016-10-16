@@ -6,4 +6,7 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
     ],
+    'aliases' => [
+    	'@root' => realpath(dirname(__FILE__).'/../../'),
+    ]
 ];

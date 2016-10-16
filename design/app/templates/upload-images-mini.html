@@ -4,7 +4,7 @@
 		<div class="image-preview-box">
 			<a ng-href="{{file.src}}">
 				<div class="image hover-scale">
-					<img class="popup-img" ng-src="{{file.src}}" ng-show="file.loaded">
+					<img class="popup-img" ng-src="{{file.thumb}}" ng-show="file.loaded">
 				</div>
 			</a>
 			<div ng-hide="{{locked}}" class="remove deep-orange" ng-click="deleteImg($index)" title="Удалить фото"></div>

@@ -1283,12 +1283,12 @@ ul.list, ol.list {
 /*Fonts*/
 body {
   font-family: "Roboto", sans-serif;
-  font-size: 12px; }
+  font-size: 14px; }
 
 p {
   margin-bottom: 16px;
   line-height: 24px;
-  font-size: 12px; }
+  font-size: 14px; }
 
 .huge, h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
   font-family: "Roboto", sans-serif;
@@ -2044,6 +2044,69 @@ p.thin, h1.thin, h2.thin, h3.thin, h4.thin, h5.thin, span.thin {
 .main-border {
   border-color: #92c005; }
 
+.success {
+  color: #4caf50; }
+
+.hover-success:hover {
+  color: #4caf50; }
+
+.success-bg {
+  background-color: #4caf50;
+  color: #ffffff; }
+  .success-bg.hover-bg-darken:hover {
+    background-color: #3d8b40; }
+  .success-bg.hover-bg-lighten:hover {
+    background-color: #6ec071; }
+
+.hover-success-bg:hover {
+  background-color: #4caf50;
+  color: #ffffff; }
+
+.success-border {
+  border-color: #4caf50; }
+
+.error {
+  color: #ff5722; }
+
+.hover-error:hover {
+  color: #ff5722; }
+
+.error-bg {
+  background-color: #ff5722;
+  color: #ffffff; }
+  .error-bg.hover-bg-darken:hover {
+    background-color: #ee3900; }
+  .error-bg.hover-bg-lighten:hover {
+    background-color: #ff7e55; }
+
+.hover-error-bg:hover {
+  background-color: #ff5722;
+  color: #ffffff; }
+
+.error-border {
+  border-color: #ff5722; }
+
+.edit {
+  color: #2196f3; }
+
+.hover-edit:hover {
+  color: #2196f3; }
+
+.edit-bg {
+  background-color: #2196f3;
+  color: #ffffff; }
+  .edit-bg.hover-bg-darken:hover {
+    background-color: #0c7cd5; }
+  .edit-bg.hover-bg-lighten:hover {
+    background-color: #51adf6; }
+
+.hover-edit-bg:hover {
+  background-color: #2196f3;
+  color: #ffffff; }
+
+.edit-border {
+  border-color: #2196f3; }
+
 .shadow-1-hover, .shadow-2-hover, .shadow-3-hover, .shadow-4-hover, .shadow-5-hover {
   -webkit-transition: box-shadow 0.25s ease;
   -moz-transition: box-shadow 0.25s ease;
@@ -2328,7 +2391,8 @@ div[im-datatable] select, div[im-datatable] .select, div[im-datatable] input[typ
     border-color: #ff5722; }
 
 .breadcrumb, .breadcrumbs {
-  list-style: none; }
+  list-style: none;
+  font-size: 12px; }
   .breadcrumb li, .breadcrumbs li {
     display: inline-block; }
     .breadcrumb li a, .breadcrumbs li a {
@@ -2597,6 +2661,93 @@ button.btn, input[type="button"].btn, input[type="submit"].btn {
   -webkit-transform: translate(0, 50%);
   transform: translate(0, 50%); }
 
+.btn-loading:not(.disabled):before {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -9px;
+  width: 12px;
+  height: 12px;
+  border: 3px solid #fff;
+  border-left-color: transparent;
+  border-radius: 50%;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.5s linear;
+  -moz-transition: opacity 0.5s linear;
+  -ms-transition: opacity 0.5s linear;
+  -o-transition: opacity 0.5s linear;
+  transition: opacity 0.5s linear;
+  -moz-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -moz-animation-name: rotate;
+  -webkit-animation-name: rotate;
+  animation-name: rotate;
+  -moz-animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear; }
+
+.btn-loading:not(.disabled):after {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  width: 0px;
+  -moz-transition-delay: 0.5s;
+  -o-transition-delay: 0.5s;
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+  -moz-transition-duration: 0.75s;
+  -o-transition-duration: 0.75s;
+  -webkit-transition-duration: 0.75s;
+  transition-duration: 0.75s;
+  -moz-transition-property: width;
+  -o-transition-property: width;
+  -webkit-transition-property: width;
+  transition-property: width; }
+
+.btn-loading:not(.disabled).load {
+  pointer-events: none;
+  cursor: not-allowed; }
+  .btn-loading:not(.disabled).load:not(.expand) {
+    text-align: left; }
+  .btn-loading:not(.disabled).load:before {
+    -moz-transition-delay: 0.5s;
+    -o-transition-delay: 0.5s;
+    -webkit-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+    -moz-transition-duration: 1s;
+    -o-transition-duration: 1s;
+    -webkit-transition-duration: 1s;
+    transition-duration: 1s;
+    opacity: 1;
+    filter: alpha(opacity=100); }
+  .btn-loading:not(.disabled).load:after {
+    -moz-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+    width: 24px; }
+
+@keyframes rotate {
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
 .form-group {
   margin-bottom: 16px; }
   .form-group .help-block {
@@ -2611,6 +2762,12 @@ button.btn, input[type="button"].btn, input[type="submit"].btn {
   .form-group.has-error .help-block {
     padding: 8px 0;
     color: #f44336; }
+  .form-group.has-error .mt, .form-group.has-error .mtr {
+    border-color: transparent !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f44336), to(#f44336)), -webkit-gradient(linear, left top, left bottom, from(#f44336), to(#f44336));
+    background-image: -webkit-linear-gradient(#f44336, #f44336), -webkit-linear-gradient(#f44336, #f44336);
+    background-image: -o-linear-gradient(#f44336, #f44336), -o-linear-gradient(#f44336, #f44336);
+    background-image: linear-gradient(#f44336, #f44336), linear-gradient(#f44336, #f44336); }
   .form-group.form-group-inline > * {
     margin-right: 16px;
     vertical-align: bottom; }
@@ -3932,7 +4089,9 @@ html.admin, html.admin body {
       .aside-menu ul li.active > a, .aside-menu ul li a:hover {
         color: #ffffff;
         background-color: #222222; }
-      .aside-menu ul li.parent > a:after {
+      .aside-menu ul li.parent .caret, .aside-menu ul li.dropdown .caret {
+        display: none; }
+      .aside-menu ul li.parent > a:after, .aside-menu ul li.dropdown > a:after {
         display: block;
         position: absolute;
         right: 0;
@@ -3944,9 +4103,9 @@ html.admin, html.admin body {
         font-family: FontAwesome;
         content: "\f105";
         cursor: default; }
-      .aside-menu ul li.parent.active > a:after {
+      .aside-menu ul li.parent.active > a:after, .aside-menu ul li.dropdown.active > a:after {
         content: "\f106"; }
-      .aside-menu ul li.parent.active ul {
+      .aside-menu ul li.parent.active ul, .aside-menu ul li.dropdown.active ul {
         display: block; }
       .aside-menu ul li ul {
         display: none;
@@ -4150,12 +4309,12 @@ header .nav-main .nav-inline > li.active a {
     margin-top: 32px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); }
 
-.room .price {
+.room .price, .hotel .price {
   font-size: 20px;
   line-height: 24px;
   font-weight: 300;
   color: #4caf50; }
-  .room .price .currency {
+  .room .price .currency, .hotel .price .currency {
     margin-right: 5px; }
 
 .card-box.room .rating {
@@ -4195,14 +4354,10 @@ header .nav-main .nav-inline > li.active a {
   font-size: 22px;
   color: #92c005; }
 
-.card-row.room {
+.hotels .hotel, .rooms .room {
   overflow: visible;
   margin-bottom: 32px; }
-  .card-row.room .persons {
-    float: right;
-    color: #92c005;
-    line-height: 32px; }
-  .card-row.room .services .icon-square {
+  .hotels .hotel .services .icon-square, .rooms .room .services .icon-square {
     color: #7a7a7a;
     border-color: #d7d7d7;
     -webkit-border-radius: 2px;
@@ -4213,11 +4368,23 @@ header .nav-main .nav-inline > li.active a {
     -ms-transition: border-color 0.3s ease, color 0.3s ease;
     -o-transition: border-color 0.3s ease, color 0.3s ease;
     transition: border-color 0.3s ease, color 0.3s ease; }
-    .card-row.room .services .icon-square:hover {
+    .hotels .hotel .services .icon-square:hover, .rooms .room .services .icon-square:hover {
       border-color: #92c005;
       color: #92c005; }
-  .card-row.room .price {
+  .hotels .hotel .price, .rooms .room .price {
     line-height: 36px; }
+
+.rooms .room .persons {
+  float: right;
+  color: #92c005;
+  line-height: 32px; }
+
+.rooms .room .variant {
+  padding: 16px 0;
+  border-bottom: 1px solid #d7d7d7; }
+  .rooms .room .variant:last-child {
+    padding-bottom: 0;
+    border-bottom: 0; }
 
 .contacts h5 {
   color: #92c005;

@@ -31,7 +31,7 @@ class CatalogRoomsLang extends \yii\db\ActiveRecord
     {
         return [
             [['lang_id', 'object_id', 'title'], 'required'],
-            [['lang_id', 'object_id', 'active'], 'integer'],
+            [['lang_id', 'object_id', 'published'], 'integer'],
             [['content'], 'string'],
             [['title', 'description'], 'string', 'max' => 255],
         ];
@@ -49,7 +49,7 @@ class CatalogRoomsLang extends \yii\db\ActiveRecord
             'title' => 'Title',
             'description' => 'Description',
             'content' => 'Content',
-            'active' => 'Active'
+            'published' => 'Published'
         ];
     }
 }

@@ -97,10 +97,10 @@ class CatalogAccommodationController extends Controller
 
     public function actionUpdate($id, $lang_id = null)
     {
-        $lang_id = ($lang_id === null) ? 1 : (int)$lang_id;
+        $lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
 
         $model = $this->findModel($id);
-        $languages = Lang::find()->where(['active' => 1])->all();
+        $languages = Lang::find()->where(['published' => 1])->all();
         $content = $model->getContent($lang_id);
 
         //rooms 
@@ -121,10 +121,16 @@ class CatalogAccommodationController extends Controller
             }
         }
 
-        $return = false;
+        $status = 'edit';
+
+        //CatalogAccommodation
+        //CatalogAccommodationLang
+        //Attributes
 
         if(Yii::$app->request->isPost){
+            $response = ['status' => 'error', 'message' => 'Not updated'];
 
+            //save attributes
             if(isset($_POST['Attributes'])){
                 foreach ($_POST['Attributes'] as $alias => $value) {
                     $attribute = $model->attrs[$alias];
@@ -137,29 +143,29 @@ class CatalogAccommodationController extends Controller
                 }
             }
 
-            if (
-                $model->load(Yii::$app->request->post()) && 
-                $content->load(Yii::$app->request->post()) && 
+            if(
+                $model->load(Yii::$app->request->post()) &&
+                $content->load(Yii::$app->request->post()) &&
                 $model->save() && $content->save()
-            ) {
-                return $this->redirect(['update', 'id' => $model->id, 'lang_id' => $lang_id]);
-            } else {
-                $return = true;
+            ){
+                $status = 'success';
+                $response['status'] = 'success';
+                $response['message'] = 'Successfully updated';
+                //Yii::$app->response->format = Response::FORMAT_JSON;
+                //return $response;
+            }else{
+                $status = 'error';
             }
-
-        }else{
-            $return = true;
         }
-        if($return){
-            return $this->render('update', [
-                'lang_id' => $lang_id,
-                'model' => $model,
-                'images' => json_encode($images),
-                'languages' => $languages,
-                'content' => $content,
-                'collection' => $collection
-            ]);
-        }
+        return $this->render('update', [
+            'status' => $status,
+            'lang_id' => $lang_id,
+            'model' => $model,
+            'images' => json_encode($images),
+            'languages' => $languages,
+            'content' => $content,
+            'collection' => $collection
+        ]);
     }
 
     public function actionUploadImage($id)
@@ -173,7 +179,7 @@ class CatalogAccommodationController extends Controller
             $model->image = \yii\web\UploadedFile::getInstanceByName('file');
 
             if($model->image){
-                $path = Yii::getAlias('@webroot/upload/').$model->image->baseName.'.'.$model->image->extension;
+                $path = Yii::getAlias('@root/content/upload/').$model->image->baseName.'.'.$model->image->extension;
                 $model->image->saveAs($path);
                 $image = $model->attachImage($path);
 
@@ -248,6 +254,14 @@ class CatalogAccommodationController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    protected function defaultLang()
+    {
+        if (($model = Lang::find()->where(['default' => 1, 'published' => 1])->one()) !== null) {
+            return $model->id;
+        } else {
+            return 1;
         }
     }
 }

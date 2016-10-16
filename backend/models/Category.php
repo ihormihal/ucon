@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $alias
- * @property integer $active
+ * @property integer $published
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -31,7 +31,7 @@ class Category extends \yii\db\ActiveRecord
 	{
 		return [
 			[['alias'], 'required'],
-			[['active'], 'integer'],
+			[['published'], 'integer'],
 			[['alias', 'model_name'], 'string', 'max' => 255],
 		];
 	}
@@ -45,7 +45,7 @@ class Category extends \yii\db\ActiveRecord
 			'id' => 'ID',
 			'alias' => 'Alias',
 			'model_name' => 'Model name',
-			'active' => 'Active',
+			'published' => 'Published',
 			'contents' => 'Contents'
 		];
 	}

@@ -197,7 +197,7 @@ header {
 	}
 }
 
-.room {
+.room, .hotel {
 	.price {
 		font-size: 20px;
 		line-height: 24px;
@@ -265,14 +265,9 @@ header {
 	}
 }
 
-.card-row.room {
+.hotels .hotel, .rooms .room {
 	overflow: visible;
 	margin-bottom: 32px;
-	.persons {
-		float: right;
-		color: $colorPrimary;
-		line-height: 32px;
-	}
 	.services {
 		.icon-square {
 			color: color(grey);
@@ -287,6 +282,22 @@ header {
 	}
 	.price {
 		line-height: 36px;
+	}
+}
+
+.rooms .room {
+	.persons {
+		float: right;
+		color: $colorPrimary;
+		line-height: 32px;
+	}
+	.variant {
+		padding: $gap 0;
+		border-bottom: 1px solid color(light);
+		&:last-child {
+			padding-bottom: 0;
+			border-bottom: 0;
+		}
 	}
 }
 

@@ -18,6 +18,10 @@
 			padding: 8px 0;
 			color: color(red);
 		}
+		.mt, .mtr {
+			border-color: transparent !important;
+			@include linear-gradient-double(color(red), color(red));
+		}
 	}
 	&.form-group-inline {
 		> * {

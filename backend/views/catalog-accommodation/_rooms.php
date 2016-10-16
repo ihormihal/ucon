@@ -18,15 +18,15 @@ use yii\helpers\Html;
             <tr>
                 <th data-type="numeric">ID</th>
                 <th>Alias</th>
-                <th data-type="numeric">Active</th>
+                <th data-type="numeric">Published</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($collection as $key => $item): ?>
-            <tr data-href="<?= Url::toRoute(['catalog-rooms/update', 'id' => $item->id]) ?>">
+            <tr data-href="<?= Url::toRoute(['catalog-rooms/update', 'id' => $item->id, 'lang_id' => $lang_id]) ?>">
                 <td><?= $item->id ?></td>
                 <td><?= $item->alias ?></td>
-                <td><?= $item->active ?></td>
+                <td><?= $item->published ?></td>
             </tr>
             <?php endforeach ?>
         </tbody>

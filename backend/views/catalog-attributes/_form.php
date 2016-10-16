@@ -15,12 +15,21 @@ use yii\widgets\ActiveForm;
 
 <?= $form->field($model, 'model_name')->hiddenInput(['value'=> $model_name])->label(false); ?>
 
+
+<?php
+	$nameInputConf = ['class' => 'full default'];
+	$aliasInputConf = ['class' => 'full default'];
+	if($model->isNewRecord){
+		$nameInputConf['ng-model'] = 'toalias';
+		$aliasInputConf['ng-model'] = 'alias';
+	}
+?>
 <div class="row">
 	<div class="col-md-8">
-		<?= $form->field($model, 'name')->textInput(['class' => 'full default']) ?>
+		<?= $form->field($model, 'name')->textInput($nameInputConf) ?>
 	</div>
 	<div class="col-md-4">
-		<?= $form->field($model, 'alias')->textInput(['class' => 'full default']) ?>
+		<?= $form->field($model, 'alias')->textInput($aliasInputConf) ?>
 	</div>
 </div>
 

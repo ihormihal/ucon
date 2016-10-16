@@ -81,14 +81,22 @@ class CatalogAttributesController extends Controller
         $model = $this->findModel($id);
         $category = Category::findOne(['model_name' => $model->model_name]);
 
-        if($model->load(Yii::$app->request->post()) && $model->save()){
-            return $this->redirect(['update', 'id' => $model->id, 'model_name' => $category->model_name]);
-        }else{
-            return $this->render('update', [
-                'category' => $category,
-                'model' => $model,
-            ]);
+        $status = 'edit';
+
+        if(Yii::$app->request->isPost){
+            if($model->load(Yii::$app->request->post()) && $model->save()){
+                $status = 'success';
+            }else{
+                $status = 'error';
+            }
         }
+
+        return $this->render('update', [
+            'status' => $status,
+            'category' => $category,
+            'model' => $model,
+        ]);
+
     }
 
     public function actionDelete($id)

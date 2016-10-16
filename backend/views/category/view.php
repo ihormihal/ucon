@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'attributes' => [
 			'id',
 			'alias',
-			'active',
+			'published',
 		],
 	]) ?> -->
 

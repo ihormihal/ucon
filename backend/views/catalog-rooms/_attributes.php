@@ -14,11 +14,19 @@ use yii\helpers\Json;
 
 	<div class="form-group">
 		<?php if ($attribute->config->type == 'bool'): ?>
-
 			<div class="checkbox">
-				<input name="<?= $name ?>" type="checkbox">
-				<span class="check"></span>
-				<?= $label ?>
+				<label>
+					<input type="hidden" name="<?= $name ?>" value="{{<?= $alias ?>}}">
+					<input 
+						type="checkbox"
+						ng-initial="<?= $attribute->value; ?>"
+						ng-model="<?= $alias ?>"
+						ng-true-value="'1'"
+						ng-false-value="'0'"
+					>
+					<span class="check"></span>
+					<?= $label ?>
+				</label>
 			</div>
 
 		<?php elseif($attribute->config->type == 'db'): ?>

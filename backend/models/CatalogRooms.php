@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $alias
- * @property integer $active
+ * @property integer $published
  */
 class CatalogRooms extends \yii\db\ActiveRecord
 {
@@ -31,7 +31,7 @@ class CatalogRooms extends \yii\db\ActiveRecord
     {
         return [
             [['alias'], 'required'],
-            [['accommodation_id','active'], 'integer'],
+            [['accommodation_id','published'], 'integer'],
             [['alias'], 'string', 'max' => 255],
         ];
     }
@@ -45,7 +45,7 @@ class CatalogRooms extends \yii\db\ActiveRecord
             'id' => 'ID',
             'accommodation_id' => 'Accomnodation ID',
             'alias' => 'Alias',
-            'active' => 'Active',
+            'published' => 'Published',
             'contents' => 'Contents',
             'attrs' => 'Attributes'
         ];
@@ -60,6 +60,11 @@ class CatalogRooms extends \yii\db\ActiveRecord
                 'class' => 'rico\yii2images\behaviors\ImageBehave',
             ]
         ];
+    }
+
+    public function getAccommodation()
+    {
+        return $this->hasOne(CatalogAccommodation::className(), ['id' => 'accommodation_id']);
     }
 
     //langs

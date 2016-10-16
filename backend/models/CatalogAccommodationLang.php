@@ -31,7 +31,7 @@ class CatalogAccommodationLang extends \yii\db\ActiveRecord
     {
         return [
             [['lang_id', 'object_id', 'title', 'description', 'content'], 'required'],
-            [['lang_id', 'object_id', 'active'], 'integer'],
+            [['lang_id', 'object_id', 'published'], 'integer'],
             [['content'], 'string'],
             [['title', 'description'], 'string', 'max' => 255],
             [['lang_id'], 'exist', 'skipOnError' => true, 'targetClass' => Lang::className(), 'targetAttribute' => ['lang_id' => 'id']],
@@ -50,7 +50,7 @@ class CatalogAccommodationLang extends \yii\db\ActiveRecord
             'title' => 'Title',
             'description' => 'Description',
             'content' => 'Content',
-            'active' => 'Active',
+            'published' => 'Published',
         ];
     }
 

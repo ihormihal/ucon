@@ -40,7 +40,7 @@ class CatalogRoomsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'upload-image', 'delete-image'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'upload-image', 'delete-image'],
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
@@ -102,7 +102,7 @@ class CatalogRoomsController extends Controller
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $model->id, 'lang_id' => $this->defaultLang()]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -120,10 +120,10 @@ class CatalogRoomsController extends Controller
 
     public function actionUpdate($id, $lang_id = null)
     {
-        $lang_id = ($lang_id === null) ? 1 : (int)$lang_id;
+        $lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
 
         $model = $this->findModel($id);
-        $languages = Lang::find()->where(['active' => 1])->all();
+        $languages = Lang::find()->where(['published' => 1])->all();
         $content = $model->getContent($lang_id);
 
         $accomodation = CatalogAccommodation::findOne(['id' => $model->accommodation_id]);
@@ -143,9 +143,11 @@ class CatalogRoomsController extends Controller
             }
         }
 
-        $return = false;
+        $status = 'edit';
 
         if(Yii::$app->request->isPost){
+
+            $response = ['status' => 'error', 'message' => 'Not updated'];
 
             if(isset($_POST['Attributes'])){
                 foreach ($_POST['Attributes'] as $alias => $value) {
@@ -159,29 +161,30 @@ class CatalogRoomsController extends Controller
                 }
             }
 
-            if (
-                $model->load(Yii::$app->request->post()) && 
-                $content->load(Yii::$app->request->post()) && 
+            if(
+                $model->load(Yii::$app->request->post()) &&
+                $content->load(Yii::$app->request->post()) &&
                 $model->save() && $content->save()
-            ) {
-                return $this->redirect(['update', 'id' => $model->id, 'lang_id' => $lang_id]);
-            } else {
-                $return = true;
+            ){
+                $status = 'success';
+                $response['status'] = 'success';
+                $response['message'] = 'Successfully updated';
+                //Yii::$app->response->format = Response::FORMAT_JSON;
+                //return $response;
+            }else{
+                $status = 'error';
             }
 
-        }else{
-            $return = true;
         }
-        if($return){
-            return $this->render('update', [
-                'lang_id' => $lang_id,
-                'model' => $model,
-                'images' => json_encode($images),
-                'languages' => $languages,
-                'content' => $content,
-                'accomodation' => $accomodation
-            ]);
-        }
+        return $this->render('update', [
+            'status' => $status,
+            'lang_id' => $lang_id,
+            'model' => $model,
+            'images' => json_encode($images),
+            'languages' => $languages,
+            'content' => $content,
+            'accomodation' => $accomodation
+        ]);
     }
 
     public function actionUploadImage($id)
@@ -195,7 +198,7 @@ class CatalogRoomsController extends Controller
             $model->image = \yii\web\UploadedFile::getInstanceByName('file');
 
             if($model->image){
-                $path = Yii::getAlias('@webroot/upload/').$model->image->baseName.'.'.$model->image->extension;
+                $path = Yii::getAlias('@root/content/upload/').$model->image->baseName.'.'.$model->image->extension;
                 $model->image->saveAs($path);
                 $image = $model->attachImage($path);
 
@@ -244,6 +247,7 @@ class CatalogRoomsController extends Controller
     {
 
         $model = $this->findModel($id);
+        $accomodation_id = $model->accommodation->id;
         //delete languages
         foreach ($model->contents as $key => $content) {
             $content->delete();
@@ -255,7 +259,7 @@ class CatalogRoomsController extends Controller
         //delete category
         $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['catalog-accommodation/update', 'id' => $accomodation_id, 'lang_id' => $this->defaultLang()]);
     }
 
     /**
@@ -271,6 +275,14 @@ class CatalogRoomsController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    protected function defaultLang()
+    {
+        if (($model = Lang::find()->where(['default' => 1, 'published' => 1])->one()) !== null) {
+            return $model->id;
+        } else {
+            return 1;
         }
     }
 }

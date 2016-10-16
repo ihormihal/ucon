@@ -113,10 +113,11 @@ class CategoryController extends Controller
 	 */
 	public function actionUpdate($id, $lang_id = null)
 	{
-		$lang_id = ($lang_id === null) ? 1 : (int)$lang_id;
+
+		$lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
 		$model = $this->findModel($id);
 
-		$languages = Lang::find()->where(['active' => 1])->all();
+		$languages = Lang::find()->where(['published' => 1])->all();
 		$content = $model->getContent($lang_id);
 
 		$images = [];
@@ -130,22 +131,31 @@ class CategoryController extends Controller
 			}
 		}
 
-
 		if($content === null){
 			$content = new CategoryLang(['category_id' => $id, 'lang_id' => $lang_id]);
 		}
 
-		if ($model->load(Yii::$app->request->post()) && $content->load(Yii::$app->request->post()) && $model->save() && $content->save()) {
-            return $this->redirect(['update', 'id' => $model->id, 'lang_id' => $lang_id]);
-        } else {
-            return $this->render('update', [
+		if(Yii::$app->request->isPost){
+			$response = ['status' => 'error', 'message' => 'Not updated'];
+			if(
+				$model->load(Yii::$app->request->post()) &&
+				$content->load(Yii::$app->request->post()) &&
+				$model->save() && $content->save()
+			){
+				$response['status'] = 'success';
+				$response['message'] = 'Successfully updated';
+				Yii::$app->response->format = Response::FORMAT_JSON;
+				return $response;
+			}
+		}else{
+			return $this->render('update', [
                 'lang_id' => $lang_id,
 				'model' => $model,
 				'images' => json_encode($images),
 				'languages' => $languages,
 				'content' => $content
             ]);
-        }
+		}
 	}
 
 	public function actionUploadImage($id)
@@ -225,4 +235,12 @@ class CategoryController extends Controller
 			throw new NotFoundHttpException('The requested page does not exist.');
 		}
 	}
+	protected function defaultLang()
+    {
+        if (($model = Lang::find()->where(['default' => 1, 'published' => 1])->one()) !== null) {
+            return $model->id;
+        } else {
+            return 1;
+        }
+    }
 }

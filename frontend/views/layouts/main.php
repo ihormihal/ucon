@@ -12,9 +12,10 @@ AppAsset::register($this);
 
 
 $menuItems = [
-	['label' => 'Home', 'url' => ['/site/index']],
-	['label' => 'About', 'url' => ['/site/about']],
-	['label' => 'Contact', 'url' => ['/site/contact']],
+	['label' => Yii::t('translate','Home'), 'url' => ['/']],
+	['label' => Yii::t('translate','Hotels'), 'url' => ['catalog-accommodation/index']],
+	['label' => Yii::t('translate','About'), 'url' => ['/about/']],
+	['label' => Yii::t('translate','Contact'), 'url' => ['/contact/']],
 ];
 
 ?>

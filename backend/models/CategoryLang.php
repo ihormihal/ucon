@@ -33,7 +33,7 @@ class CategoryLang extends \yii\db\ActiveRecord
     {
         return [
             [['lang_id', 'category_id', 'title'], 'required'],
-            [['lang_id', 'category_id', 'active'], 'integer'],
+            [['lang_id', 'category_id', 'published'], 'integer'],
             [['content'], 'string'],
             [['title', 'description'], 'string', 'max' => 255],
             [['lang_id'], 'exist', 'skipOnError' => true, 'targetClass' => Lang::className(), 'targetAttribute' => ['lang_id' => 'id']],
@@ -52,7 +52,7 @@ class CategoryLang extends \yii\db\ActiveRecord
             'title' => 'Title',
             'description' => 'Description',
             'content' => 'Content',
-            'active' => 'Active',
+            'published' => 'Published',
         ];
     }
 

@@ -18,10 +18,10 @@ return [
             'class' => 'rico\yii2images\Module',
             //be sure, that permissions ok 
             //if you cant avoid permission errors you have to create "images" folder in web root manually and set 777 permissions
-            'imagesStorePath' => 'upload/store', //path to origin images
-            'imagesCachePath' => 'upload/cache', //path to resized copies
+            'imagesStorePath' => '@root/content/upload/store', //path to origin images
+            'imagesCachePath' => '@root/content/upload/cache', //path to resized copies
             'graphicsLibrary' => 'GD', //but really its better to use 'Imagick' 
-            'placeHolderPath' => '@webroot/upload/placeHolder.png', // if you want to get placeholder when image not exists, string will be processed by Yii::getAlias
+            'placeHolderPath' => '@root/content/upload/placeHolder.png', // if you want to get placeholder when image not exists, string will be processed by Yii::getAlias
         ]
     ],
     'components' => [
@@ -34,6 +34,12 @@ return [
                     'js' => [
                         'design/plugins/jquery/jquery-2.1.4.min.js',
                     ]
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [],
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js'=>[]
                 ],
             ],
 
@@ -73,6 +79,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '<action>'=>'site/<action>',
+                //'image' => 'yii2images/images/image-by-item-and-alias',
             ],
         ],
         

@@ -12,6 +12,17 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'yii2images' => [
+            'class' => 'rico\yii2images\Module',
+            //be sure, that permissions ok 
+            //if you cant avoid permission errors you have to create "images" folder in web root manually and set 777 permissions
+            'imagesStorePath' => '@root/content/upload/store', //path to origin images
+            'imagesCachePath' => '@root/content/upload/cache', //path to resized copies
+            'graphicsLibrary' => 'GD', //but really its better to use 'Imagick' 
+            'placeHolderPath' => '@root/content/upload/placeHolder.png', // if you want to get placeholder when image not exists, string will be processed by Yii::getAlias
+        ]
+    ],
     'components' => [
         'assetManager' => [
             'bundles' => [
@@ -34,6 +45,7 @@ return [
         'request' => [
             'baseUrl' => '',
             'csrfParam' => '_csrf-frontend',
+            'class' => 'frontend\components\LangRequest',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -60,8 +72,30 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'class'=>'frontend\components\LangUrlManager',
             'rules' => [
-                '<action:.*>'=>'site/<action>',
+                //'/' => 'site/index',
+                //'<action:.*>'=>'site/<action>',
+                //'<controller:\w+>/<action:\w+>/*'=>'<controller>/<action>',
+                '<action>'=>'site/<action>',
+                'image' => 'site/yii2images/images/image-by-item-and-alias',
+                //'hotels' => 'site/catalog-accommodation/view',
+                // '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                // '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                // '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ],
+        ],
+        'language'=>'ru-RU',
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@frontend/messages',
+                    'sourceLanguage' => 'en',
+                    'fileMap' => [
+                        //'main' => 'main.php',
+                    ],
+                ],
             ],
         ],
         

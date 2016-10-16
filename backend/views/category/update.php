@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = 'Update';
 		$form = ActiveForm::begin([
 		'id' => 'category-update-form',
 		'options' => [
-			'class' => ''
+			'class' => 'ajax-form'
 		]
 	]) ?>
 
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = 'Update';
 				</div>
 				<div class="col-md-3">
 
-					<?= $form->field($model, 'active', [
+					<?= $form->field($model, 'published', [
 						'options' => ['class' => 'form-group no-label'],
 						'template' => '<div class="checkbox"><label>{input}<span class="check"></span>{label}</label>{error}</div>'
 					])->checkbox([],false) ?>
@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = 'Update';
 					<?= $form->field($content, 'title')->textInput(['class' => 'full default']) ?>
 				</div>
 				<div class="col-md-3">
-					<?= $form->field($content, 'active', [
+					<?= $form->field($content, 'published', [
 						'options' => ['class' => 'form-group no-label'],
 						'template' => '<div class="checkbox"><label>{input}<span class="check"></span>{label}</label>{error}</div>'
 					])->checkbox([],false) ?>
@@ -109,7 +109,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
 
 			<div class="form-group">
-				<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-success']) ?>
+				<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-primary btn-loading']) ?>
 			</div>
 
     	</div>

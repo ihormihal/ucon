@@ -86,12 +86,10 @@ angular.module('app', ['im-dataTable', 'im-imgUpload', 'im-progress', 'im-autoco
 			'$scope', '$element', '$attrs', '$parse',
 			function($scope, $element, $attrs, $parse) {
 
-				var input = $element[0].getElementsByTagName('input')[0];
+				$scope.json = $attrs.json;
+				if($scope.json === 'null' || $scope.json === '' || $scope.json === undefined) $scope.json = '[]';
 
-				var json = $attrs.json;
-				if(json === 'null' || json === '' || json === undefined) json = '[]';
-
-				$scope.collection = angular.fromJson(json);
+				$scope.collection = angular.fromJson($scope.json);
 
 				var index = $scope.collection.length;
 				$scope.addItem = function(){
@@ -103,7 +101,7 @@ angular.module('app', ['im-dataTable', 'im-imgUpload', 'im-progress', 'im-autoco
 				};
 
 				$scope.$watch('collection', function(val){
-					input.value = angular.toJson(val);
+					$scope.json = angular.toJson(val);
 				}, true);
 
 			}

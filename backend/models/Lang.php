@@ -8,10 +8,10 @@ use Yii;
  * This is the model class for table "lang".
  *
  * @property integer $id
- * @property string $lng
+ * @property string $url
  * @property string $locale
  * @property string $name
- * @property integer $active
+ * @property integer $published
  * @property integer $default
  */
 class Lang extends \yii\db\ActiveRecord
@@ -30,9 +30,9 @@ class Lang extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['lng', 'locale', 'name'], 'required'],
-            [['active', 'default'], 'integer'],
-            [['lng', 'locale', 'name'], 'string', 'max' => 255],
+            [['url', 'locale', 'name'], 'required'],
+            [['published', 'default'], 'integer'],
+            [['url', 'locale', 'name'], 'string', 'max' => 255],
         ];
     }
 
@@ -43,10 +43,10 @@ class Lang extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'lng' => 'Lng',
+            'url' => 'Url',
             'locale' => 'Locale',
             'name' => 'Name',
-            'active' => 'Active',
+            'published' => 'Published',
             'default' => 'Default',
         ];
     }

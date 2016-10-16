@@ -1,6 +1,7 @@
 <?php
 
-/* @var $this yii\web\View */
+use frontend\widgets\PopularHotels;
+use frontend\widgets\PopularRooms;
 
 $this->title = 'My Yii Application';
 ?>
@@ -9,11 +10,7 @@ $this->title = 'My Yii Application';
 
 <section class="hotels pt2 pb5">
     <div class="container wide">
-
-        <div class="pt1 pb3 text-center">
-            <h2>Отели</h2>
-        </div>
-        
-        <?= $this->render('/site/home/_hotels'); ?>
+        <?= PopularHotels::widget();?>
+        <?= PopularRooms::widget();?>
     </div>
 </section>

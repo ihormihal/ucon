@@ -1,0 +1,57 @@
+// Button style
+//**********************//
+.btn-loading:not(.disabled){
+  &:before{
+    content:'';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -9px;
+    width: 12px;
+    height: 12px;
+    border: 3px solid #fff;
+    border-left-color: transparent;
+    border-radius: 50%;
+    @include opacity(0);
+    @include transition(opacity .5s linear);
+    @include animation-duration(1s);
+    @include animation-iteration-count(infinite);
+    @include animation-name(rotate);
+    @include animation-timing-function(linear);
+  }
+
+  &:after{
+    content:'';
+    display:inline-block;
+    height:100%;
+    width:0px;
+    @include transition-delay(.5s);
+    @include transition-duration(.75s);
+    @include transition-property(width);
+  }
+  
+  &.load {
+    pointer-events: none;
+    cursor: not-allowed;
+    &:not(.expand){
+     text-align: left;  
+    }
+    &:before{
+      @include transition-delay(.5s);
+      @include transition-duration(1s);
+      @include opacity(1);
+    }
+    &:after{
+      @include transition-delay(0s);
+      width: 24px;
+    }
+  }
+}
+
+// Animations
+//**********************//
+@mixin rotate {
+  0%    { @include transform(rotate(0deg)); }
+  100%  { @include transform(rotate(360deg)); }
+}
+@keyframes rotate { @include rotate; }

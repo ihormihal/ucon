@@ -24,10 +24,19 @@ $this->params['breadcrumbs'][] = $content->title;
             ]) ?>
         </div>
     </section>
-
-    <section class="pt1 pb1 green-bg">
+	
+    <section class="pt1 pb1 <?= $status ?>-bg">
         <div class="container wide">
-            <span class="thin">Статус:</span> редактирование отеля
+            <span class="thin">Статус:</span> 
+            <?php
+            if($status == 'edit'){
+            	echo 'редактирование';
+            }elseif($status == 'success'){
+            	echo 'успешно обновлено';
+            }elseif($status == 'error'){
+            	echo 'ошибка сохранения';
+            }
+            ?>
         </div>
     </section>
 
@@ -49,7 +58,7 @@ $this->params['breadcrumbs'][] = $content->title;
 				</div>
 				<div class="col-md-3">
 
-					<?= $form->field($model, 'active', [
+					<?= $form->field($model, 'published', [
 						'options' => ['class' => 'form-group no-label'],
 						'template' => '<div class="checkbox"><label>{input}<span class="check"></span>{label}</label>{error}</div>'
 					])->checkbox([],false) ?>
@@ -65,8 +74,7 @@ $this->params['breadcrumbs'][] = $content->title;
     	<div class="container wide">
 
 			<ul class="tab-control nav nav-inline" data-target="#tabs-content">
-				<li class="active"><a class="ripple" href="javascript:void(0)">Content</a></li>
-				<li><a class="ripple" href="javascript:void(0)">Images</a></li>
+				<li class="active"><a class="ripple" href="javascript:void(0)">Images</a></li>
 				<li><a class="ripple" href="javascript:void(0)">Attributes</a></li>
 				<li><a class="ripple" href="javascript:void(0)">Rooms</a></li>
 			</ul>
@@ -74,36 +82,6 @@ $this->params['breadcrumbs'][] = $content->title;
 			<div class="clear"></div>
 			<div class="tab-content" id="tabs-content">
 			    <div class="tab fade active in">
-
-			    	<div class="form-group btn-group mt2">
-						<?php foreach ($languages as $key => $lang): ?>
-							<?php $class = $lang_id == $lang->id ? 'btn-primary' : 'btn-default'; ?>
-
-							<?= Html::a($lang->name, ['update', 'id' => $model->id, 'lang_id' => $lang->id], ['class' => 'btn btn-mt '.$class.' ripple']) ?>
-						<?php endforeach ?>
-					</div>
-
-			       	<?= $form->field($content, 'lang_id')->hiddenInput(['value'=> $content->lang_id])->label(false); ?>
-					<div class="row">
-						<div class="col-md-9">
-							<?= $form->field($content, 'title')->textInput(['class' => 'full default']) ?>
-						</div>
-						<div class="col-md-3">
-							<?= $form->field($content, 'active', [
-								'options' => ['class' => 'form-group no-label'],
-								'template' => '<div class="checkbox"><label>{input}<span class="check"></span>{label}</label>{error}</div>'
-							])->checkbox([],false) ?>
-						</div>
-					</div>
-
-					<?= $form->field($content, 'description')->textArea(['class' => 'full default', 'rows' => '3']) ?>
-					<?= $form->field($content, 'content')->widget(CKEditor::className(), [
-						'options' => ['rows' => 6],
-						'preset' => 'standart'
-					]) ?>
-
-			    </div>
-			    <div class="tab fade">
 					<div class="mt1"></div>
 			        <section class="images">
 						<upload-images
@@ -129,7 +107,7 @@ $this->params['breadcrumbs'][] = $content->title;
 			    <div class="tab fade">
 			    	<div class="mt1"></div>
 					<?php 
-						echo $this->render('_rooms', ['collection' => $collection, 'accommodation_id' => $model->id]);
+						echo $this->render('_rooms', ['collection' => $collection, 'accommodation_id' => $model->id, 'lang_id' => $lang_id]);
 					?>
 			    </div>
 			</div>
@@ -139,8 +117,39 @@ $this->params['breadcrumbs'][] = $content->title;
 
     <section>
     	<div class="container wide">
+    		<div class="form-group btn-group mt2">
+				<?php foreach ($languages as $key => $lang): ?>
+					<?php $class = $lang_id == $lang->id ? 'btn-primary' : 'btn-default'; ?>
+
+					<?= Html::a($lang->name, ['update', 'id' => $model->id, 'lang_id' => $lang->id], ['class' => 'btn btn-mt '.$class.' ripple']) ?>
+				<?php endforeach ?>
+			</div>
+
+	       	<?= $form->field($content, 'lang_id')->hiddenInput(['value'=> $content->lang_id])->label(false); ?>
+			<div class="row">
+				<div class="col-md-9">
+					<?= $form->field($content, 'title')->textInput(['class' => 'full default']) ?>
+				</div>
+				<div class="col-md-3">
+					<?= $form->field($content, 'published', [
+						'options' => ['class' => 'form-group no-label'],
+						'template' => '<div class="checkbox"><label>{input}<span class="check"></span>{label}</label>{error}</div>'
+					])->checkbox([],false) ?>
+				</div>
+			</div>
+
+			<?= $form->field($content, 'description')->textArea(['class' => 'full default', 'rows' => '3']) ?>
+			<?= $form->field($content, 'content')->widget(CKEditor::className(), [
+				'options' => ['rows' => 6],
+				'preset' => 'standart'
+			]) ?>
+    	</div>
+    </section>
+
+    <section>
+    	<div class="container wide">
     		<div class="form-group btn-group border-top border-blue pt1">
-				<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-primary']) ?>
+				<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-primary btn-loading']) ?>
 
 				<?= Html::a('<i class="fa fa-trash"></i> Delete', ['delete', 'id' => $model->id], [
 					'class' => 'btn btn-mt btn-danger',

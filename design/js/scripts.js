@@ -22,6 +22,44 @@ $(window).on('load', function(){
 	if($().imParallax) $('.parallax').imParallax();
 });
 
+$(document).on('submit', 'form.ajax-form', function(event) {
+	event.preventDefault();
+
+	var form = $('form.ajax-form');
+	var button = $('.btn-loading');
+
+	button.addClass('load');
+	
+	$.ajax({
+		url: form.attr('action'),
+		method: form.attr('method'),
+		data: form.serialize()
+	}).done(function(response){
+		button.removeClass('load');
+		console.log(response);
+		message = 'Operation succeeded!';
+		if(response.status == 'success'){
+			message = response.message || message;
+			toastr.success(message, 'Success!');
+		}else if(response.status == 'warning'){
+			message = response.message || 'Something wrong...';
+			toastr.warning(message, 'Warning!');
+		}else if(response.status == 'error'){
+			message = response.message || 'An error has occurred!';
+			toastr.error(message, 'Error!');
+		}else{
+			message = 'Undefined server error!';
+			toastr.error(message, 'Error!');
+		}
+	}).fail(function(){
+		button.removeClass('load');
+		var message = 'An error has occurred!';
+		toastr.error(message, 'Error!');
+	});
+	
+
+});
+
 // $(document).on('click', '.popup-img', function() {
 // 	var src = $(this).attr('src');
 // 	$.fancybox.open({
@@ -138,10 +176,17 @@ $(function() {
 	//with single point
 	$('.map.single').each(function(){
 		var container = this;
-		var latlng = new google.maps.LatLng(
-			parseFloat($(container).data('lat')),
-			parseFloat($(container).data('lng'))
-		);
+		var location = {lat: 50, lng: 30};
+		if($(container).data('location')){
+			var loc = $(container).data('location');
+			location.lat = parseFloat(loc.lat);
+			location.lng = parseFloat(loc.lng);
+		}
+		if($(container).data('lat') && $(container).data('lng')){
+			location.lat = parseFloat($(container).data('lat'));
+			location.lng = parseFloat($(container).data('lng'));
+		}
+		var latlng = new google.maps.LatLng(location.lat, location.lng);
 		var mapOptions = {
 			zoom: parseInt($(container).data('zoom')) || 17,
 			center: latlng,
@@ -151,6 +196,18 @@ $(function() {
 			scrollwheel: $(container).data('scroll') || false,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
+		if($(container).data('color')){
+			mapOptions.styles = [{
+				stylers: [
+				{
+					hue: $(container).data('color')
+				}, {
+					saturation: 20
+				}, {
+					gamma: 0.5
+				}]
+			}];
+		}
 		var map = new google.maps.Map(container, mapOptions);
 
 		var marker = new google.maps.Marker({
@@ -345,7 +402,7 @@ $(function() {
 });
 
 //accordion menu
-$(document).on('click touchstart', '.aside-menu li.parent', function(e) {
+$(document).on('click touchstart', '.aside-menu li.parent, .aside-menu li.dropdown', function(e) {
 	e.stopPropagation();
 	//console.log(e.target.nodeName);
 	if (e.target.nodeName === 'A') {
