@@ -11,7 +11,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Языки', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->name;
 ?>
 
-
 <section class="pt1 pb1 green-bg">
 	<div class="container wide">
 		<span class="thin">Статус:</span> редактирование языка

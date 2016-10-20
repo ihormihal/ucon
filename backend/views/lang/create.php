@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\Breadcrumbs;
 
 
 /* @var $this yii\web\View */
@@ -20,7 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <section class="pb1">
 	<div class="container wide">
-		<h1>Новый язык</h1>
+
+		<h1 class="mt1 mb1">Новый язык</h1>
+
 		<div class="mb2"></div>
 		<?= $this->render('_form', [
 			'model' => $model,
