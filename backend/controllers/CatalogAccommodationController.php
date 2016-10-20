@@ -12,10 +12,13 @@ use backend\models\CatalogAttributes;
 use backend\models\CatalogAttributesValues;
 use backend\models\CatalogRooms;
 
+use common\models\User;
+
 use yii\data\ActiveDataProvider;
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -42,9 +45,14 @@ class CatalogAccommodationController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'upload-image', 'delete-image'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'upload-image', 'delete-image'],
+                        'roles' => ['vendorAccess'], //минимальная роль
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['publish', 'unpublish'],
+                        'roles' => ['contentAccess'], //минимальная роль
                     ],
                 ],
             ],
@@ -59,7 +67,13 @@ class CatalogAccommodationController extends Controller
 
     public function actionIndex()
     {
-        $collection = CatalogAccommodation::find()->all();
+
+        if(Yii::$app->user->can('contentAccess')){
+            $collection = CatalogAccommodation::find()->all();
+        }else{
+            $collection = CatalogAccommodation::find()->where(['author' => Yii::$app->user->id])->all();
+        }
+
         $category = Category::findOne(['model_name' => 'CatalogAccommodation']);
         $lang = Lang::findOne(['default' => 1]);
 
@@ -75,15 +89,31 @@ class CatalogAccommodationController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($lang_id = null)
     {
-        $model = new CatalogAccommodation();
+        $model = new CatalogAccommodation(['author' => Yii::$app->user->id]);
+        $lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
+        $languages = Lang::find()->where(['published' => 1])->all();
+        $content = new CatalogAccommodationLang(['lang_id' => $lang_id]);
+        $users = User::find()->orderBy('id')->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $success = false;
+
+        if($model->load(Yii::$app->request->post()) && $model->save()){
+            $content->object_id = $model->id;
+            if($content->load(Yii::$app->request->post()) && $content->save()){
+                $success = true;
+            }
+        }
+        if($success){
             return $this->redirect(['update', 'id' => $model->id]);
-        } else {
+        }else{
             return $this->render('create', [
                 'model' => $model,
+                'content' => $content,
+                'lang_id' => $lang_id,
+                'languages' => $languages,
+                'users' => $users,
             ]);
         }
     }
@@ -96,10 +126,19 @@ class CatalogAccommodationController extends Controller
      */
 
     public function actionUpdate($id, $lang_id = null)
-    {
-        $lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
+    { 
 
+        $lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
         $model = $this->findModel($id);
+
+        if(
+            !(Yii::$app->user->can('authorAccess', ['model' => $model]) || Yii::$app->user->can('contentAccess'))
+        ){
+            throw new ForbiddenHttpException();
+        }
+
+
+        $users = User::find()->orderBy('id')->all();
         $languages = Lang::find()->where(['published' => 1])->all();
         $content = $model->getContent($lang_id);
 
@@ -128,7 +167,7 @@ class CatalogAccommodationController extends Controller
         //Attributes
 
         if(Yii::$app->request->isPost){
-            $response = ['status' => 'error', 'message' => 'Not updated'];
+            //$response = ['status' => 'error', 'message' => 'Not updated'];
 
             //save attributes
             if(isset($_POST['Attributes'])){
@@ -149,8 +188,8 @@ class CatalogAccommodationController extends Controller
                 $model->save() && $content->save()
             ){
                 $status = 'success';
-                $response['status'] = 'success';
-                $response['message'] = 'Successfully updated';
+                // $response['status'] = 'success';
+                // $response['message'] = 'Successfully updated';
                 //Yii::$app->response->format = Response::FORMAT_JSON;
                 //return $response;
             }else{
@@ -164,8 +203,35 @@ class CatalogAccommodationController extends Controller
             'images' => json_encode($images),
             'languages' => $languages,
             'content' => $content,
-            'collection' => $collection
+            'collection' => $collection,
+            'users' => $users,
         ]);
+    }
+
+    public function actionPublish($id)
+    {
+        $model = $this->findModel($id);
+        $response = ['status' => 'error', 'message' => 'Not published'];
+        $model->published = 1;
+        if($model->save()){
+            $response['success'] = 'success';
+            $response['message'] = 'Successfully published';
+        }
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $response;
+    }
+    
+    public function actionUnpublish($id)
+    {
+        $model = $this->findModel($id);
+        $response = ['status' => 'error', 'message' => 'Not unpublished'];
+        $model->published = 0;
+        if($model->save()){
+            $response['success'] = 'success';
+            $response['message'] = 'Successfully unpublished';
+        }
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $response;
     }
 
     public function actionUploadImage($id)

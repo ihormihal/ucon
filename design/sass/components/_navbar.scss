@@ -18,7 +18,7 @@
 		@include transform(translate(-100%,0));
 	}
 	.nav.nav-col li {
-		a {
+		a, .link {
 			padding: 16*$pt 32*$pt;
 			color: color(dark);
 			text-transform: uppercase;
@@ -57,7 +57,7 @@ header {
 		font-size: 16*$pt;
 		> li {
 			line-height: $navbar-height;
-			> a:not(.btn) {
+			> a:not(.btn), .link {
 				line-height: $navbar-height;
 				padding: 0 24*$pt;
 				.ink {
@@ -96,7 +96,7 @@ header {
 		}
 		.nav-inline > li {
 			line-height: 80px;
-			> a, .btn-flat {line-height: 80px;}
+			> a, .btn-flat, .link {line-height: 80px;}
 		}
 	}
 	&.navbar-style-2 {

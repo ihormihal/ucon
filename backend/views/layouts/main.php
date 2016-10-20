@@ -6,6 +6,7 @@
 use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
+
 use common\widgets\Alert;
 
 AppAsset::register($this);
@@ -80,8 +81,24 @@ AppAsset::register($this);
 		</header>
 		<main class="collumns" ng-controller="mainController">
 
-			<?= Alert::widget() ?>
-        	<?= $content ?>
+			<div class="col-aside dark-bg">
+				<?= $this->render('/site/nav/aside'); ?>
+			</div>
+			<div class="col-main">
+
+				<?= Alert::widget() ?>
+
+				<section class="pt1 pb1 white-bg">
+					<div class="container wide">
+						<?= Breadcrumbs::widget([
+							'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+						]) ?>
+					</div>
+				</section>
+				
+				<?= $content ?>
+
+			</div>
 
 		</main>
 

@@ -2,18 +2,14 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\helpers\CustomHelpers;
-use yii\widgets\ActiveForm;
-use yii\widgets\DetailView;
-
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Языки';
+$this->title = 'Пользователи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 
 <section class="pt1 pb1 blue-bg">
 	<div class="container wide">
@@ -23,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <section class="pt1 pb1">
 	<div class="container wide">
-		<?= Html::a('<i class="fa fa-plus"></i> Add Language', ['create'], ['class' => 'btn btn-mt btn-warning']) ?>
+		<?= Html::a('<i class="fa fa-plus"></i> Add User', ['create'], ['class' => 'btn btn-mt btn-warning']) ?>
 	</div>
 </section>
 
@@ -33,22 +29,18 @@ $this->params['breadcrumbs'][] = $this->title;
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Alias</th>
-					<th>Locale</th>
-					<th>Name</th>
-					<th>Active</th>
-					<th>Default</th>
+					<th>Username</th>
+					<th>Email</th>
+					<th>Role</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach ($collection as $key => $item): ?>
 				<tr data-href="<?= Url::toRoute(['update', 'id' => $item->id]) ?>">
 					<td><?= $item->id ?></td>
-					<td><?= $item->url ?></td>
-					<td><?= $item->locale ?></td>
-					<td><?= $item->name ?></td>
-					<td><?= $item->published ?></td>
-					<td><?= $item->default ?></td>
+					<td><?= $item->username ?></td>
+					<td><?= $item->email ?></td>
+					<td><?= $item->role ?></td>
 				</tr>
 				<?php endforeach ?>
 			</tbody>

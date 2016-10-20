@@ -27,7 +27,9 @@ class User extends ActiveRecord implements IdentityInterface
 	const STATUS_DELETED = 0;
 	const STATUS_ACTIVE = 10;
 
-	//const ROLE_ADMIN = 20;
+	// const ROLE_USER = 1;
+	// const ROLE_VENDOR = 5;
+	// const ROLE_ADMIN = 10;
 
 
 	/**
@@ -202,5 +204,11 @@ class User extends ActiveRecord implements IdentityInterface
 		} else {
 			return false;
 		}
+	}
+
+	public function getRole()
+	{
+		$roles = Yii::$app->authManager->getRolesByUser($this->id);
+		return $roles ? key($roles) : false;
 	}
 }

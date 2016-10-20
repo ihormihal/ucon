@@ -69,9 +69,17 @@ class CatalogRooms extends \yii\db\ActiveRecord
 
     //langs
 
+    protected function getDefaultLang(){
+        if (($model = Lang::find()->where(['default' => 1, 'published' => 1])->one()) !== null) {
+            return $model->id;
+        } else {
+            return 1;
+        }
+    }
+
     public function getTitle($lang_id = null)
     {
-        $lang_id = ($lang_id === null) ? 2 : (int)$lang_id;
+        $lang_id = ($lang_id === null) ? $this->getDefaultLang() : (int)$lang_id;
         $content = CatalogRoomsLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
         if($content){
             return $content->title;

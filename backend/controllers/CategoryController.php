@@ -42,7 +42,7 @@ class CategoryController extends Controller
                     [
                         'actions' => ['index', 'view', 'create', 'update', 'upload-image', 'delete-image'],
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => ['adminAccess'],
                     ],
                 ],
             ],

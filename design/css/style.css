@@ -3270,7 +3270,7 @@ textarea {
   list-style: none;
   margin: 0;
   padding: 0; }
-  .nav li a {
+  .nav li a, .nav li .link {
     display: block;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -3285,10 +3285,10 @@ textarea {
 
 .nav-inline li {
   float: left; }
-  .nav-inline li a:not(.btn) {
+  .nav-inline li a:not(.btn), .nav-inline li .link {
     padding: 0 8px; }
 
-.nav-col li a:not(.btn) {
+.nav-col li a:not(.btn), .nav-col li .link {
   padding: 8px 0; }
 
 @media screen and (max-width: 1264px) {
@@ -3347,11 +3347,11 @@ textarea {
     -ms-transform: translate(-100%, 0);
     -webkit-transform: translate(-100%, 0);
     transform: translate(-100%, 0); }
-  .menu-slide .nav.nav-col li a {
+  .menu-slide .nav.nav-col li a, .menu-slide .nav.nav-col li .link {
     padding: 16px 32px;
     color: #3d3d3d;
     text-transform: uppercase; }
-    .menu-slide .nav.nav-col li a:not(.btn) .ink {
+    .menu-slide .nav.nav-col li a:not(.btn) .ink, .menu-slide .nav.nav-col li .link:not(.btn) .ink {
       background-color: #3d3d3d; }
   .menu-slide .nav.nav-col li .btn {
     margin: 8px 32px;
@@ -3386,10 +3386,10 @@ header .nav-inline {
   font-size: 16px; }
   header .nav-inline > li {
     line-height: 50px; }
-    header .nav-inline > li > a:not(.btn) {
+    header .nav-inline > li > a:not(.btn), header .nav-inline > li .link {
       line-height: 50px;
       padding: 0 24px; }
-      header .nav-inline > li > a:not(.btn) .ink {
+      header .nav-inline > li > a:not(.btn) .ink, header .nav-inline > li .link .ink {
         background: #7a7a7a; }
     header .nav-inline > li .btn {
       display: inline-block;
@@ -3423,7 +3423,7 @@ header .list-with-icons i {
 
 .navbar.navbar-style-1 .nav-inline > li {
   line-height: 80px; }
-  .navbar.navbar-style-1 .nav-inline > li > a, .navbar.navbar-style-1 .nav-inline > li .btn-flat {
+  .navbar.navbar-style-1 .nav-inline > li > a, .navbar.navbar-style-1 .nav-inline > li .btn-flat, .navbar.navbar-style-1 .nav-inline > li .link {
     line-height: 80px; }
 
 .navbar.navbar-style-2 .logo {
@@ -4129,6 +4129,11 @@ a {
   color: #ff9800;
   text-decoration: none; }
 
+.link {
+  background-color: inherit;
+  border: none;
+  cursor: pointer; }
+
 p {
   color: #7a7a7a; }
 
@@ -4267,17 +4272,17 @@ a.phone, a.email {
 header .top-menu {
   background-color: #92c005;
   text-transform: uppercase; }
-  header .top-menu a {
+  header .top-menu a, header .top-menu .link {
     font-size: 12px;
     color: #fff; }
-  header .top-menu .nav-inline > li > a {
+  header .top-menu .nav-inline > li > a, header .top-menu .nav-inline > li .link {
     line-height: 30px;
     -webkit-transition: background-color 0.3s ease;
     -moz-transition: background-color 0.3s ease;
     -ms-transition: background-color 0.3s ease;
     -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease; }
-  header .top-menu .nav-inline > li:hover > a {
+  header .top-menu .nav-inline > li:hover > a, header .top-menu .nav-inline > li:hover .link {
     background-color: #597503; }
 
 header .nav-main a {

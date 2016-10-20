@@ -42,7 +42,7 @@ class CatalogRoomsController extends Controller
                     [
                         'actions' => ['index', 'view', 'create', 'update', 'delete', 'upload-image', 'delete-image'],
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => ['vendorAccess'],
                     ],
                 ],
             ],
@@ -87,26 +87,36 @@ class CatalogRoomsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($accommodation_id = null)
+    public function actionCreate($accommodation_id = null, $lang_id = null)
     {
+        $lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
+        $languages = Lang::find()->where(['published' => 1])->all();
+
         $accommodation_id = ($accommodation_id === null) ? 0 : (int)$accommodation_id;
-
         $accomodation = CatalogAccommodation::findOne(['id' => $accommodation_id]);
+        if($accomodation === null) return false; //accommodation not found
 
-        if($accomodation === null){
-            return false;
-        }
+        $model = new CatalogRooms(['accommodation_id' => $accommodation_id]);
+        $content = new CatalogRoomsLang(['lang_id' => $lang_id]);
 
-        $model = new CatalogRooms([
-            'accommodation_id' => $accommodation_id
-        ]);
+        $success = false;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $content->object_id = $model->id;
+            if($content->load(Yii::$app->request->post()) && $content->save()){
+                $success = true;
+            }
+        }
+
+        if($success){
             return $this->redirect(['update', 'id' => $model->id, 'lang_id' => $this->defaultLang()]);
-        } else {
+        }else{
             return $this->render('create', [
                 'model' => $model,
-                'accomodation' => $accomodation
+                'content' => $content,
+                'accomodation' => $accomodation,
+                'lang_id' => $lang_id,
+                'languages' => $languages
             ]);
         }
     }
@@ -147,7 +157,7 @@ class CatalogRoomsController extends Controller
 
         if(Yii::$app->request->isPost){
 
-            $response = ['status' => 'error', 'message' => 'Not updated'];
+            //$response = ['status' => 'error', 'message' => 'Not updated'];
 
             if(isset($_POST['Attributes'])){
                 foreach ($_POST['Attributes'] as $alias => $value) {
@@ -167,8 +177,8 @@ class CatalogRoomsController extends Controller
                 $model->save() && $content->save()
             ){
                 $status = 'success';
-                $response['status'] = 'success';
-                $response['message'] = 'Successfully updated';
+                //$response['status'] = 'success';
+                //$response['message'] = 'Successfully updated';
                 //Yii::$app->response->format = Response::FORMAT_JSON;
                 //return $response;
             }else{

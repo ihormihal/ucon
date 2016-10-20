@@ -30,7 +30,7 @@ class CatalogAccommodationLang extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['lang_id', 'object_id', 'title', 'description', 'content'], 'required'],
+            [['lang_id', 'object_id', 'title', 'description'], 'required'],
             [['lang_id', 'object_id', 'published'], 'integer'],
             [['content'], 'string'],
             [['title', 'description'], 'string', 'max' => 255],

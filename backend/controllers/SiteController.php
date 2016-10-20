@@ -26,7 +26,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'denied'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -59,7 +59,12 @@ class SiteController extends Controller
      * @return string
      */
     public function actionIndex()
-    {
+    {   
+        // if(Yii::$app->user->can('vendorPermissions')){
+        //     return $this->render('index');
+        // }else{
+        //     return $this->redirect(['denied']);
+        // }
         return $this->render('index');
     }
 
@@ -104,5 +109,10 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function actionDenied()
+    {
+        return $this->render('denied');
     }
 }

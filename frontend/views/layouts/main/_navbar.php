@@ -1,5 +1,7 @@
 <?php
 
+use yii\helpers\Html;
+
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use frontend\widgets\WLang;
@@ -28,8 +30,16 @@ use frontend\widgets\WLang;
       <div class="col-md-6">
         <nav class="right-md">
           <ul class="nav nav-inline">
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Signup</a></li>
+            <?php if (Yii::$app->user->isGuest): ?>
+              <li><?= Html::a('Login', ['site/login'], []) ?></li>
+              <li><?= Html::a('Signup', ['site/signup'], []) ?></li>
+            <?php else: ?>
+              <li>
+                <?= Html::beginForm(['site/logout'], 'post') ?>
+                <?= Html::submitButton('Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'link']) ?>
+                <?= Html::endForm() ?>
+              </li>
+            <?php endif ?>
           </ul>
         </nav>
       </div>

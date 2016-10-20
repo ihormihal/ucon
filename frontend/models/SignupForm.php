@@ -1,6 +1,7 @@
 <?php
 namespace frontend\models;
 
+use Yii;
 use yii\base\Model;
 use common\models\User;
 
@@ -44,6 +45,7 @@ class SignupForm extends Model
     public function signup()
     {
         if (!$this->validate()) {
+            //валидацию сделали, так что потом делаем save(false)
             return null;
         }
         
@@ -52,7 +54,14 @@ class SignupForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        
-        return $user->save() ? $user : null;
+
+        if($user->save(false)){
+            //назначим новому юзеру роль
+            $auth = Yii::$app->authManager;
+            $userRole = $auth->getRole('vendor');
+            $auth->assign($userRole, $user->getId());
+            return $user;
+        }
+        return null;
     }
 }

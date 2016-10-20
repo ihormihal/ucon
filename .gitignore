@@ -33,6 +33,6 @@ phpunit.phar
 /.vagrant
 
 
-#design
-.DS_Store
+#custom
 node_modules
+content

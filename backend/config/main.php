@@ -44,10 +44,6 @@ return [
             ],
 
         ],
-        'authManager' => [
-            'class' => 'yii\rbac\DbManager',
-            //'defaultRoles' => ['admin'],
-        ],
         'request' => [
             'baseUrl' => '/admin',
             'csrfParam' => '_csrf-backend',

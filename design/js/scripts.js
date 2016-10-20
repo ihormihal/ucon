@@ -101,11 +101,13 @@ $(document).on('click', '.image-preview-box a', function(e) {
 
 //for jQuery dataTable
 $(document).on('click', 'tr.clickable', function() {
-	window.document.location = $(this).attr('data-href');
+	var link = $(this).attr('data-href');
+	if(link) window.document.location = link;
 });
 
 $(document).on('click', 'table.clickable tr', function() {
-	window.document.location = $(this).attr('data-href');
+	var link = $(this).attr('data-href');
+	if(link) window.document.location = link;
 });
 
 //input-icon fix

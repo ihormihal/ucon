@@ -11,6 +11,11 @@ a {
 	color: color(orange);
 	text-decoration: none;
 }
+.link {
+	background-color: inherit;
+	border: none;
+	cursor: pointer;
+}
 p {
 	color: color(grey);
 }
@@ -148,17 +153,17 @@ header {
 		background-color: $colorPrimary;
 		text-transform: uppercase;
 
-		a {
+		a, .link {
 			font-size: 12px;
 			color: #fff;
 		}
 
 		.nav-inline > li {
-			> a {
+			> a, .link {
 				line-height: 30px;
 				@include transition(background-color 0.3s ease);
 			}
-			&:hover > a {
+			&:hover > a, &:hover .link {
 				background-color: darken($colorPrimary, 15%);
 			}
 		}
