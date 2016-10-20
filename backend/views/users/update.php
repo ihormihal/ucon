@@ -52,6 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
 					'<i class="fa fa-check"></i> Update', 
 					['class' => 'btn btn-mt btn-success']
 			) ?>
+
+			<?php if ($model->id !== 1 || Yii::$app->user->id !== $model->id): ?>
 			<?= Html::a(
 				'<i class="fa fa-trash"></i> Delete', 
 				['delete', 'id' => $model->id], 
@@ -63,6 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					],
 				]
 			)?>
+			<?php endif ?>
 		</div>
 		<?php ActiveForm::end(); ?>
 
