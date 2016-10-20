@@ -65,6 +65,7 @@ class SiteController extends Controller
         // }else{
         //     return $this->redirect(['denied']);
         // }
+        
         return $this->render('index');
     }
 
@@ -78,6 +79,7 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
+        $this->layout = 'base';
 
         $model = new LoginForm();
 

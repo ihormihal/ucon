@@ -14,7 +14,7 @@ AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>" class="admin">
+<html lang="<?= Yii::$app->language ?>" class="admin1">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
@@ -81,26 +81,8 @@ AppAsset::register($this);
 		</header>
 		<main class="collumns" ng-controller="mainController">
 
-			<div class="col-aside dark-bg">
-				<?= $this->render('/site/nav/aside'); ?>
-			</div>
-			<div class="col-main">
-
-				<?= Alert::widget() ?>
-				
-				<?php if (isset($this->params['breadcrumbs'])): ?>
-					<section class="pt1 pb1 white-bg">
-						<div class="container wide">	
-							<?= Breadcrumbs::widget([
-								'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-							]) ?>
-						</div>
-					</section>
-				<?php endif ?>
-				
-				<?= $content ?>
-
-			</div>
+			<?= Alert::widget() ?>
+			<?= $content ?>
 
 		</main>
 

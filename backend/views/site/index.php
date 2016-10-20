@@ -6,47 +6,40 @@ use backend\models\CatalogAccommodation;
 $this->title = 'My Yii Application';
 ?>
 
-<div class="col-aside dark-bg">
-    <?= $this->render('nav/aside'); ?>
-</div>
-<div class="col-main">
+<pre><?php  var_dump(array_keys(Yii::$app->authManager->getRolesByUser(1))); ?></pre>
 
+<?php 
 
-	<pre><?php  var_dump(array_keys(Yii::$app->authManager->getRolesByUser(1))); ?></pre>
-	
-	<?php 
+	$model = new CatalogAccommodation();
+	$model->author = 1;
 
-		$model = new CatalogAccommodation();
-		$model->author = 1;
+	if(Yii::$app->user->can('authorAccess', ['model' => $model])){
+		echo 'authorAccess';
+	}
 
-		if(Yii::$app->user->can('authorAccess', ['model' => $model])){
-			echo 'authorAccess';
-		}
+?>
+<br>
+<?php
 
-	?>
-	<br>
-	<?php
+	if(Yii::$app->user->can('vendorAccess')){
+		echo 'vendorAccess';
+	}
 
-		if(Yii::$app->user->can('vendorAccess')){
-			echo 'vendorAccess';
-		}
+?>
+<br>
+<?php
 
-	?>
-	<br>
-	<?php
+	if(Yii::$app->user->can('contentAccess')){
+		echo 'contentAccess';
+	}
 
-		if(Yii::$app->user->can('contentAccess')){
-			echo 'contentAccess';
-		}
+?>
+<br>
+<?php
 
-	?>
-	<br>
-	<?php
+	if(Yii::$app->user->can('adminAccess')){
+		echo 'adminAccess';
+	}
 
-		if(Yii::$app->user->can('adminAccess')){
-			echo 'adminAccess';
-		}
+?>
 
-	?>
-
-</div>
