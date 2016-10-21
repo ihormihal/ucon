@@ -5,7 +5,7 @@ AddDefaultCharset utf-8
     RewriteEngine On
 
     # the main rewrite rule for the frontend application
-    RewriteCond %{REQUEST_URI} !^/(backend/web|admin|design|content)
+    RewriteCond %{REQUEST_URI} !^/(backend/web|admin|assets|content)
     RewriteRule !^frontend/web /frontend/web%{REQUEST_URI} [L]
 
     # redirect to the page without a trailing slash (uncomment if necessary)

@@ -1,6 +1,6 @@
 /*
  * Angular - Directive "imDatatable"
- * im-datatable - v0.4.4 - 2016-05-23
+ * im-datatable - v0.4.6 - 2016-10-21
  * https://github.com/ihormihal/IM-Framework
  * datatable.php
  * Ihor Mykhalchenko (http://mycode.in.ua/)
@@ -73,7 +73,7 @@ angular.module('im-dataTable', [])
 					row.attrs.class = tr.getAttribute('class');
 
 					angular.forEach(tr.children, function(td, index) {
-						var text = td.innerText.trim() || td.textContent.trim();
+						var text = (td.innerText || td.textContent).trim();
 						var html = td.innerHTML;
 						var className = td.className || '';
 
@@ -172,7 +172,8 @@ angular.module('im-dataTable', [])
 					total: 0,
 					pages: 0,
 					page: 1,
-					onpage: '10'
+					onpage: '10',
+					pagination: []
 				};
 
 				if ($attrs.serverSide == "true") {
@@ -194,28 +195,20 @@ angular.module('im-dataTable', [])
 					};
 				}
 
-				$scope.prev = function() {
-					$scope.table.page--;
-				};
-
-				$scope.next = function() {
-					$scope.table.page++;
-				};
-
-				$scope.getNumber = function(num) {
-					var array = [];
-					for (var i = 1; i <= num; i++) {
-						array.push(i);
+				$scope.unique = function(array, property){
+					var unique = {};
+					for (var i = 0; i < $scope.data.length; i++) {
+						if($scope.data[i].hasOwnProperty(property)){
+							unique[$scope.data[i][property]] = null;
+						}
 					}
-					return array;
+					return Object.keys(unique);
 				};
 
 				//pagination, sorting, searching
 				var filter = function() {
 					if ($scope.table.ajax) {
 						$scope.search.$ = $scope.s;
-					} else {
-						$scope.search.cells.$ = $scope.s;
 					}
 					$scope.rows = $filter('filter')($scope.data, $scope.search);
 					$scope.rows = $filter('orderBy')($scope.rows, $scope.sort);
@@ -448,9 +441,66 @@ angular.module('im-dataTable', [])
 		required: 'imDatatable',
 		restrict: 'A',
 		scope: false,
-		template: '<ul class="pagination" ng-show="table.pages > 1"><li ng-show="table.page > 1"><a ng-click="prev()"><i class="fa fa-angle-left"></i></a></li><li ng-repeat="page in getNumber(table.pages)" ng-class="{active: table.page == page}"><a ng-click="table.page = page">{{page}}</a></li><li ng-show="table.page < table.pages"><a ng-click="next()"><i class="fa fa-angle-right"></i></a></li></ul>',
+		template: '<ul class="pagination" ng-show="table.pages > 1">'+
+			'<li ng-show="table.page > 1"><a ng-click="prev()"><i class="fa fa-angle-left"></i></a></li>'+
+			'<li ng-repeat="page in table.pagination" ng-show="page.visible" ng-class="{active: page.active}">'+
+				'<a ng-click="table.page = page.index">{{page.text}}</a>'+
+			'</li>'+
+			'<li ng-show="table.page < table.pages">'+
+				'<a ng-click="next()"><i class="fa fa-angle-right"></i></a>'+
+			'</li>'+
+		'</ul>',
 		controller: ['$scope', '$element', '$attrs', '$parse', function($scope, $element, $attrs, $parse) {
 
+			$scope.prev = function() {
+				$scope.table.page--;
+			};
+
+			$scope.next = function() {
+				$scope.table.page++;
+			};
+
+			function buildPagination() {
+				$scope.table.pagination = [];
+
+				var fromPage = $scope.table.page - 5;
+				var toPage = $scope.table.page + 5;
+				if(fromPage < 0) fromPage = 0;
+
+				for (var i = 1; i <= $scope.table.pages; i++) {
+					var page = {
+						index: i,
+						text: i,
+						visible: true,
+						active: $scope.table.page == i
+					};
+					//pre
+					if(i < fromPage && i !== 1){
+						if(i == fromPage - 1){
+							page.text = '...';
+						}else{
+							page.visible = false;
+						}
+					}
+					//post
+					if(i > toPage && i !== $scope.table.pages){
+						if(i == toPage + 1){
+							page.text = '...';
+						}else{
+							page.visible = false;
+						}
+					}
+
+					$scope.table.pagination.push(page);
+				}
+			}
+
+			$scope.$watch('table.page', function(){
+				buildPagination();
+			});
+			$scope.$watch('table.pages', function(){
+				buildPagination();
+			});
 		}]
 	};
 })
