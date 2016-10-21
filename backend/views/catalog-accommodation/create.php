@@ -8,10 +8,7 @@ use yii\widgets\ActiveForm;
 use dosamigos\ckeditor\CKEditor;
 
 
-/* @var $this yii\web\View */
-/* @var $model backend\models\CatalogSanatoriums */
-
-$this->title = 'Create Accomodation';
+$this->title = 'Create Accommodation';
 $this->params['breadcrumbs'][] = ['label' => 'Отели', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -28,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		<h1><?= Html::encode($this->title) ?></h1>
 		<?php
 			$form = ActiveForm::begin([
-			'id' => 'accomodation-create-form',
+			'id' => 'accommodation-create-form',
 			'options' => [
 				'class' => ''
 			]
@@ -95,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'preset' => 'standart'
 		]) ?>
 
-		<div class="form-group btn-group border-top border-blue pt1">
+		<div class="form-group btn-group pt1">
 			<?= Html::submitButton('<i class="fa fa-check"></i> Create', ['class' => 'btn btn-mt btn-success']) ?>
 		</div>
 

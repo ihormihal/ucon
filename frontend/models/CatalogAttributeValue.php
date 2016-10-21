@@ -5,14 +5,14 @@ namespace frontend\models;
 use Yii;
 
 /**
- * This is the model class for table "catalog_attributes_values".
+ * This is the model class for table "catalog_attribute_value".
  *
  * @property integer $id
  * @property integer $attribute_id
  * @property integer $object_id
  * @property string $value
  */
-class CatalogAttributesValues extends \yii\db\ActiveRecord
+class CatalogAttributeValue extends \yii\db\ActiveRecord
 {
 
     public $config;
@@ -22,7 +22,7 @@ class CatalogAttributesValues extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'catalog_attributes_values';
+        return 'catalog_attribute_value';
     }
 
     /**
@@ -52,6 +52,6 @@ class CatalogAttributesValues extends \yii\db\ActiveRecord
 
     public function getAttr()
     {
-        return $this->hasOne(CatalogAttributes::className(), ['id' => 'attribute_id']);
+        return $this->hasOne(CatalogAttribute::className(), ['id' => 'attribute_id']);
     }
 }

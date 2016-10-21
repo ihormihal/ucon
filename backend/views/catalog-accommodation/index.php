@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <section class="pt1 pb1">
 	<div class="container wide">
 		<div class="btn-group">
-			<?= Html::a('<i class="fa fa-pencil"></i> Attributes', ['catalog-attributes/index', 'model_name' => $category->model_name], ['class' => 'btn btn-mt btn-default']) ?>
+			<?= Html::a('<i class="fa fa-pencil"></i> Attributes', ['catalog-attribute/index', 'model_name' => $category->model_name], ['class' => 'btn btn-mt btn-default']) ?>
 			<?= Html::a('<i class="fa fa-pencil"></i> Update Category', ['category/update', 'id' => $category->id, 'lang_id' => $lang->id], ['class' => 'btn btn-mt btn-primary']) ?>
 			<?= Html::a('<i class="fa fa-plus"></i> Add Object', ['create'], ['class' => 'btn btn-mt btn-warning']) ?>
 		</div>

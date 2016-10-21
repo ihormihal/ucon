@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace backend\models;
 
 use Yii;
 
@@ -14,14 +14,14 @@ use Yii;
  * @property string $description
  * @property string $content
  */
-class CatalogRoomsLang extends \yii\db\ActiveRecord
+class CatalogRoomLang extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'catalog_rooms_lang';
+        return 'catalog_room_lang';
     }
 
     /**

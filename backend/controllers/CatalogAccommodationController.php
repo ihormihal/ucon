@@ -8,9 +8,9 @@ use backend\models\Category;
 use backend\models\CatalogAccommodation;
 use backend\models\CatalogAccommodationLang;
 use backend\models\Lang;
-use backend\models\CatalogAttributes;
-use backend\models\CatalogAttributesValues;
-use backend\models\CatalogRooms;
+use backend\models\CatalogAttribute;
+use backend\models\CatalogAttributeValue;
+use backend\models\CatalogRoom;
 
 use common\models\User;
 
@@ -27,9 +27,7 @@ use yii\helpers\Json;
 
 use yii\web\Response;
 
-/**
- * CatalogHotelsController implements the CRUD actions for CatalogHotels model.
- */
+
 class CatalogAccommodationController extends Controller
 {
 
@@ -84,11 +82,7 @@ class CatalogAccommodationController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new CatalogHotels model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+
     public function actionCreate($lang_id = null)
     {
         $model = new CatalogAccommodation(['author' => Yii::$app->user->id]);
@@ -118,12 +112,6 @@ class CatalogAccommodationController extends Controller
         }
     }
 
-    /**
-     * Updates an existing CatalogHotels model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
 
     public function actionUpdate($id, $lang_id = null)
     { 
@@ -143,7 +131,7 @@ class CatalogAccommodationController extends Controller
         $content = $model->getContent($lang_id);
 
         //rooms 
-        $collection = CatalogRooms::find()->where(['accommodation_id' => $id])->all();
+        $collection = CatalogRoom::find()->where(['accommodation_id' => $id])->all();
 
         if($content === null){
             $content = new CatalogAccommodationLang(['object_id' => $id, 'lang_id' => $lang_id]);
@@ -284,12 +272,7 @@ class CatalogAccommodationController extends Controller
         return $response;
     }
 
-    /**
-     * Deletes an existing CatalogHotels model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionDelete($id)
     {
         $model = $this->findModel($id);

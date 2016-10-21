@@ -75,7 +75,6 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
 
     public function getTitle($lang_id = null)
     {
-
         $lang_id = ($lang_id === null) ? $this->getDefaultLang() : (int)$lang_id;
         $content = CatalogAccommodationLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
         if($content){
@@ -87,8 +86,7 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
 
     public function getContent($lang_id = null)
     {
-        //$lang_id = ($lang_id === null)? Lang::getCurrent()->id: $lang_id;
-        $lang_id = ($lang_id === null) ? 1 : (int)$lang_id;
+        $lang_id = ($lang_id === null) ? $this->getDefaultLang() : (int)$lang_id;
         return CatalogAccommodationLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
     }
 
@@ -100,12 +98,12 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
     public function getAttrs()
     {
         $attributes = [];
-        $attrs = CatalogAttributes::find()->where(['model_name' => 'CatalogAccommodation'])->all();
+        $attrs = CatalogAttribute::find()->where(['model_name' => 'CatalogAccommodation'])->all();
         //get values
         foreach($attrs as $attr){
-            $values = CatalogAttributesValues::findOne(['attribute_id' => $attr->id, 'object_id' => $this->id]);
+            $values = CatalogAttributeValue::findOne(['attribute_id' => $attr->id, 'object_id' => $this->id]);
             if($values === null){
-                $values = new CatalogAttributesValues(['attribute_id' => $attr->id, 'object_id' => $this->id]);
+                $values = new CatalogAttributeValue(['attribute_id' => $attr->id, 'object_id' => $this->id]);
             }
             $values->config = $attr;
             $attributes[$attr->alias] = $values;
@@ -116,8 +114,8 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
     // public function getAttrs()
     // {
 
-    //     //$attrs = $this->hasMany(CatalogAttributesValues::className(), ['object_id' => 'id'])->innerJoinWith('attr AS a')->where(['a.model_name' => 'CatalogAccommodation']);
-    //     $attrs = CatalogAttributesValues::find()->alias('v')->joinWith('attr AS a')->where(['v.object_id' => $this->id, 'a.model_name' => 'CatalogAccommodation'])->asArray()->all();
+    //     //$attrs = $this->hasMany(CatalogAttributeValues::className(), ['object_id' => 'id'])->innerJoinWith('attr AS a')->where(['a.model_name' => 'CatalogAccommodation']);
+    //     $attrs = CatalogAttributeValues::find()->alias('v')->joinWith('attr AS a')->where(['v.object_id' => $this->id, 'a.model_name' => 'CatalogAccommodation'])->asArray()->all();
     //     $attributes = [];
     //     foreach ($attrs as $attr) {
     //         $attributes[$attr['attr']['alias']] = htmlentities($attr['value'], ENT_QUOTES, 'UTF-8');

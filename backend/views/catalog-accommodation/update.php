@@ -155,8 +155,8 @@ $this->params['breadcrumbs'][] = $content->title;
 
 <section>
 	<div class="container wide">
-		<div class="form-group btn-group border-top border-blue pt1">
-			<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-primary']) ?>
+		<div class="form-group btn-group pt1">
+			<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-success']) ?>
 
 			<?= Html::a('<i class="fa fa-trash"></i> Delete', ['delete', 'id' => $model->id], [
 				'class' => 'btn btn-mt btn-danger',

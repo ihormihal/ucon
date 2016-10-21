@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 				<a href="#rooms" class="btn btn-mt btn-warning full mb1"><?= Yii::t('translate','book') ?></a>
 				
-
+				<?php if(array_key_exists('location', $model->attrs)): ?>
 				<div class="shadow-2 lighten-bg mb1">
 					<div
 						class="map single"
@@ -47,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					>
 					</div>
 				</div>
+				<?php endif; ?>
 
 				<div class="box shadow-2 lighten-bg">
 					<div class="row">

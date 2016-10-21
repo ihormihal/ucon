@@ -91,8 +91,7 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
 	public function getAttrs()
 	{
 
-		//$attrs = $this->hasMany(CatalogAttributesValues::className(), ['object_id' => 'id'])->innerJoinWith('attr AS a')->where(['a.model_name' => 'CatalogAccommodation']);
-		$attrs = CatalogAttributesValues::find()->alias('v')->joinWith('attr AS a')->where(['v.object_id' => $this->id, 'a.model_name' => 'CatalogAccommodation'])->asArray()->all();
+		$attrs = CatalogAttributeValue::find()->alias('v')->joinWith('attr AS a')->where(['v.object_id' => $this->id, 'a.model_name' => 'CatalogAccommodation'])->asArray()->all();
 		$attributes = [];
 		foreach ($attrs as $attr) {
 			$attributes[$attr['attr']['alias']] = htmlentities($attr['value'], ENT_QUOTES, 'UTF-8');

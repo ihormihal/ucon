@@ -11,7 +11,7 @@ use Yii;
  * @property string $alias
  * @property integer $published
  */
-class CatalogRooms extends \yii\db\ActiveRecord
+class CatalogRoom extends \yii\db\ActiveRecord
 {
 	/**
 	 * @inheritdoc
@@ -21,7 +21,7 @@ class CatalogRooms extends \yii\db\ActiveRecord
 
 	public static function tableName()
 	{
-		return 'catalog_rooms';
+		return 'catalog_room';
 	}
 
 	/**
@@ -72,7 +72,7 @@ class CatalogRooms extends \yii\db\ActiveRecord
 	public function getContent($lang_id=null)
 	{
 		$lang_id = ($lang_id === null)? Lang::getCurrent()->id: $lang_id;
-		return $this->hasOne(CatalogRoomsLang::className(), ['object_id' => 'id'])->where(['lang_id' => $lang_id, 'published' => 1]);
+		return $this->hasOne(CatalogRoomLang::className(), ['object_id' => 'id'])->where(['lang_id' => $lang_id, 'published' => 1]);
 	}
 
 

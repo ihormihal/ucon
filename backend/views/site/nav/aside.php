@@ -17,8 +17,8 @@ if(Yii::$app->user->can('adminAccess'))
 		'label' => '<i class="icon fa fa-star"></i> <span class="title">Атрибуты</span>', 
 		'url' => 'javascript:void(0)',
 		'items' => [
-			['label' => '<i class="icon fa fa-building"></i> <span class="title">Гостиницы</span>', 'url' => ['catalog-attributes/index', 'model_name' => 'CatalogAccommodation']],
-			['label' => '<i class="icon fa fa-bed"></i> <span class="title">Номера</span>', 'url' => ['catalog-attributes/index', 'model_name' => 'CatalogRooms']],
+			['label' => '<i class="icon fa fa-building"></i> <span class="title">Гостиницы</span>', 'url' => ['catalog-attribute/index', 'model_name' => 'CatalogAccommodation']],
+			['label' => '<i class="icon fa fa-bed"></i> <span class="title">Номера</span>', 'url' => ['catalog-attribute/index', 'model_name' => 'CatalogRoom']],
 		]
 	];
 	$menuItems[] = [

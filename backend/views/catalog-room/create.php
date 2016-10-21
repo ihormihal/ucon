@@ -8,7 +8,7 @@ use dosamigos\ckeditor\CKEditor;
 
 
 $this->title = 'Create Room';
-$this->params['breadcrumbs'][] = ['label' => $accomodation->getTitle(), 'url' => ['catalog-accommodation/update', 'id' => $accomodation->id]];
+$this->params['breadcrumbs'][] = ['label' => $accommodation->getTitle(), 'url' => ['catalog-accommodation/update', 'id' => $accommodation->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'preset' => 'standart'
 		]) ?>
 
-		<div class="form-group btn-group border-top border-blue pt1">
+		<div class="form-group btn-group pt1">
 			<?= Html::submitButton('<i class="fa fa-check"></i> Create', ['class' => 'btn btn-mt btn-success']) ?>
 		</div>
 		<?php ActiveForm::end() ?>

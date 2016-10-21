@@ -4,7 +4,7 @@ use yii\helpers\Html;
 ?>
 
 <div class="form-group btn-group">
-    <?= Html::a('<i class="fa fa-plus"></i> Add Room', ['/catalog-rooms/create', 'accommodation_id' => $accommodation_id], ['class' => 'btn btn-mt btn-warning']) ?>
+    <?= Html::a('<i class="fa fa-plus"></i> Add Room', ['/catalog-room/create', 'accommodation_id' => $accommodation_id], ['class' => 'btn btn-mt btn-warning']) ?>
 </div>
 
 <div im-datatable>
@@ -23,7 +23,7 @@ use yii\helpers\Html;
         </thead>
         <tbody>
             <?php foreach ($collection as $key => $item): ?>
-            <tr data-href="<?= Url::toRoute(['catalog-rooms/update', 'id' => $item->id, 'lang_id' => $lang_id]) ?>">
+            <tr data-href="<?= Url::toRoute(['catalog-room/update', 'id' => $item->id, 'lang_id' => $lang_id]) ?>">
                 <td><?= $item->id ?></td>
                 <td><?= $item->alias ?></td>
                 <td><?= $item->published ?></td>

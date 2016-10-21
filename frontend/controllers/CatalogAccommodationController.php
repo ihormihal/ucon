@@ -9,10 +9,10 @@ use yii\data\ActiveDataProvider;
 use frontend\models\Lang;
 use frontend\models\Category;
 use frontend\models\CatalogAccommodation;
-use frontend\models\CatalogRooms;
+use frontend\models\CatalogRoom;
 
 //use frontend\models\CatalogAttributes;
-use frontend\models\CatalogAttributesValues;
+use frontend\models\CatalogAttributeValue;
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -48,7 +48,7 @@ class CatalogAccommodationController extends \yii\web\Controller
 		if($model->published == 0 || $model->content === null || $model->content['published'] == 0){
 			return $this->redirect(['index']);
 		}
-		$rooms = CatalogRooms::find()->where(['accommodation_id' => $model->id, 'published' => 1])->all();
+		$rooms = CatalogRoom::find()->where(['accommodation_id' => $model->id, 'published' => 1])->all();
 		return $this->render('view', [
             'model' => $model,
             'rooms' => $rooms,

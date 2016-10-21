@@ -5,7 +5,7 @@ namespace backend\controllers;
 use Yii;
 
 use backend\models\Category;
-use backend\models\CatalogAttributes;
+use backend\models\CatalogAttribute;
 
 use yii\data\ActiveDataProvider;
 
@@ -17,7 +17,7 @@ use yii\filters\AccessControl;
 
 use yii\web\Response;
 
-class CatalogAttributesController extends Controller
+class CatalogAttributeController extends Controller
 {
 
     public function beforeAction($action) {
@@ -50,7 +50,7 @@ class CatalogAttributesController extends Controller
     public function actionIndex($model_name = null)
     {	
 
-		$collection = CatalogAttributes::find()->where(['model_name' => $model_name])->all();
+		$collection = CatalogAttribute::find()->where(['model_name' => $model_name])->all();
         $category = Category::findOne(['model_name' => $model_name]);
 
         return $this->render('index', [
@@ -61,7 +61,7 @@ class CatalogAttributesController extends Controller
 
     public function actionCreate($model_name = null)
     {
-        $model = new CatalogAttributes();
+        $model = new CatalogAttribute();
         $category = Category::findOne(['model_name' => $model_name]);
         $success = false;
 
@@ -113,7 +113,7 @@ class CatalogAttributesController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = CatalogAttributes::findOne($id)) !== null) {
+        if (($model = CatalogAttribute::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

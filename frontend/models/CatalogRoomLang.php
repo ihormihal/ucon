@@ -1,11 +1,11 @@
 <?php
 
-namespace backend\models;
+namespace frontend\models;
 
 use Yii;
 
 /**
- * This is the model class for table "catalog_rooms_lang".
+ * This is the model class for table "catalog_room_lang".
  *
  * @property integer $id
  * @property integer $lang_id
@@ -14,14 +14,14 @@ use Yii;
  * @property string $description
  * @property string $content
  */
-class CatalogRoomsLang extends \yii\db\ActiveRecord
+class CatalogRoomLang extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'catalog_rooms_lang';
+        return 'catalog_room_lang';
     }
 
     /**

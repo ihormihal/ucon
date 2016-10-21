@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace backend\models;
 
 use Yii;
 
@@ -13,7 +13,7 @@ use Yii;
  * @property string $name
  * @property string $config
  */
-class CatalogAttributes extends \yii\db\ActiveRecord
+class CatalogAttribute extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -21,7 +21,7 @@ class CatalogAttributes extends \yii\db\ActiveRecord
 
     public static function tableName()
     {
-        return 'catalog_attributes';
+        return 'catalog_attribute';
     }
 
     /**
@@ -56,4 +56,5 @@ class CatalogAttributes extends \yii\db\ActiveRecord
     public function getValues(){
         return htmlentities($this->values_config, ENT_QUOTES, 'UTF-8');
     }
+
 }

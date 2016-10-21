@@ -5,12 +5,13 @@ namespace backend\controllers;
 use Yii;
 
 use backend\models\Lang;
-use backend\models\CatalogRooms;
-use backend\models\CatalogRoomsLang;
+use backend\models\CatalogRoom;
+use backend\models\CatalogRoomLang;
 use backend\models\CatalogAccommodation;
 
-use backend\models\CatalogAttributes;
-use backend\models\CatalogAttributesValues;
+use backend\models\CatalogAttribute;
+use backend\models\CatalogAttributeValue;
+use backend\models\PriceVariant;
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -20,9 +21,9 @@ use yii\filters\AccessControl;
 use yii\web\Response;
 
 /**
- * CatalogRoomsController implements the CRUD actions for CatalogRooms model.
+ * CatalogRoomController implements the CRUD actions for CatalogRoom model.
  */
-class CatalogRoomsController extends Controller
+class CatalogRoomController extends Controller
 {
 
     /**
@@ -40,7 +41,7 @@ class CatalogRoomsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'upload-image', 'delete-image'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'attributes', 'upload-image', 'delete-image'],
                         'allow' => true,
                         'roles' => ['vendorAccess'],
                     ],
@@ -55,14 +56,11 @@ class CatalogRoomsController extends Controller
         ];
     }
 
-    /**
-     * Lists all CatalogRooms models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => CatalogRooms::find(),
+            'query' => CatalogRoom::find(),
         ]);
 
         return $this->render('index', [
@@ -70,11 +68,7 @@ class CatalogRoomsController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single CatalogRooms model.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionView($id)
     {
         return $this->render('view', [
@@ -82,22 +76,18 @@ class CatalogRoomsController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new CatalogRooms model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+
     public function actionCreate($accommodation_id = null, $lang_id = null)
     {
         $lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
         $languages = Lang::find()->where(['published' => 1])->all();
 
         $accommodation_id = ($accommodation_id === null) ? 0 : (int)$accommodation_id;
-        $accomodation = CatalogAccommodation::findOne(['id' => $accommodation_id]);
-        if($accomodation === null) return false; //accommodation not found
+        $accommodation = CatalogAccommodation::findOne(['id' => $accommodation_id]);
+        if($accommodation === null) return false; //accommodation not found
 
-        $model = new CatalogRooms(['accommodation_id' => $accommodation_id]);
-        $content = new CatalogRoomsLang(['lang_id' => $lang_id]);
+        $model = new CatalogRoom(['accommodation_id' => $accommodation_id]);
+        $content = new CatalogRoomLang(['lang_id' => $lang_id]);
 
         $success = false;
 
@@ -114,7 +104,7 @@ class CatalogRoomsController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'content' => $content,
-                'accomodation' => $accomodation,
+                'accommodation' => $accommodation,
                 'lang_id' => $lang_id,
                 'languages' => $languages
             ]);
@@ -122,7 +112,7 @@ class CatalogRoomsController extends Controller
     }
 
     /**
-     * Updates an existing CatalogRooms model.
+     * Updates an existing CatalogRoom model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -136,10 +126,12 @@ class CatalogRoomsController extends Controller
         $languages = Lang::find()->where(['published' => 1])->all();
         $content = $model->getContent($lang_id);
 
-        $accomodation = CatalogAccommodation::findOne(['id' => $model->accommodation_id]);
+        $accommodation = CatalogAccommodation::findOne(['id' => $model->accommodation_id]);
+
+        $prices = PriceVariant::find()->where(['object_id' => $model->id, 'model_name' => 'CatalogRoom'])->all();
 
         if($content === null){
-            $content = new CatalogRoomsLang(['object_id' => $id, 'lang_id' => $lang_id]);
+            $content = new CatalogRoomLang(['object_id' => $id, 'lang_id' => $lang_id]);
         }
 
         $images = [];
@@ -193,8 +185,23 @@ class CatalogRoomsController extends Controller
             'images' => json_encode($images),
             'languages' => $languages,
             'content' => $content,
-            'accomodation' => $accomodation
+            'accommodation' => $accommodation,
+            'prices' => $prices
         ]);
+    }
+
+    public function actionAttributes($type = null)
+    {
+        if($type === null) $type = 'bool';
+        $attributes = CatalogAttribute::find()->where(['model_name' => 'CatalogRoom', 'type' => $type])->all();
+
+        $response = [];
+        foreach($attributes as $attribute){
+            $response[] = ['text' => $attribute->name, 'value' => $attribute->id];
+        }
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $response;
     }
 
     public function actionUploadImage($id)
@@ -248,7 +255,7 @@ class CatalogRoomsController extends Controller
     }
 
     /**
-     * Deletes an existing CatalogRooms model.
+     * Deletes an existing CatalogRoom model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -257,7 +264,7 @@ class CatalogRoomsController extends Controller
     {
 
         $model = $this->findModel($id);
-        $accomodation_id = $model->accommodation->id;
+        $accommodation_id = $model->accommodation->id;
         //delete languages
         foreach ($model->contents as $key => $content) {
             $content->delete();
@@ -269,19 +276,19 @@ class CatalogRoomsController extends Controller
         //delete category
         $model->delete();
 
-        return $this->redirect(['catalog-accommodation/update', 'id' => $accomodation_id, 'lang_id' => $this->defaultLang()]);
+        return $this->redirect(['catalog-accommodation/update', 'id' => $accommodation_id, 'lang_id' => $this->defaultLang()]);
     }
 
     /**
-     * Finds the CatalogRooms model based on its primary key value.
+     * Finds the CatalogRoom model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CatalogRooms the loaded model
+     * @return CatalogRoom the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CatalogRooms::findOne($id)) !== null) {
+        if (($model = CatalogRoom::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

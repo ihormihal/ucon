@@ -1,11 +1,11 @@
 <?php
 
-namespace backend\models;
+namespace frontend\models;
 
 use Yii;
 
 /**
- * This is the model class for table "catalog_attributes".
+ * This is the model class for table "catalog_attribute".
  *
  * @property integer $id
  * @property string $model_name
@@ -13,7 +13,7 @@ use Yii;
  * @property string $name
  * @property string $config
  */
-class CatalogAttributes extends \yii\db\ActiveRecord
+class CatalogAttribute extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -21,7 +21,7 @@ class CatalogAttributes extends \yii\db\ActiveRecord
 
     public static function tableName()
     {
-        return 'catalog_attributes';
+        return 'catalog_attribute';
     }
 
     /**
@@ -56,12 +56,4 @@ class CatalogAttributes extends \yii\db\ActiveRecord
     public function getValues(){
         return htmlentities($this->values_config, ENT_QUOTES, 'UTF-8');
     }
-
-    // public function setValues($value){
-    //     if(is_array($value)){
-    //         $this->values_config = json_encode($value);
-    //     }else{
-    //         $this->values_config = $value;
-    //     }
-    // }
 }

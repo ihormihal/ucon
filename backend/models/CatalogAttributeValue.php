@@ -12,7 +12,7 @@ use Yii;
  * @property integer $object_id
  * @property string $value
  */
-class CatalogAttributesValues extends \yii\db\ActiveRecord
+class CatalogAttributeValue extends \yii\db\ActiveRecord
 {
 
     public $config;
@@ -22,7 +22,7 @@ class CatalogAttributesValues extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'catalog_attributes_values';
+        return 'catalog_attribute_value';
     }
 
     /**

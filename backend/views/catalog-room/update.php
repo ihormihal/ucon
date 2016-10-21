@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 
 use dosamigos\ckeditor\CKEditor;
 
-$this->params['breadcrumbs'][] = ['label' => $accomodation->getTitle($lang_id), 'url' => ['catalog-accommodation/update', 'id' => $accomodation->id]];
+$this->params['breadcrumbs'][] = ['label' => $accommodation->getTitle($lang_id), 'url' => ['catalog-accommodation/update', 'id' => $accommodation->id]];
 $this->params['breadcrumbs'][] = 'Update Room';
 ?>
 
@@ -89,6 +89,33 @@ $this->params['breadcrumbs'][] = 'Update Room';
 				<?php 
 					echo $this->render('_attributes', ['form' => $form, 'attributes' => $model->attrs]);
 				?>
+				<h3>Ценовые варианты</h3>
+				<?php foreach ($prices as $price): ?>
+				<div class="border white-bg box mt1">
+					<div class="row">
+						<div class="col-md-9">
+							<div class="form-group">
+								<label>Selected attributes</label>
+								<im-autocomplete-multiple
+									value='[{"value": "6"}]'
+									output="attributes"
+									url="<?= Url::toRoute(['attributes', 'type' => 'bool']) ?>"
+									min-length="0"
+									custom="false"
+									placeholder="Select attributes"
+									class="default"
+								></im-autocomplete-multiple>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Price</label>
+								<input type="text" class="default full" value="<?= $price->price ?>">
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php endforeach ?>
 			</div>
 		</div>
 	</div>
@@ -128,7 +155,7 @@ $this->params['breadcrumbs'][] = 'Update Room';
 <section>
 	<div class="container wide">
 		<div class="form-group btn-group border-top border-blue pt1">
-			<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-primary btn-loading']) ?>
+			<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-success']) ?>
 
 			<?= Html::a('<i class="fa fa-trash"></i> Delete', ['delete', 'id' => $model->id], [
 				'class' => 'btn btn-mt btn-danger',

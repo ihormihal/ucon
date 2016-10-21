@@ -3,16 +3,14 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\CatalogAttributesValues;
+use backend\models\CatalogAttributeValue;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * CatalogAttributesValuesController implements the CRUD actions for CatalogAttributesValues model.
- */
-class CatalogAttributesValuesController extends Controller
+
+class CatalogAttributeValueController extends Controller
 {
     /**
      * @inheritdoc
@@ -29,14 +27,11 @@ class CatalogAttributesValuesController extends Controller
         ];
     }
 
-    /**
-     * Lists all CatalogAttributesValues models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => CatalogAttributesValues::find(),
+            'query' => CatalogAttributeValue::find(),
         ]);
 
         return $this->render('index', [
@@ -44,11 +39,7 @@ class CatalogAttributesValuesController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single CatalogAttributesValues model.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionView($id)
     {
         return $this->render('view', [
@@ -56,14 +47,9 @@ class CatalogAttributesValuesController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new CatalogAttributesValues model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
-        $model = new CatalogAttributesValues();
+        $model = new CatalogAttributeValue();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -74,12 +60,7 @@ class CatalogAttributesValuesController extends Controller
         }
     }
 
-    /**
-     * Updates an existing CatalogAttributesValues model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -93,12 +74,6 @@ class CatalogAttributesValuesController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing CatalogAttributesValues model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -107,15 +82,15 @@ class CatalogAttributesValuesController extends Controller
     }
 
     /**
-     * Finds the CatalogAttributesValues model based on its primary key value.
+     * Finds the CatalogAttributeValue model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CatalogAttributesValues the loaded model
+     * @return CatalogAttributeValue the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CatalogAttributesValues::findOne($id)) !== null) {
+        if (($model = CatalogAttributeValue::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

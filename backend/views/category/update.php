@@ -97,7 +97,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
 
 		<div class="form-group">
-			<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-primary btn-loading']) ?>
+			<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-success btn-loading']) ?>
 		</div>
 
 	</div>
