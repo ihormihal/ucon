@@ -4,7 +4,7 @@ use yii\helpers\Html;
 ?>
 
 <div class="form-group btn-group">
-    <?= Html::a('<i class="fa fa-plus"></i> Add Room', ['/catalog-room/create', 'accommodation_id' => $accommodation_id], ['class' => 'btn btn-mt btn-warning']) ?>
+    <?= Html::a('<i class="fa fa-plus"></i> Добавить номер', ['/catalog-room/create', 'accommodation_id' => $accommodation_id], ['class' => 'btn btn-primary ripple']) ?>
 </div>
 
 <div im-datatable>

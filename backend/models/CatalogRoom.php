@@ -62,24 +62,16 @@ class CatalogRoom extends \yii\db\ActiveRecord
         ];
     }
 
+    //get parent accommodation for ROOM
     public function getAccommodation()
     {
         return $this->hasOne(CatalogAccommodation::className(), ['id' => 'accommodation_id']);
     }
 
-    //langs
-
-    protected function getDefaultLang(){
-        if (($model = Lang::find()->where(['default' => 1, 'published' => 1])->one()) !== null) {
-            return $model->id;
-        } else {
-            return 1;
-        }
-    }
-
+    //get ROOM title for current language
     public function getTitle($lang_id = null)
     {
-        $lang_id = ($lang_id === null) ? $this->getDefaultLang() : (int)$lang_id;
+        $lang_id = ($lang_id === null) ? Lang::getCurrent() : (int)$lang_id;
         $content = CatalogRoomLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
         if($content){
             return $content->title;
@@ -88,17 +80,38 @@ class CatalogRoom extends \yii\db\ActiveRecord
         }
     }
 
+    //get current language content for ROOM
     public function getContent($lang_id = null)
     {
-        $lang_id = ($lang_id === null) ? $this->getDefaultLang() : (int)$lang_id;
+        $lang_id = ($lang_id === null) ? Lang::getCurrent() : (int)$lang_id;
         return CatalogRoomLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
     }
 
+    //get languages content for ROOM
     public function getContents()
     {
         return $this->hasMany(CatalogRoomLang::className(), ['object_id' => 'id']);
     }
 
+    //get season discounts for ROOM
+    public function getDiscounts()
+    {
+        return $this->hasMany(CatalogDiscount::className(), ['object_id' => 'id'])->where(['model_name' => 'CatalogRoom']);
+    }
+
+    //get discount for date
+    // public function getDiscount($date = null){
+    //     if($date === null) $date = date('d-m-Y');
+
+    //     $a_discount = $this->accommodation->getDiscount();
+    //     $r_discount = CatalogDiscount::findOne([
+    //         'object_id' => $this->id, 
+    //         'model_name' => 'CatalogRoom'
+    //     ])->where('period_from < :date AND period_to > :date', [':period_from' => $date]);
+    //     return $r_discount || $a_discount;
+    // }
+
+    //get all attributes for ROOM and fill it by values
     public function getAttrs()
     {
         $attributes = [];

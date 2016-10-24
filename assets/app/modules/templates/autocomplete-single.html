@@ -1,9 +1,0 @@
-<div class="dropdown dropdown-select im-autocomplete-single" ng-class="{'focus in': (select.results.length && !select.selected)}">
-	<input ng-model="select.selected.value" name="{{valueName}}" type="hidden">
-	<input ng-model="select.search" name="{{textName}}" class="full" type="text" placeholder="{{placeholder}}">
-	<div class="collection">
-		<ul>
-			<li ng-repeat="result in select.results" ng-click="select.choose($index)">{{result.text}}</li>
-		</ul>
-	</div>
-</div>

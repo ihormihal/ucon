@@ -11,4 +11,22 @@ class CustomHelpers
 		});
 		return array_values($found)[0];
 	}
+    public static function autocompleteValues($input, $toJson = false){
+        if(is_array($input)){
+            $array = $input;
+        }else{
+            $array = json_decode($input, true);
+        }
+        $values = [];
+        if($array){
+            foreach($array as $key => $item){
+                $values[] = ['value' => $item] ;
+            }
+        }
+        if($toJson){
+            return json_encode($values);
+        }else{
+            return $values;
+        }
+    }
 }

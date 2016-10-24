@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <section class="pt1 pb1">
 	<div class="container wide">
-		<?= Html::a('<i class="fa fa-plus"></i> Add Language', ['create'], ['class' => 'btn btn-mt btn-warning']) ?>
+		<?= Html::a('<i class="fa fa-plus"></i> Добавить язык', ['create'], ['class' => 'btn btn-primary ripple']) ?>
 	</div>
 </section>
 

@@ -32,7 +32,7 @@ return [
                     'basePath' => '@webroot',
                     'baseUrl' => '',
                     'js' => [
-                        'design/plugins/jquery/jquery-2.1.4.min.js',
+                        'assets/plugins/jquery/jquery-2.1.4.min.js',
                     ]
                 ],
                 'yii\bootstrap\BootstrapAsset' => [

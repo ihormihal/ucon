@@ -36,7 +36,7 @@ AppAsset::register($this);
 						<div class="col-md-3 col-xs-8">
 							<div class="">
 								<div class="logo">
-									<img src="/design/images/logo.png" alt="">
+									<img src="/assets/images/logo.png" alt="">
 								</div>
 							</div>
 						</div>

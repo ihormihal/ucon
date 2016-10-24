@@ -50,4 +50,14 @@ class Lang extends \yii\db\ActiveRecord
             'default' => 'Default',
         ];
     }
+
+    //return default lang ID
+    public function getCurrent()
+    {
+        if (($model = Lang::find()->where(['default' => 1, 'published' => 1])->one()) !== null) {
+            return $model->id;
+        } else {
+            return 1;
+        }
+    }
 }

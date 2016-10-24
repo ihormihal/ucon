@@ -14,7 +14,7 @@ AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>" class="admin1">
+<html lang="<?= Yii::$app->language ?>">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
@@ -36,7 +36,7 @@ AppAsset::register($this);
 						<div class="col-md-3 col-xs-8">
 							<div class="">
 								<div class="logo">
-									<img src="/design/images/logo.png" alt="">
+									<img src="/assets/images/logo.png" alt="">
 								</div>
 							</div>
 						</div>

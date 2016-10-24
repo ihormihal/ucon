@@ -154,18 +154,12 @@ img {
     margin-right: 0; }
     .row.condensed > *[class^="col-"] {
       padding: 0; }
-  .row.tile {
-    margin-top: -16px;
-    margin-bottom: -16px; }
-    .row.tile > *[class^="col-"] {
-      padding-top: 16px;
-      padding-bottom: 16px; }
-    .row.tile.thin {
-      margin-top: -8px;
-      margin-bottom: -8px; }
-      .row.tile.thin > *[class^="col-"] {
-        padding-top: 8px;
-        padding-bottom: 8px; }
+  .row.tile, .row.tile > *[class^="col-"] {
+    padding-top: 16px;
+    padding-bottom: 16px; }
+    .row.tile.thin, .row.tile.thin > *[class^="col-"], .row.tile > *[class^="col-"].thin, .row.tile > *[class^="col-"].thin > *[class^="col-"] {
+      padding-top: 8px;
+      padding-bottom: 8px; }
   .row.gaprow > *[class^="col-"] {
     margin-bottom: 16px; }
 
@@ -4432,3 +4426,13 @@ header .nav-main .nav-inline > li.active a {
     display: block;
     content: '';
     clear: both; }
+
+.box.removed, .removed.card-box, .removed.card-row, .removed.card-image {
+  background-color: #f0f0f0; }
+
+.im-autocomplete-multiple .selection .item {
+  color: #fff;
+  background-color: #92c005;
+  border-color: #92c005; }
+  .im-autocomplete-multiple .selection .item i {
+    color: #fff; }

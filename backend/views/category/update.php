@@ -14,19 +14,24 @@ $this->params['breadcrumbs'][] = ['label' => $content->title, 'url' => ['view', 
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 
-
-<section class="pt1 pb1 green-bg">
-	<div class="container wide">
-		<span class="thin">Статус:</span> редактирование категории
-	</div>
-</section>
+	<section class="pt1 pb1 <?= $status ?>-bg">
+		<div class="container wide">
+			<span class="thin">Статус:</span>
+			<?php
+			if($status == 'edit'){
+				echo 'редактирование';
+			}elseif($status == 'success'){
+				echo 'успешно обновлено';
+			}elseif($status == 'error'){
+				echo 'ошибка сохранения';
+			}
+			?>
+		</div>
+	</section>
 
 <?php
 	$form = ActiveForm::begin([
-	'id' => 'category-update-form',
-	'options' => [
-		'class' => 'ajax-form'
-	]
+	'id' => 'category-update-form'
 ]) ?>
 
 
@@ -49,7 +54,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
 		<section class="images mt1 mb2">
 			<upload-images
-				template="/design/app/templates/upload-images-mini.html"
+				template="/assets/app/templates/upload-images-mini.html"
 				url="<?= Url::toRoute(['upload-image', 'id' => $model->id]) ?>"
 				delete="<?= Url::toRoute(['delete-image', 'id' => $model->id]) ?>"
 				name="image"
@@ -72,7 +77,7 @@ $this->params['breadcrumbs'][] = 'Update';
 			<?php foreach ($languages as $key => $lang): ?>
 				<?php $class = $lang_id == $lang->id ? 'btn-primary' : 'btn-default'; ?>
 
-				<?= Html::a($lang->name, ['update', 'id' => $model->id, 'lang_id' => $lang->id], ['class' => 'btn btn-mt '.$class.' ripple']) ?>
+				<?= Html::a($lang->name, ['update', 'id' => $model->id, 'lang_id' => $lang->id], ['class' => 'btn '.$class.' ripple']) ?>
 			<?php endforeach ?>
 		</div>
 		
@@ -97,7 +102,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
 
 		<div class="form-group">
-			<?= Html::submitButton('<i class="fa fa-check"></i> Save', ['class' => 'btn btn-mt btn-success btn-loading']) ?>
+			<?= Html::submitButton('<i class="fa fa-save"></i> Сохранить', ['class' => 'btn btn-success ripple']) ?>
 		</div>
 
 	</div>

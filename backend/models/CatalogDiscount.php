@@ -5,23 +5,23 @@ namespace backend\models;
 use Yii;
 
 /**
- * This is the model class for table "price_variant".
+ * This is the model class for table "catalog_discount".
  *
  * @property integer $id
  * @property integer $object_id
  * @property string $model_name
- * @property string $attributes
- * @property double $price
- * @property integer $published
+ * @property double $discount
+ * @property string $period_from
+ * @property string $period_to
  */
-class PriceVariant extends \yii\db\ActiveRecord
+class CatalogDiscount extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'price_variant';
+        return 'catalog_discount';
     }
 
     /**
@@ -30,10 +30,10 @@ class PriceVariant extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['object_id', 'model_name', 'price'], 'required'],
-            [['object_id', 'published'], 'integer'],
-            [['attributes'], 'string'],
-            [['price'], 'number'],
+            [['object_id', 'model_name', 'period_from', 'period_to'], 'required'],
+            [['object_id'], 'integer'],
+            [['discount'], 'number'],
+            [['period_from', 'period_to'], 'safe'],
             [['model_name'], 'string', 'max' => 255],
         ];
     }
@@ -47,9 +47,9 @@ class PriceVariant extends \yii\db\ActiveRecord
             'id' => 'ID',
             'object_id' => 'Object ID',
             'model_name' => 'Model Name',
-            'attributes' => 'Attributes',
-            'price' => 'Price',
-            'published' => 'Published',
+            'discount' => 'Discount',
+            'period_from' => 'Period From',
+            'period_to' => 'Period To',
         ];
     }
 }

@@ -38,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		<div class="form-group btn-group mt1">
 			<?= Html::submitButton(
-					'<i class="fa fa-check"></i> Create', 
-					['class' => 'btn btn-mt btn-success']
+					'<i class="fa fa-save"></i> Создать пользователя',
+					['class' => 'btn btn-success ripple']
 				) 
 			?>
 		</div>

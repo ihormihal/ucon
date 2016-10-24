@@ -75,27 +75,27 @@ use yii\widgets\ActiveForm;
 			</div>
 		</div>
 		<div class="col-md-4">
-			<a ng-click="removeItem($index)" class="btn btn-mt btn-danger"><i class="fa fa-trash"></i> Remove</a>
+			<a ng-click="removeItem($index)" class="btn btn-danger ripple"><i class="fa fa-trash"></i> Удалить</a>
 		</div>
 	</div>
 	
 	<div class="form-group">
-		<a ng-click="addItem()" class="btn btn-mt btn-primary">Add</a>
+		<a ng-click="addItem()" class="btn btn-primary ripple"><i class="fa fa-plus"></i> Добавить</a>
 	</div>
 </div>
 
 <div class="form-group btn-group mt1">
         
     <?= Html::submitButton(
-            $model->isNewRecord ? '<i class="fa fa-check"></i> Create' : '<i class="fa fa-check"></i> Save', 
-            ['class' => 'btn btn-mt btn-success']
+            $model->isNewRecord ? '<i class="fa fa-save"></i> Создать' : '<i class="fa fa-save"></i> Сохранить',
+            ['class' => 'btn btn-success ripple']
         ) 
     ?>
 
     <?php 
         if (!$model->isNewRecord){
-            echo Html::a('<i class="fa fa-trash"></i> Delete', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-mt btn-danger',
+            echo Html::a('<i class="fa fa-trash"></i> Удалить', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger ripple',
                 'data' => [
                     'confirm' => 'Are you sure you want to delete this item?',
                     'method' => 'post',

@@ -109,6 +109,112 @@ angular.module('app', ['im-dataTable', 'im-imgUpload', 'im-progress', 'im-autoco
 	};
 })
 
+.directive('catalogVariants', function() {
+	return {
+		restrict: 'A',
+		scope: true,
+		controller: [
+			'$scope', '$element', '$attrs', '$http',
+			function($scope, $element, $attrs, $http) {
+
+				$scope.variants = [];
+				$scope.removed = [];
+
+				function load() {
+					$http({
+						method: 'GET',
+						url: $attrs.catalogVariants
+					}).then(function(response) {
+						if(response.data.status == 'success'){
+							$scope.variants = response.data.data;
+						}else if(response.data.status == 'error'){
+							var message = response.data.message || 'An error has occurred!';
+							toastr.error(message);
+						}
+						
+					}, function(error) {
+						toastr.error('Error!');
+						console.log(error);
+					});
+				}
+
+				load();
+
+				$scope.add = function(){
+					$scope.variants.push({});
+				};
+
+				$scope.remove = function(index){
+					$scope.variants[index].removed = 1;
+				};
+
+				$scope.restore = function(index){
+					$scope.variants[index].removed = 0;
+				};
+
+				$scope.save = function(){
+					$http({
+						method: 'POST',
+						url: $attrs.updateUrl,
+						data: $scope.variants
+					}).then(function(response) {
+						if(response.data.status == 'success'){
+							var message = response.data.message || 'Saved!';
+							toastr.success(message);
+						}else if(response.data.status == 'error'){
+							var message = response.data.message || 'An error has occurred!';
+							toastr.error(message);
+						}
+						var updated = [];
+						for (var i = 0; i < $scope.variants.length; i++) {
+							if(!$scope.variants[i].removed){
+								updated.push($scope.variants[i]);
+							}
+						}
+						$scope.variants = updated;
+						//$scope.$apply();
+						
+					}, function(error) {
+						toastr.error('Error!');
+						console.log(error);
+					});
+				};
+
+			}
+		]
+	};
+})
+
+.directive('texttime', [function(dateFilter) {
+	return {
+		restrict: 'A',
+		require: '?ngModel',
+		link: function($scope, $element, $attrs, ngModel) {
+
+			var format = $attrs.datetime;
+
+			//в инпуте
+			ngModel.$formatters.push(function(modelValue) {
+				var d = new Date();
+				if(modelValue){
+					var date = modelValue.split('-');
+					if(date.length > 2){
+						return new Date(parseInt(date[0]), parseInt(date[1]) - 1, parseInt(date[2]));
+					}
+				}
+				
+			});
+
+			//в ng-model
+			ngModel.$parsers.push(function(d) {
+				if(d instanceof Date){
+					var date = [d.getFullYear(), d.getMonth() + 1, d.getDate()];
+					return date.join('-');
+				}
+			});
+		}
+	}
+}])
 
 
 ;

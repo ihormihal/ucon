@@ -2,7 +2,7 @@
 	<div class="container wide">
 		<div class="row">
 			<div class="col-md-3">
-				<img class="logo" src="/design/img/logo.svg" alt="">
+				<img class="logo" src="/assets/img/logo.svg" alt="">
 			</div>
 			<div class="col-md-9">
 				<nav class="nav nav-inline right-md">

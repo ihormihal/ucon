@@ -113,6 +113,7 @@ class CategoryController extends Controller
 	 */
 	public function actionUpdate($id, $lang_id = null)
 	{
+        $status = 'edit';
 
 		$lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
 		$model = $this->findModel($id);
@@ -136,26 +137,25 @@ class CategoryController extends Controller
 		}
 
 		if(Yii::$app->request->isPost){
-			$response = ['status' => 'error', 'message' => 'Not updated'];
 			if(
 				$model->load(Yii::$app->request->post()) &&
 				$content->load(Yii::$app->request->post()) &&
 				$model->save() && $content->save()
 			){
-				$response['status'] = 'success';
-				$response['message'] = 'Successfully updated';
-				Yii::$app->response->format = Response::FORMAT_JSON;
-				return $response;
-			}
-		}else{
-			return $this->render('update', [
-                'lang_id' => $lang_id,
-				'model' => $model,
-				'images' => json_encode($images),
-				'languages' => $languages,
-				'content' => $content
-            ]);
+                $status = 'success';
+			}else{
+                $status = 'error';
+            }
 		}
+
+        return $this->render('update', [
+            'status' => $status,
+            'lang_id' => $lang_id,
+            'model' => $model,
+            'images' => json_encode($images),
+            'languages' => $languages,
+            'content' => $content,
+        ]);
 	}
 
 	public function actionUploadImage($id)

@@ -32,7 +32,7 @@ class CatalogAttributeController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'attributes'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -109,7 +109,20 @@ class CatalogAttributeController extends Controller
         return $this->redirect(['index', 'model_name' => $model_name]);
     }
 
+    //for autocomplete
+    public function actionAttributes($type = null, $model_name = null)
+    {
+            if($type === null) $type = 'bool';
+            $attributes = CatalogAttribute::find()->where(['model_name' => $model_name, 'type' => $type])->all();
 
+            $response = [];
+            foreach($attributes as $attribute){
+                $response[] = ['text' => $attribute->name, 'value' => $attribute->id];
+            }
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return $response;
+    }
 
     protected function findModel($id)
     {

@@ -1,6 +1,6 @@
 /*
  * Angular - Directive "im-autocomplete"
- * im-autocomplete - v0.5.2 - 2016-10-21
+ * im-autocomplete - v0.5.5 - 2016-10-21
  * https://github.com/ihormihal/IM-Framework
  * autocomplete.php
  * Ihor Mykhalchenko (http://mycode.in.ua/)
@@ -193,10 +193,6 @@ angular.module('im-autocomplete', [])
 				};
 
 
-				$scope.clear = function(param){
-					console.log(param);
-				};
-
 				if(config.onfocus){
 					textInput.onfocus = function(){
 						$scope.loadResults();
@@ -205,9 +201,9 @@ angular.module('im-autocomplete', [])
 
 				var alreadyLoaded = false;
 				$scope.loadResults = function(val){
-					if(alreadyLoaded && config.onfocus) {
-						updateSelected();
-						return false;
+					if(alreadyLoaded) {
+						updateSelected(true);
+						if(config.onfocus) return false;
 					}
 
 					val = val || '';
@@ -259,6 +255,7 @@ angular.module('im-autocomplete', [])
 						$scope.ngModel = $scope.output;
 					}
 					if(val.length >= parseInt(config.minLength) && !chosen){
+						alreadyLoaded = false;
 						$scope.loadResults(val);
 					}else{
 						$scope.select.results = [];
@@ -299,8 +296,8 @@ angular.module('im-autocomplete', [])
 			'</div>'+
 		'</div>',
 		controller: [
-			'$scope', '$element', '$attrs', '$http', '$filter',
-			function($scope, $element, $attrs, $http, $filter) {
+			'$scope', '$element', '$attrs', '$http', '$filter', '$timeout',
+			function($scope, $element, $attrs, $http, $filter, $timeout) {
 
 				var input = $element[0].getElementsByTagName('input')[0]; //hidden
 				var textInput = $element[0].getElementsByTagName('input')[1]; //for search
@@ -409,16 +406,15 @@ angular.module('im-autocomplete', [])
 
 						$scope.select.selected.push(selected);
 						$scope.select.search = ''; //clear search field
-						updateSelected(true);
+						updateSelected(false);
 
 						$scope.select.focus = false;
-						$scope.select.visible = false;
 						textInput.blur();
 					},
 					remove: function(index){
 						$scope.select.selected.splice(index,1);
 						updateSelected(false);
-						$scope.select.visible = false;
+						alreadyLoaded = false;
 					}
 				};
 
@@ -476,15 +472,24 @@ angular.module('im-autocomplete', [])
 					//cutting selected from dropdown
 					$scope.select.results = temp;
 					if($scope.select.results.length && showResults){
-						$scope.select.visible = true;
+						$timeout(function() {
+							$scope.select.visible = true;
+						}, 0);
+					}else{
+						$timeout(function() {
+							$scope.select.visible = false;
+						}, 0);
 					}
 				};
 
 				var alreadyLoaded = false;
 				$scope.loadResults = function(val){
+
 					if(alreadyLoaded) {
 						updateSelected(true);
+						if(config.onfocus) return false;
 					}
+					
 
 					val = val || '';
 					var getUrl = $scope.url;
@@ -501,7 +506,8 @@ angular.module('im-autocomplete', [])
 					}).then(function(response) {
 						$scope.loading = false;
 						$scope.select.results = response.data;
-						updateSelected(!config.onfocus);
+						updateSelected(!(!preloaded && config.onfocus));
+						preloaded = true;
 						alreadyLoaded = true;
 					}, function(error) {
 						console.log(error);
@@ -514,6 +520,7 @@ angular.module('im-autocomplete', [])
 				}
 
 				//olways update if url-parameter changed
+				var preloaded = false;
 				$scope.$watch('url', function(){
 					alreadyLoaded = false;
 				});
@@ -533,6 +540,7 @@ angular.module('im-autocomplete', [])
 						return false;
 					}
 					if(val.length >= config.minLength){
+						alreadyLoaded = false;
 						//add custom
 						if(config.custom == 'allow'){
 							$scope.addCustom(val);

@@ -49,16 +49,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		<div class="form-group btn-group mt1">
 			<?= Html::submitButton(
-					'<i class="fa fa-check"></i> Update', 
-					['class' => 'btn btn-mt btn-success']
+					'<i class="fa fa-save"></i> Сохранить',
+					['class' => 'btn btn-success ripple']
 			) ?>
 
 			<?php if ($model->id !== 1 || Yii::$app->user->id !== $model->id): ?>
 			<?= Html::a(
-				'<i class="fa fa-trash"></i> Delete', 
+				'<i class="fa fa-trash"></i> Удалить пользователя',
 				['delete', 'id' => $model->id], 
 				[
-					'class' => 'btn btn-mt btn-danger',
+					'class' => 'btn btn-danger ripple',
 					'data' => [
 						'confirm' => 'Are you sure you want to delete this user?',
 						'method' => 'post',

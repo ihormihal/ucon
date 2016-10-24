@@ -140,14 +140,10 @@
 			padding: 0;
 		}
 	}
-	&.tile {
-		margin-top: -$gap;
-		margin-bottom: -$gap;
-		> *[class ^= "col-"] {padding-top: $gap; padding-bottom: $gap;}
-		&.thin {
-			margin-top: -$gap/2;
-			margin-bottom: -$gap/2;
-			> *[class ^= "col-"] {padding-top: $gap/2; padding-bottom: $gap/2;}
+	&.tile, &.tile > *[class ^= "col-"] {
+		padding-top: $gap; padding-bottom: $gap;
+		&.thin, &.thin > *[class ^= "col-"] {
+			padding-top: $gap/2; padding-bottom: $gap/2;
 		}
 	}
 	&.gaprow {

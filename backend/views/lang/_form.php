@@ -34,15 +34,15 @@ use yii\widgets\ActiveForm;
 	<div class="form-group btn-group">
 		
 		<?= Html::submitButton(
-				$model->isNewRecord ? '<i class="fa fa-check"></i> Create' : '<i class="fa fa-check"></i> Update', 
-				['class' => $model->isNewRecord ? 'btn btn-mt btn-primary' : 'btn btn-mt btn-primary']
+				$model->isNewRecord ? '<i class="fa fa-save"></i> Создать язык' : '<i class="fa fa-save"></i> Сохранить',
+				['class' => 'btn btn-success ripple']
 			) 
 		?>
 
 		<?php 
 			if (!$model->isNewRecord){
-				echo Html::a('<i class="fa fa-trash"></i> Delete', ['delete', 'id' => $model->id], [
-					'class' => 'btn btn-mt btn-danger',
+				echo Html::a('<i class="fa fa-trash"></i> Удалить язык', ['delete', 'id' => $model->id], [
+					'class' => 'btn btn-danger ripple',
 					'data' => [
 						'confirm' => 'Are you sure you want to delete this item?',
 						'method' => 'post',

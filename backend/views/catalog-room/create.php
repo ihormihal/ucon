@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 use dosamigos\ckeditor\CKEditor;
 
 
-$this->title = 'Create Room';
+$this->title = 'Новый номер';
 $this->params['breadcrumbs'][] = ['label' => $accommodation->getTitle(), 'url' => ['catalog-accommodation/update', 'id' => $accommodation->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -25,9 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?php
 			$form = ActiveForm::begin([
 			'id' => 'room-create-form',
-			'options' => [
-				'class' => ''
-			]
+			'options' => ['class' => 'active-form']
 		]) ?>
 		<?= $form->field($model, 'author')->hiddenInput(['value'=> 1])->label(false); ?>
 
@@ -49,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			<?php foreach ($languages as $key => $lang): ?>
 				<?php $class = $lang_id == $lang->id ? 'btn-primary' : 'btn-default'; ?>
 
-				<?= Html::a($lang->name, ['create', 'lang_id' => $lang->id], ['class' => 'btn btn-mt '.$class.' ripple']) ?>
+				<?= Html::a($lang->name, ['create', 'lang_id' => $lang->id], ['class' => 'btn '.$class.' ripple']) ?>
 			<?php endforeach ?>
 		</div>
 
@@ -73,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		]) ?>
 
 		<div class="form-group btn-group pt1">
-			<?= Html::submitButton('<i class="fa fa-check"></i> Create', ['class' => 'btn btn-mt btn-success']) ?>
+			<?= Html::submitButton('<i class="fa fa-save"></i> Создать', ['class' => 'btn btn-success ripple']) ?>
 		</div>
 		<?php ActiveForm::end() ?>
 	</div>

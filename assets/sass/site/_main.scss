@@ -354,3 +354,16 @@ header {
 		clear: both;
 	}
 }
+
+.box.removed {
+	background-color: color(lighten);
+}
+
+.im-autocomplete-multiple .selection .item {
+	color: #fff;
+	background-color: $colorPrimary;
+	border-color: $colorPrimary;
+	i {
+		color: #fff;
+	}
+}
