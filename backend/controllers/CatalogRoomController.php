@@ -134,6 +134,9 @@ class CatalogRoomController extends Controller
 					continue;
 				}
 			}else{
+                if(array_key_exists('removed', $item) && $item['removed'] == 1){
+                    continue;
+                }
 				$variant = new CatalogDiscount(['model_name' => 'CatalogRoom', 'object_id' => $id]);
 			}
 			if($variant){
@@ -169,18 +172,20 @@ class CatalogRoomController extends Controller
 	//get AJAX
 	public function actionGetVariants($id, $lang_id = null)
 	{
+        $lang_id === null ? Lang::getCurrent() : $lang_id;
+        
 		$response = ['status' => 'success', 'data' => [], 'message' => 'Empty'];
 		$model = $this->findModel($id);
 		$variants = CatalogVariant::find()->where(['object_id' => $model->id, 'model_name' => 'CatalogRoom'])->all();
 		$response['message'] = 'Found: '.count($variants);
 
 		foreach($variants as $variant){
-			$content = $variant->getContent($lang_id);
+            $variant->lang_id = $lang_id;
 			$response['data'][] = [
 				'id' => $variant->id,
 				'attributes' => CustomHelpers::autocompleteValues($variant->attributes, false),
 				'price' => $variant->price,
-				'description' => $content ? $content->description : '',
+				'description' => $variant->content ? $variant->content->description : '',
 			];
 		}
 
@@ -191,6 +196,8 @@ class CatalogRoomController extends Controller
 	//post AJAX
 	public function actionUpdateVariants($id, $lang_id = null)
 	{
+	    $lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;
+
 		$model = $this->findModel($id); //author setted in accommodation
 		if(!($model->accommodation->author == Yii::$app->user->id || Yii::$app->user->can('contentAccess'))){
 			throw new ForbiddenHttpException();
@@ -209,32 +216,33 @@ class CatalogRoomController extends Controller
 			$variant = null;
 			if(array_key_exists('id', $item)){
 				$variant = CatalogVariant::findOne($item['id']);
+                $variant->lang_id = $lang_id;
 				//if removed -> delete them and continue cycle
                 if(array_key_exists('removed', $item) && $item['removed'] == 1){
+                    $variant->content->delete();
                 	$variant->delete();
-                    $variant->getContent($lang_id)->delete();
                 	continue;
                 }
 			}else{
-				$variant = new CatalogVariant(['model_name' => 'CatalogRoom', 'object_id' => $id]);
+                if(array_key_exists('removed', $item) && $item['removed'] == 1){
+                    continue;
+                }
+				$variant = new CatalogVariant(['model_name' => 'CatalogRoom', 'object_id' => $id, 'lang_id' => $lang_id]);
 			}
 			if($variant){
 				$variant->attributes = json_encode($attributes);
 				$variant->price = floatval($item['price']);
 
-				//lang content
-				$content = $variant->getContent($lang_id);
-				if($content === null){
-					$content = new CatalogVariantLang([
-						'lang_id' => $lang_id,
-						'description' => $item['description'],
-					]);
-				}
-
 				if($variant->save()){
 					//save content
-					$content->object_id = $variant->id;
-					$content->save();
+                    if($variant->content === null){
+                        $variant->content = new CatalogVariantLang([
+                            'lang_id' => $lang_id,
+                            'object_id' => $variant->id,
+                        ]);
+                    }
+                    $variant->content->description = $item['description'];
+					$variant->content->save();
 					$response['status'] = 'success';
 					$response['message'] = 'Variants saved';
 				}else{

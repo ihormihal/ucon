@@ -16,6 +16,8 @@ use Yii;
  */
 class CatalogVariant extends \yii\db\ActiveRecord
 {
+
+    public $lang_id;
     /**
      * @inheritdoc
      */
@@ -54,9 +56,15 @@ class CatalogVariant extends \yii\db\ActiveRecord
     }
 
     //get current language content for VARIANT
-    public function getContent($lang_id = null)
+    public function getContent()
     {
-        $lang_id = ($lang_id === null) ? Lang::getCurrent() : (int)$lang_id;
-        return CatalogVariantLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
+        $lang_id = ($this->lang_id) ? $this->lang_id : Lang::getCurrent();
+        return $this->hasOne(CatalogVariantLang::className(), ['object_id' => 'id'])->where(['lang_id' => $lang_id]);
     }
+
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
 }

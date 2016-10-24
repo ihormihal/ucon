@@ -125,13 +125,16 @@ class CatalogAccommodationController extends Controller
 		foreach ($request as $key => $item){
 			$variant = null;
 			if(array_key_exists('id', $item)){
-				$variant = CatalogDiscount::findOne($item['id']);
+                $variant = CatalogDiscount::findOne($item['id']);
 				//if removed -> delete them and continue cycle
 				if(array_key_exists('removed', $item) && $item['removed'] == 1){
 					$variant->delete();
 					continue;
 				}
 			}else{
+			    if(array_key_exists('removed', $item) && $item['removed'] == 1){
+                    continue;
+                }
 				$variant = new CatalogDiscount(['model_name' => 'CatalogAccommodation', 'object_id' => $id]);
 			}
 			if($variant){

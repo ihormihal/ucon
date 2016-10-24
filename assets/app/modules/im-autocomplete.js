@@ -1,6 +1,6 @@
 /*
  * Angular - Directive "im-autocomplete"
- * im-autocomplete - v0.5.5 - 2016-10-21
+ * im-autocomplete - v0.5.7 - 2016-10-24
  * https://github.com/ihormihal/IM-Framework
  * autocomplete.php
  * Ihor Mykhalchenko (http://mycode.in.ua/)
@@ -176,11 +176,10 @@ angular.module('im-autocomplete', [])
 
 				$scope.$watch('ngModel', function(val){
 					if(val){
-						if(!val.hasOwnProperty('type')){
-							val.type = 'autocomplete';
-							$scope.ngModel = val;
-						}
-						$scope.select.selected = val;
+						$scope.select.selected = {
+							value : val.value,
+							text : val.text
+						};
 						if($scope.select.selected.text){
 							$scope.select.search = $scope.select.selected.text;
 						}
@@ -264,6 +263,7 @@ angular.module('im-autocomplete', [])
 
 				$scope.$watch('select.selected', function(val){
 					input.value = angular.toJson(val);
+					$scope.ngModel.type = 'autocomplete';
 				});
 			}
 		]
@@ -339,7 +339,7 @@ angular.module('im-autocomplete', [])
 				$element[0].onkeyup = function(event) {
 					event.preventDefault();
 					event.stopPropagation()
-					//console.log(event.keyCode);
+					console.log(event.keyCode);
 					//key down
 					if(event.keyCode == 40){
 
@@ -374,7 +374,16 @@ angular.module('im-autocomplete', [])
 					}else if(event.keyCode == 13){
 						if($scope.select.visible){
 							clearTimeout(submitDelay);
-							$scope.select.choose($scope.select.currentIndex);
+							if($scope.select.currentIndex >= 0){
+								$scope.select.choose($scope.select.currentIndex);
+							}
+						}else if(config.custom == 'allow' || config.custom == 'only'){
+							//clearTimeout(submitDelay);
+							//add custom
+							if($scope.select.search.length > 0){
+								$scope.select.selected.push({text: $scope.select.search});
+								$scope.select.search = '';
+							}
 						}
 					}
 					$scope.$apply();

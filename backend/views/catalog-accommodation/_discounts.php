@@ -2,7 +2,7 @@
 use yii\helpers\Url;
 ?>
 <div class="white-bg box mb1" ng-repeat="variant in variants" ng-class="{'removed': variant.removed}">
-	<h4>Период #{{$index+1}} <span class="red" ng-show="variant.removed">(удалено)</span></h4>
+	<h4>Период #{{$index+1}} <span class="red" ng-show="variant.removed">(будет удалено)</span></h4>
 	<div class="row">
 		<div class="col-md-4">
 			<div class="form-group">
