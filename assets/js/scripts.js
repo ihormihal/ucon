@@ -121,6 +121,11 @@ $(document).on('click', '.input-icon i', function() {
 
 $(function() {
 
+	//Dropdown
+	$('.nav-inline .dropdown').imDropdown({
+		hover: true
+	});
+
 	//Simple fancybox
 	$('.fancybox').fancybox({
 		type: 'image',

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 ?>
 
 <div class="form-group btn-group">
-    <?= Html::a('<i class="fa fa-plus"></i> Добавить номер', ['/catalog-room/create', 'accommodation_id' => $accommodation_id], ['class' => 'btn btn-primary ripple']) ?>
+    <?= Html::a('<i class="fa fa-plus"></i> Добавить сервис', ['/catalog-service/create', 'accommodation_id' => $accommodation_id], ['class' => 'btn btn-primary ripple']) ?>
 </div>
 
 <div im-datatable>
@@ -15,20 +15,22 @@ use yii\helpers\Html;
     </div>
     <table class="datatable">
         <thead>
-            <tr>
-                <th data-type="numeric">ID</th>
-                <th>Alias</th>
-                <th data-type="numeric">Published</th>
-            </tr>
+        <tr>
+            <th data-type="numeric">ID</th>
+            <th>Название</th>
+            <th>Стоимость</th>
+            <th data-type="numeric">Published</th>
+        </tr>
         </thead>
         <tbody>
-            <?php foreach ($rooms as $key => $item): ?>
-            <tr data-href="<?= Url::toRoute(['catalog-room/update', 'id' => $item->id, 'lang_id' => $lang_id]) ?>">
+        <?php foreach ($services as $key => $item): ?>
+            <tr data-href="<?= Url::toRoute(['catalog-service/update', 'id' => $item->id, 'lang_id' => $lang_id]) ?>">
                 <td><?= $item->id ?></td>
-                <td><?= $item->alias ?></td>
+                <td><?= $item->content->title ?></td>
+                <td><?= $item->price ?></td>
                 <td><?= $item->published ?></td>
             </tr>
-            <?php endforeach ?>
+        <?php endforeach ?>
         </tbody>
     </table>
 

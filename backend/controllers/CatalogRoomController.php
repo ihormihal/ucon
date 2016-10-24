@@ -27,20 +27,20 @@ use yii\helpers\CustomHelpers;
 /**
  * CatalogRoomController implements the CRUD actions for CatalogRoom model.
  */
-class CatalogRoomController extends Controller
+class CatalogRoomController extends ImageController
 {
 
-	const STATUS_EDIT = 'edit';
-	const STATUS_SUCCESS = 'success';
-	const STATUS_ERROR = 'error';
+	public $modelClass = 'backend\models\CatalogRoom';
 
-	/**
-	 * @inheritdoc
-	 */
-	public function beforeAction($action) {
-		$this->enableCsrfValidation = false;
-		return parent::beforeAction($action);
-	}
+	const STATUS_EDIT = 'edit';
+    const STATUS_SUCCESS = 'success';
+    const STATUS_ERROR = 'error';
+
+
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
 
 	public function behaviors()
 	{
@@ -173,7 +173,7 @@ class CatalogRoomController extends Controller
 	public function actionGetVariants($id, $lang_id = null)
 	{
         $lang_id === null ? Lang::getCurrent() : $lang_id;
-        
+
 		$response = ['status' => 'success', 'data' => [], 'message' => 'Empty'];
 		$model = $this->findModel($id);
 		$variants = CatalogVariant::find()->where(['object_id' => $model->id, 'model_name' => 'CatalogRoom'])->all();
@@ -282,7 +282,7 @@ class CatalogRoomController extends Controller
 		}
 
 		if($success){
-			return $this->redirect(['update', 'id' => $model->id, 'lang_id' => Lang::getCurrent()]);
+			return $this->redirect(['update', 'id' => $model->id, 'lang_id' => $model->lang_id]);
 		}else{
 			return $this->render('create', [
 				'model' => $model,
@@ -369,56 +369,6 @@ class CatalogRoomController extends Controller
 		return $response;
 	}
 
-	public function actionUploadImage($id)
-	{
-		$model = $this->findModel($id);
-		$response = ['status' => 'error', 'message' => 'No image'];
-
-		if (Yii::$app->request->isPost) {
-			$response['status'] = 'success';
-
-			$model->image = \yii\web\UploadedFile::getInstanceByName('file');
-
-			if($model->image){
-				$path = Yii::getAlias('@root/content/upload/').$model->image->baseName.'.'.$model->image->extension;
-				$model->image->saveAs($path);
-				$image = $model->attachImage($path);
-
-
-				$response['data'] = [
-					'id' => $image->id,
-					'src' => $image->getUrl(), 
-					'thumb' => $image->getUrl('250x250')
-				];
-				$response['status'] = 'success';
-				$response['message'] = 'Image successfully uploaded';
-			}
-		}
-
-		Yii::$app->response->format = Response::FORMAT_JSON;
-		return $response;
-	}
-
-	public function actionDeleteImage($id)
-	{
-
-		$model = $this->findModel($id);
-		$data = Yii::$app->request->post();
-		$response = ['status' => 'error', 'message' => 'No image'];
-
-		//delete images
-		foreach ($model->getImages() as $image){
-			if($image->id == $data['id']){
-				$model->removeImage($image);
-				$response['status'] = 'success';
-				$response['message'] = 'Image deleted';
-			}
-		}
-
-		Yii::$app->response->format = Response::FORMAT_JSON;
-		return $response;
-	}
-
 	/**
 	 * Deletes an existing CatalogRoom model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -442,21 +392,5 @@ class CatalogRoomController extends Controller
 		$model->delete();
 
 		return $this->redirect(['catalog-accommodation/update', 'id' => $accommodation_id, 'lang_id' => Lang::getCurrent()]);
-	}
-
-	/**
-	 * Finds the CatalogRoom model based on its primary key value.
-	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param integer $id
-	 * @return CatalogRoom the loaded model
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	protected function findModel($id)
-	{
-		if (($model = CatalogRoom::findOne($id)) !== null) {
-			return $model;
-		} else {
-			throw new NotFoundHttpException('The requested page does not exist.');
-		}
 	}
 }

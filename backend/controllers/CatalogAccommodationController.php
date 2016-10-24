@@ -9,6 +9,7 @@ use backend\models\CatalogAccommodation;
 use backend\models\CatalogAccommodationLang;
 use backend\models\Lang;
 use backend\models\CatalogRoom;
+use backend\models\CatalogService;
 
 use backend\models\CatalogDiscount;
 
@@ -26,17 +27,20 @@ use yii\helpers\Json;
 use yii\web\Response;
 
 
-class CatalogAccommodationController extends Controller
+class CatalogAccommodationController extends ImageController
 {
 
-	const STATUS_EDIT = 'edit';
-	const STATUS_SUCCESS = 'success';
-	const STATUS_ERROR = 'error';
+	public $modelClass = 'backend\models\CatalogAccommodation';
 
-	public function beforeAction($action) {
-		$this->enableCsrfValidation = false;
-		return parent::beforeAction($action);
-	}
+	const STATUS_EDIT = 'edit';
+    const STATUS_SUCCESS = 'success';
+    const STATUS_ERROR = 'error';
+
+
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
 
 	public function behaviors()
 	{
@@ -132,12 +136,15 @@ class CatalogAccommodationController extends Controller
 					continue;
 				}
 			}else{
+			    //if id is empty -> create record
+                //continue if it has flag removed
 			    if(array_key_exists('removed', $item) && $item['removed'] == 1){
                     continue;
                 }
 				$variant = new CatalogDiscount(['model_name' => 'CatalogAccommodation', 'object_id' => $id]);
 			}
 			if($variant){
+			    //check if period_to < period_from
 				$period_from = \DateTime::createFromFormat('Y-m-d', $item['period_from']);
 				$period_to = \DateTime::createFromFormat('Y-m-d', $item['period_to']);
 				if($period_from > $period_to){
@@ -145,15 +152,18 @@ class CatalogAccommodationController extends Controller
 					$response['status'] = 'error';
 					continue;
 				}
+				//set data to model
 				$variant->period_from = $item['period_from'];
 				$variant->period_to = $item['period_to'];
 				$variant->discount = floatval($item['discount']);
+                //save model
 				if($variant->save()){
 					$response['status'] = 'success';
 					$response['message'] = 'Variants saved';
 				}else{
 					$response['status'] = 'error';
 					$response['message'] = 'Saving error...';
+                    //break if error
 					break;
 				}
 			}
@@ -212,7 +222,10 @@ class CatalogAccommodationController extends Controller
 		$languages = Lang::find()->where(['published' => 1])->all();
 
 		//rooms 
-		$collection = CatalogRoom::find()->where(['accommodation_id' => $id])->all();
+		$rooms = CatalogRoom::find()->where(['accommodation_id' => $id])->all();
+
+        //services
+        $services = CatalogService::find()->where(['accommodation_id' => $id])->all();
 
 
 		$images = [];
@@ -261,7 +274,8 @@ class CatalogAccommodationController extends Controller
 			'model' => $model,
 			'images' => json_encode($images),
 			'languages' => $languages,
-			'collection' => $collection,
+			'rooms' => $rooms,
+            'services' => $services,
 			'users' => $users,
 		]);
 	}
@@ -292,56 +306,6 @@ class CatalogAccommodationController extends Controller
 		return $response;
 	}
 
-	public function actionUploadImage($id)
-	{
-		$model = $this->findModel($id);
-		$response = ['status' => 'error', 'message' => 'No image'];
-
-		if (Yii::$app->request->isPost) {
-			$response['status'] = 'success';
-
-			$model->image = \yii\web\UploadedFile::getInstanceByName('file');
-
-			if($model->image){
-				$path = Yii::getAlias('@root/content/upload/').$model->image->baseName.'.'.$model->image->extension;
-				$model->image->saveAs($path);
-				$image = $model->attachImage($path);
-
-
-				$response['data'] = [
-					'id' => $image->id,
-					'src' => $image->getUrl(), 
-					'thumb' => $image->getUrl('250x250')
-				];
-				$response['status'] = 'success';
-				$response['message'] = 'Image successfully uploaded';
-			}
-		}
-
-		Yii::$app->response->format = Response::FORMAT_JSON;
-		return $response;
-	}
-
-	public function actionDeleteImage($id)
-	{
-
-		$model = $this->findModel($id);
-		$data = Yii::$app->request->post();
-		$response = ['status' => 'error', 'message' => 'No image'];
-
-		//delete images
-		foreach ($model->getImages() as $image){
-			if($image->id == $data['id']){
-				$model->removeImage($image);
-				$response['status'] = 'success';
-				$response['message'] = 'Image deleted';
-			}
-		}
-
-		Yii::$app->response->format = Response::FORMAT_JSON;
-		return $response;
-	}
-
 
 	public function actionDelete($id)
 	{
@@ -360,19 +324,4 @@ class CatalogAccommodationController extends Controller
 		return $this->redirect(['index']);
 	}
 
-	/**
-	 * Finds the CatalogHotels model based on its primary key value.
-	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param integer $id
-	 * @return CatalogHotels the loaded model
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	protected function findModel($id)
-	{
-		if (($model = CatalogAccommodation::findOne($id)) !== null) {
-			return $model;
-		} else {
-			throw new NotFoundHttpException('The requested page does not exist.');
-		}
-	}
 }

@@ -23,20 +23,21 @@ use yii\web\Response;
 /**
  * CategoryController implements the CRUD actions for Category model.
  */
-class CategoryController extends Controller
+class CategoryController extends ImageController
 {
 
+	public $modelClass = 'backend\models\Category';
+
 	const STATUS_EDIT = 'edit';
-	const STATUS_SUCCESS = 'success';
-	const STATUS_ERROR = 'error';
-	
-	/**
-	 * @inheritdoc
-	 */
-	public function beforeAction($action) {
-		$this->enableCsrfValidation = false;
-	    return parent::beforeAction($action);
-	}
+    const STATUS_SUCCESS = 'success';
+    const STATUS_ERROR = 'error';
+
+
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
+
 
 	public function behaviors()
 	{
@@ -45,7 +46,14 @@ class CategoryController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'upload-image', 'delete-image'],
+                        'actions' => [
+                        	'index', 
+                        	'view', 
+                        	'create', 
+                        	'update', 
+                        	'upload-image', 
+                        	'delete-image'
+                        ],
                         'allow' => true,
                         'roles' => ['adminAccess'],
                     ],
@@ -156,64 +164,5 @@ class CategoryController extends Controller
             'images' => json_encode($images),
             'languages' => $languages,
         ]);
-	}
-
-	public function actionUploadImage($id)
-	{
-		$model = $this->findModel($id);
-		$response = ['status' => 'error', 'message' => 'No image'];
-
-		if (Yii::$app->request->isPost) {
-			$response['status'] = 'success';
-
-			$model->image = \yii\web\UploadedFile::getInstanceByName('file');
-
-			if($model->image){
-				$path = Yii::getAlias('@webroot/upload/').$model->image->baseName.'.'.$model->image->extension;
-				$model->image->saveAs($path);
-				$image = $model->attachImage($path);
-
-
-				$response['data'] = [
-					'id' => $image->id,
-					'src' => $image->getUrl(), 
-					'thumb' => $image->getUrl('250x250')
-				];
-				$response['status'] = 'success';
-				$response['message'] = 'Image successfully uploaded';
-			}
-		}
-
-		Yii::$app->response->format = Response::FORMAT_JSON;
-		return $response;
-	}
-
-	public function actionDeleteImage($id)
-	{
-
-		$model = $this->findModel($id);
-		$data = Yii::$app->request->post();
-		$response = ['status' => 'error', 'message' => 'No image'];
-
-        //delete images
-        foreach ($model->getImages() as $image){
-			if($image->id == $data['id']){
-				$model->removeImage($image);
-				$response['status'] = 'success';
-				$response['message'] = 'Image deleted';
-			}
-        }
-
-        Yii::$app->response->format = Response::FORMAT_JSON;
-		return $response;
-	}
-
-	protected function findModel($id)
-	{
-		if (($model = Category::findOne($id)) !== null) {
-			return $model;
-		} else {
-			throw new NotFoundHttpException('The requested page does not exist.');
-		}
 	}
 }

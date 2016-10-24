@@ -112,6 +112,7 @@ $this->params['breadcrumbs'][] = $model->getTitle();
 			<li><a href="javascript:void(0)">Фото</a></li>
 			<li><a href="javascript:void(0)">Атрибуты</a></li>
 			<li><a href="javascript:void(0)">Номера</a></li>
+			<li><a href="javascript:void(0)">Сервисы</a></li>
 			<li><a href="javascript:void(0)">Сезонные скидки</a></li>
 		</ul>
 
@@ -162,9 +163,17 @@ $this->params['breadcrumbs'][] = $model->getTitle();
 			<div class="tab fade">
 				<div class="mt1"></div>
 				<?= $this->render('_rooms', [
-					'collection' => $collection, 
+					'rooms' => $rooms,
 					'accommodation_id' => $model->id, 
 					'lang_id' => $model->lang_id]
+				) ?>
+			</div>
+			<div class="tab fade">
+				<div class="mt1"></div>
+				<?= $this->render('_services', [
+						'services' => $services,
+						'accommodation_id' => $model->id,
+						'lang_id' => $model->lang_id]
 				) ?>
 			</div>
 			<div class="tab fade" 
