@@ -171,9 +171,6 @@ $this->params['breadcrumbs'][] = $model->getTitle($lang_id);
 				catalog-variants="<?= Url::toRoute(['get-discounts', 'id' => $model->id]) ?>"
 				update-url="<?= Url::toRoute(['update-discounts', 'id' => $model->id]) ?>"
 				>
-				<?php 
-				print_r($model->discount);
-				 ?>
 				<div class="mt1"></div>
 				<?= $this->render('_discounts', ['model' => $model]) ?>
 			</div>

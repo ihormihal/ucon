@@ -14,14 +14,14 @@ use Yii;
  * @property double $price
  * @property integer $published
  */
-class PriceVariant extends \yii\db\ActiveRecord
+class CatalogVariant extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'price_variant';
+        return 'catalog_variant';
     }
 
     /**
@@ -51,5 +51,12 @@ class PriceVariant extends \yii\db\ActiveRecord
             'price' => 'Price',
             'published' => 'Published',
         ];
+    }
+
+    //get current language content for VARIANT
+    public function getContent($lang_id = null)
+    {
+        $lang_id = ($lang_id === null) ? Lang::getCurrent() : (int)$lang_id;
+        return CatalogVariantLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
     }
 }

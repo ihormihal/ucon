@@ -13,7 +13,8 @@ use backend\models\CatalogDiscount;
 
 use backend\models\CatalogAttribute;
 use backend\models\CatalogAttributeValue;
-use backend\models\PriceVariant;
+use backend\models\CatalogVariant;
+use backend\models\CatalogVariantLang;
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -29,6 +30,10 @@ use yii\helpers\CustomHelpers;
  */
 class CatalogRoomController extends Controller
 {
+
+	const STATUS_EDIT = 'edit';
+	const STATUS_SUCCESS = 'success';
+	const STATUS_ERROR = 'error';
 
 	/**
 	 * @inheritdoc
@@ -54,8 +59,8 @@ class CatalogRoomController extends Controller
 							//ajax
 							'get-discounts', 
 							'update-discounts',
-							'get-prices', 
-							'update-prices', 
+							'get-variants', 
+							'update-variants', 
 							'upload-image', 
 							'delete-image'
 						],
@@ -133,8 +138,10 @@ class CatalogRoomController extends Controller
 				$variant = new CatalogDiscount(['model_name' => 'CatalogRoom', 'object_id' => $id]);
 			}
 			if($variant){
+
 				$period_from = \DateTime::createFromFormat('Y-m-d', $item['period_from']);
 				$period_to = \DateTime::createFromFormat('Y-m-d', $item['period_to']);
+
 				if($period_from > $period_to){
 					$response['message'] = 'Invalid period';
 					$response['status'] = 'error';
@@ -143,6 +150,7 @@ class CatalogRoomController extends Controller
 				$variant->period_from = $item['period_from'];
 				$variant->period_to = $item['period_to'];
 				$variant->discount = floatval($item['discount']);
+
 				if($variant->save()){
 					$response['status'] = 'success';
 					$response['message'] = 'Variants saved';
@@ -160,18 +168,20 @@ class CatalogRoomController extends Controller
 	}
 
 	//get AJAX
-	public function actionGetPrices($id)
+	public function actionGetVariants($id, $lang_id = null)
 	{
 		$response = ['status' => 'success', 'data' => [], 'message' => 'Empty'];
 		$model = $this->findModel($id);
-		$variants = PriceVariant::find()->where(['object_id' => $model->id, 'model_name' => 'CatalogRoom'])->all();
+		$variants = CatalogVariant::find()->where(['object_id' => $model->id, 'model_name' => 'CatalogRoom'])->all();
 		$response['message'] = 'Found: '.count($variants);
 
 		foreach($variants as $variant){
+			$content = $variant->getContent($lang_id);
 			$response['data'][] = [
 				'id' => $variant->id,
 				'attributes' => CustomHelpers::autocompleteValues($variant->attributes, false),
 				'price' => $variant->price,
+				'description' => $content ? $content->description : '',
 			];
 		}
 
@@ -180,7 +190,7 @@ class CatalogRoomController extends Controller
 	}
 
 	//post AJAX
-	public function actionUpdatePrices($id)
+	public function actionUpdateVariants($id, $lang_id = null)
 	{
 		$model = $this->findModel($id); //author setted in accommodation
 		if(!($model->accommodation->author == Yii::$app->user->id || Yii::$app->user->can('contentAccess'))){
@@ -199,19 +209,32 @@ class CatalogRoomController extends Controller
 			}
 			$variant = null;
 			if(array_key_exists('id', $item)){
-				$variant = PriceVariant::findOne($item['id']);
+				$variant = CatalogVariant::findOne($item['id']);
 				//if removed -> delete them and continue cycle
                 if(array_key_exists('removed', $item) && $item['removed'] == 1){
                 	$variant->delete();
                 	continue;
                 }
 			}else{
-				$variant = new PriceVariant(['model_name' => 'CatalogRoom', 'object_id' => $id]);
+				$variant = new CatalogVariant(['model_name' => 'CatalogRoom', 'object_id' => $id]);
 			}
 			if($variant){
 				$variant->attributes = json_encode($attributes);
 				$variant->price = floatval($item['price']);
+
+				//lang content
+				$content = $variant->getContent($lang_id);
+				if($content === null){
+					$content = new CatalogVariantLang([
+						'lang_id' => $lang_id,
+						'description' => $item['description'],
+					]);
+				}
+
 				if($variant->save()){
+					//save content
+					$content->object_id = $variant->id;
+					$content->save();
 					$response['status'] = 'success';
 					$response['message'] = 'Variants saved';
 				}else{
@@ -294,7 +317,7 @@ class CatalogRoomController extends Controller
 			}
 		}
 
-		$status = 'edit';
+		$status = self::STATUS_EDIT;
 
 		if(Yii::$app->request->isPost){
 
@@ -315,9 +338,9 @@ class CatalogRoomController extends Controller
 				$content->load(Yii::$app->request->post()) &&
 				$model->save() && $content->save()
 			){
-				$status = 'success';
+				$status = self::STATUS_SUCCESS;
 			}else{
-				$status = 'error';
+				$status = self::STATUS_ERROR;
 			}
 
 		}

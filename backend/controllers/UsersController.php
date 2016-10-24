@@ -15,6 +15,11 @@ use yii\filters\AccessControl;
  */
 class UsersController extends Controller
 {
+
+	const STATUS_EDIT = 'edit';
+	const STATUS_SUCCESS = 'success';
+	const STATUS_ERROR = 'error';
+
 	/**
 	 * @inheritdoc
 	 */
@@ -75,13 +80,13 @@ class UsersController extends Controller
 			'role' => $user->role
 		]);
 
-		$status = 'edit';
+		$status = self::STATUS_EDIT;
 
 		if(Yii::$app->request->isPost){
-			if ($model->load(Yii::$app->request->post()) && $user = $model->save()) {
-				$status = 'success';
+			if ($model->load(Yii::$app->request->post()) && $model->save()) {
+				$status = self::STATUS_SUCCESS;
 			} else {
-				$status = 'error';
+				$status = self::STATUS_ERROR;
 			}
 		}
 

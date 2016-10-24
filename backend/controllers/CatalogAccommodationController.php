@@ -33,6 +33,10 @@ use yii\web\Response;
 class CatalogAccommodationController extends Controller
 {
 
+	const STATUS_EDIT = 'edit';
+	const STATUS_SUCCESS = 'success';
+	const STATUS_ERROR = 'error';
+
 	public function beforeAction($action) {
 		$this->enableCsrfValidation = false;
 		return parent::beforeAction($action);
@@ -194,7 +198,7 @@ class CatalogAccommodationController extends Controller
 
 	public function actionUpdate($id, $lang_id = null)
 	{
-		$status = 'edit';
+		$status = self::STATUS_EDIT;
 
 		$lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
 		$model = $this->findModel($id);
@@ -202,13 +206,6 @@ class CatalogAccommodationController extends Controller
 		if(!($model->author == Yii::$app->user->id || Yii::$app->user->can('contentAccess'))){
 			throw new ForbiddenHttpException();
 		}
-
-		// if(
-		// 	!(Yii::$app->user->can('authorAccess', ['model' => $model]) || Yii::$app->user->can('contentAccess'))
-		// ){
-		// 	throw new ForbiddenHttpException();
-		// }
-
 
 		$users = User::find()->orderBy('id')->all();
 		$languages = Lang::find()->where(['published' => 1])->all();
@@ -257,9 +254,9 @@ class CatalogAccommodationController extends Controller
 				$content->load(Yii::$app->request->post()) &&
 				$model->save() && $content->save()
 			){
-				$status = 'success';
+				$status = self::STATUS_SUCCESS;
 			}else{
-				$status = 'error';
+				$status = self::STATUS_ERROR;
 			}
 		}
 		return $this->render('update', [

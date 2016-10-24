@@ -20,6 +20,10 @@ use yii\web\Response;
 class CatalogAttributeController extends Controller
 {
 
+    const STATUS_EDIT = 'edit';
+    const STATUS_SUCCESS = 'success';
+    const STATUS_ERROR = 'error';
+
     public function beforeAction($action) {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
@@ -81,13 +85,13 @@ class CatalogAttributeController extends Controller
         $model = $this->findModel($id);
         $category = Category::findOne(['model_name' => $model->model_name]);
 
-        $status = 'edit';
+        $status = self::STATUS_EDIT;
 
         if(Yii::$app->request->isPost){
             if($model->load(Yii::$app->request->post()) && $model->save()){
-                $status = 'success';
+                $status = self::STATUS_SUCCESS;
             }else{
-                $status = 'error';
+                $status = self::STATUS_ERROR;
             }
         }
 

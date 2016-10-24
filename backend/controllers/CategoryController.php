@@ -25,6 +25,11 @@ use yii\web\Response;
  */
 class CategoryController extends Controller
 {
+
+	const STATUS_EDIT = 'edit';
+	const STATUS_SUCCESS = 'success';
+	const STATUS_ERROR = 'error';
+	
 	/**
 	 * @inheritdoc
 	 */
@@ -113,7 +118,7 @@ class CategoryController extends Controller
 	 */
 	public function actionUpdate($id, $lang_id = null)
 	{
-        $status = 'edit';
+        $status = self::STATUS_EDIT;
 
 		$lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
 		$model = $this->findModel($id);
@@ -142,9 +147,9 @@ class CategoryController extends Controller
 				$content->load(Yii::$app->request->post()) &&
 				$model->save() && $content->save()
 			){
-                $status = 'success';
+                $status = self::STATUS_SUCCESS;
 			}else{
-                $status = 'error';
+                $status = self::STATUS_ERROR;
             }
 		}
 

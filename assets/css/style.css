@@ -2801,7 +2801,7 @@ select, .select, .selection, input[type=text], input[type=email], input[type=pas
   padding: 0;
   outline: none;
   background-color: transparent;
-  min-width: 140px;
+  min-width: 120px;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;

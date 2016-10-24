@@ -14,6 +14,11 @@ use yii\filters\VerbFilter;
  */
 class LangController extends Controller
 {
+
+	const STATUS_EDIT = 'edit';
+	const STATUS_SUCCESS = 'success';
+	const STATUS_ERROR = 'error';
+
 	/**
 	 * @inheritdoc
 	 */
@@ -72,10 +77,10 @@ class LangController extends Controller
 			
 			//set default to "0" for others
 			$langs = Lang::find()->where(['default = :default and id != :id', ['default' => 1, 'id' => $id]])->all();
-            foreach ($langs as $lang) {
-                $lang->default = 0;
-                $lang->save();
-            }
+			foreach ($langs as $lang) {
+				$lang->default = 0;
+				$lang->save();
+			}
 
 			return $this->redirect(['update', 'id' => $model->id]);
 		} else {
@@ -95,21 +100,27 @@ class LangController extends Controller
 	{
 		$model = $this->findModel($id);
 
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+		$status = self::STATUS_EDIT;
 
-			//set default to "0" for others
-			$langs = Lang::find()->where(['default' => 1])->andWhere(['!=', 'id', $id])->all();
-            foreach ($langs as $lang) {
-                $lang->default = 0;
-                $lang->save();
-            }
-
-			return $this->redirect(['update', 'id' => $model->id]);
-		} else {
-			return $this->render('update', [
-				'model' => $model,
-			]);
+		if(Yii::$app->request->isPost){
+			if ($model->load(Yii::$app->request->post()) && $model->save()) {
+				//set default to "0" for others
+				$langs = Lang::find()->where(['default' => 1])->andWhere(['!=', 'id', $id])->all();
+				foreach ($langs as $lang) {
+					$lang->default = 0;
+					$lang->save();
+				}
+				$status = self::STATUS_SUCCESS;
+			} else {
+				$status = self::STATUS_ERROR;
+			}
 		}
+
+		return $this->render('update', [
+			'model' => $model,
+			'status' => $status
+		]);
+
 	}
 
 	/**

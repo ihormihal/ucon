@@ -139,8 +139,8 @@ $this->params['breadcrumbs'][] = 'Редактировать номер';
 				<?= $this->render('_attributes', ['form' => $form, 'attributes' => $model->attrs]) ?>
 			</div>
 			<div class="tab fade" 
-				catalog-variants="<?= Url::toRoute(['get-prices', 'id' => $model->id]) ?>"
-				update-url="<?= Url::toRoute(['update-prices', 'id' => $model->id]) ?>"
+				catalog-variants="<?= Url::toRoute(['get-variants', 'id' => $model->id, 'lang_id' => $lang_id]) ?>"
+				update-url="<?= Url::toRoute(['update-variants', 'id' => $model->id, 'lang_id' => $lang_id]) ?>"
 				>
 				<div class="mt1"></div>
 				<?= $this->render('_variants', []) ?>
@@ -150,9 +150,11 @@ $this->params['breadcrumbs'][] = 'Редактировать номер';
 				update-url="<?= Url::toRoute(['update-discounts', 'id' => $model->id]) ?>"
 				>
 				<div class="mt1"></div>
-				<?php 
-				print_r($model->discounts);
-				 ?>
+				<?php if ($model->discount): ?>
+				<div class="mb1 box orange-bg">
+					<span class="thin">Скидка на сегодня:</span> <?= $model->discount->discount ?>%
+				</div>
+				<?php endif ?>
 				<?= $this->render('_discounts', ['model' => $model]) ?>
 			</div>
 		</div>

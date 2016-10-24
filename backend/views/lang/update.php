@@ -11,9 +11,18 @@ $this->params['breadcrumbs'][] = ['label' => 'Языки', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->name;
 ?>
 
-<section class="pt1 pb1 green-bg">
+<section class="pt1 pb1 <?= $status ?>-bg">
 	<div class="container wide">
-		<span class="thin">Статус:</span> редактирование языка
+		<span class="thin">Статус:</span>
+		<?php
+		if($status == 'edit'){
+			echo 'редактирование';
+		}elseif($status == 'success'){
+			echo 'успешно обновлено';
+		}elseif($status == 'error'){
+			echo 'ошибка сохранения';
+		}
+		?>
 	</div>
 </section>
 
