@@ -12,7 +12,6 @@ use backend\models\CatalogAccommodation;
 use backend\models\CatalogDiscount;
 
 use backend\models\CatalogAttribute;
-use backend\models\CatalogAttributeValue;
 use backend\models\CatalogVariant;
 use backend\models\CatalogVariantLang;
 
@@ -213,6 +212,7 @@ class CatalogRoomController extends Controller
 				//if removed -> delete them and continue cycle
                 if(array_key_exists('removed', $item) && $item['removed'] == 1){
                 	$variant->delete();
+                    $variant->getContent($lang_id)->delete();
                 	continue;
                 }
 			}else{
@@ -252,33 +252,32 @@ class CatalogRoomController extends Controller
 
 	public function actionCreate($accommodation_id = null, $lang_id = null)
 	{
-		$lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
+        $accommodation = CatalogAccommodation::findOne(['id' => $accommodation_id]);
+        if($accommodation === null){
+            throw new NotFoundHttpException('Accommodation not found for this room');
+        }
+
+        $model = new CatalogRoom(['accommodation_id' => $accommodation_id]);
+        $model->lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;
+
 		$languages = Lang::find()->where(['published' => 1])->all();
 
-		$accommodation_id = ($accommodation_id === null) ? 0 : (int)$accommodation_id;
-		$accommodation = CatalogAccommodation::findOne(['id' => $accommodation_id]);
-		if($accommodation === null) return false; //accommodation not found
-
-		$model = new CatalogRoom(['accommodation_id' => $accommodation_id]);
-		$content = new CatalogRoomLang(['lang_id' => $lang_id]);
+		$model->content = new CatalogRoomLang(['lang_id' => $lang_id]);
 
 		$success = false;
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			$content->object_id = $model->id;
-			if($content->load(Yii::$app->request->post()) && $content->save()){
+			$model->content->object_id = $model->id;
+			if($model->content->load(Yii::$app->request->post()) && $model->content->save()){
 				$success = true;
 			}
 		}
 
 		if($success){
-			return $this->redirect(['update', 'id' => $model->id, 'lang_id' => $this->defaultLang()]);
+			return $this->redirect(['update', 'id' => $model->id, 'lang_id' => Lang::getCurrent()]);
 		}else{
 			return $this->render('create', [
 				'model' => $model,
-				'content' => $content,
-				'accommodation' => $accommodation,
-				'lang_id' => $lang_id,
 				'languages' => $languages
 			]);
 		}
@@ -294,17 +293,13 @@ class CatalogRoomController extends Controller
 
 	public function actionUpdate($id, $lang_id = null)
 	{
-		$lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
+        $model = $this->findModel($id);
+        $model->lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;
+        if($model->content === null){
+            $model->content = new CatalogRoomLang(['object_id' => $id, 'lang_id' => $lang_id]);
+        }
 
-		$model = $this->findModel($id);
 		$languages = Lang::find()->where(['published' => 1])->all();
-		$content = $model->getContent($lang_id);
-
-		$accommodation = CatalogAccommodation::findOne(['id' => $model->accommodation_id]);
-
-		if($content === null){
-			$content = new CatalogRoomLang(['object_id' => $id, 'lang_id' => $lang_id]);
-		}
 
 		$images = [];
 		foreach ($model->getImages() as $image) {
@@ -335,8 +330,8 @@ class CatalogRoomController extends Controller
 
 			if(
 				$model->load(Yii::$app->request->post()) &&
-				$content->load(Yii::$app->request->post()) &&
-				$model->save() && $content->save()
+                $model->content->load(Yii::$app->request->post()) &&
+				$model->save() && $model->content->save()
 			){
 				$status = self::STATUS_SUCCESS;
 			}else{
@@ -346,12 +341,9 @@ class CatalogRoomController extends Controller
 		}
 		return $this->render('update', [
 			'status' => $status,
-			'lang_id' => $lang_id,
 			'model' => $model,
 			'images' => json_encode($images),
-			'languages' => $languages,
-			'content' => $content,
-			'accommodation' => $accommodation
+			'languages' => $languages
 		]);
 	}
 
@@ -441,7 +433,7 @@ class CatalogRoomController extends Controller
 		//delete category
 		$model->delete();
 
-		return $this->redirect(['catalog-accommodation/update', 'id' => $accommodation_id, 'lang_id' => $this->defaultLang()]);
+		return $this->redirect(['catalog-accommodation/update', 'id' => $accommodation_id, 'lang_id' => Lang::getCurrent()]);
 	}
 
 	/**
@@ -457,14 +449,6 @@ class CatalogRoomController extends Controller
 			return $model;
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');
-		}
-	}
-	protected function defaultLang()
-	{
-		if (($model = Lang::find()->where(['default' => 1, 'published' => 1])->one()) !== null) {
-			return $model->id;
-		} else {
-			return 1;
 		}
 	}
 }

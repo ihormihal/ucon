@@ -8,15 +8,11 @@ use backend\models\Category;
 use backend\models\CatalogAccommodation;
 use backend\models\CatalogAccommodationLang;
 use backend\models\Lang;
-use backend\models\CatalogAttribute;
-use backend\models\CatalogAttributeValue;
 use backend\models\CatalogRoom;
 
 use backend\models\CatalogDiscount;
 
 use common\models\User;
-
-use yii\data\ActiveDataProvider;
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -169,16 +165,17 @@ class CatalogAccommodationController extends Controller
 	public function actionCreate($lang_id = null)
 	{
 		$model = new CatalogAccommodation(['author' => Yii::$app->user->id]);
-		$lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
+        $model->lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;
+
 		$languages = Lang::find()->where(['published' => 1])->all();
-		$content = new CatalogAccommodationLang(['lang_id' => $lang_id]);
+		$model->content = new CatalogAccommodationLang(['lang_id' => $lang_id]);
 		$users = User::find()->orderBy('id')->all();
 
 		$success = false;
 
 		if($model->load(Yii::$app->request->post()) && $model->save()){
-			$content->object_id = $model->id;
-			if($content->load(Yii::$app->request->post()) && $content->save()){
+            $model->content->object_id = $model->id;
+			if($model->content->load(Yii::$app->request->post()) && $model->content->save()){
 				$success = true;
 			}
 		}
@@ -187,8 +184,6 @@ class CatalogAccommodationController extends Controller
 		}else{
 			return $this->render('create', [
 				'model' => $model,
-				'content' => $content,
-				'lang_id' => $lang_id,
 				'languages' => $languages,
 				'users' => $users,
 			]);
@@ -198,25 +193,24 @@ class CatalogAccommodationController extends Controller
 
 	public function actionUpdate($id, $lang_id = null)
 	{
-		$status = self::STATUS_EDIT;
 
-		$lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
 		$model = $this->findModel($id);
+        $model->lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;
 
-		if(!($model->author == Yii::$app->user->id || Yii::$app->user->can('contentAccess'))){
-			throw new ForbiddenHttpException();
-		}
+        if(!($model->author == Yii::$app->user->id || Yii::$app->user->can('contentAccess'))){
+            throw new ForbiddenHttpException();
+        }
+
+        if($model->content === null){
+            $model->content = new CatalogAccommodationLang(['object_id' => $id, 'lang_id' => $lang_id]);
+        }
 
 		$users = User::find()->orderBy('id')->all();
 		$languages = Lang::find()->where(['published' => 1])->all();
-		$content = $model->getContent($lang_id);
 
 		//rooms 
 		$collection = CatalogRoom::find()->where(['accommodation_id' => $id])->all();
 
-		if($content === null){
-			$content = new CatalogAccommodationLang(['object_id' => $id, 'lang_id' => $lang_id]);
-		}
 
 		$images = [];
 		foreach ($model->getImages() as $image) {
@@ -233,8 +227,8 @@ class CatalogAccommodationController extends Controller
 		//CatalogAccommodationLang
 		//Attributes
 
+        $status = self::STATUS_EDIT;
 		if(Yii::$app->request->isPost){
-			//$response = ['status' => 'error', 'message' => 'Not updated'];
 
 			//save attributes
 			if(isset($_POST['Attributes'])){
@@ -251,8 +245,8 @@ class CatalogAccommodationController extends Controller
 
 			if(
 				$model->load(Yii::$app->request->post()) &&
-				$content->load(Yii::$app->request->post()) &&
-				$model->save() && $content->save()
+                $model->content->load(Yii::$app->request->post()) &&
+				$model->save() && $model->content->save()
 			){
 				$status = self::STATUS_SUCCESS;
 			}else{
@@ -261,11 +255,9 @@ class CatalogAccommodationController extends Controller
 		}
 		return $this->render('update', [
 			'status' => $status,
-			'lang_id' => $lang_id,
 			'model' => $model,
 			'images' => json_encode($images),
 			'languages' => $languages,
-			'content' => $content,
 			'collection' => $collection,
 			'users' => $users,
 		]);
@@ -378,14 +370,6 @@ class CatalogAccommodationController extends Controller
 			return $model;
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');
-		}
-	}
-	protected function defaultLang()
-	{
-		if (($model = Lang::find()->where(['default' => 1, 'published' => 1])->one()) !== null) {
-			return $model->id;
-		} else {
-			return 1;
 		}
 	}
 }

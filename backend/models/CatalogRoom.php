@@ -18,6 +18,7 @@ class CatalogRoom extends \yii\db\ActiveRecord
 	 */
 
 	public $image;
+    public $lang_id;
 
 	public static function tableName()
 	{
@@ -68,24 +69,29 @@ class CatalogRoom extends \yii\db\ActiveRecord
 		return $this->hasOne(CatalogAccommodation::className(), ['id' => 'accommodation_id']);
 	}
 
-	//get ROOM title for current language
-	public function getTitle($lang_id = null)
-	{
-		$lang_id = ($lang_id === null) ? Lang::getCurrent() : (int)$lang_id;
-		$content = CatalogRoomLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
-		if($content){
-			return $content->title;
-		}else{
-			return $this->id;
-		}
-	}
+    //get ROOM title for current language
+    public function getTitle()
+    {
+        $lang_id = ($this->lang_id) ? $this->lang_id : Lang::getCurrent();
+        $content = CatalogRoomLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
+        if($content){
+            return $content->title;
+        }else{
+            return 'Room #'.$this->id;
+        }
+    }
 
-	//get current language content for ROOM
-	public function getContent($lang_id = null)
-	{
-		$lang_id = ($lang_id === null) ? Lang::getCurrent() : (int)$lang_id;
-		return CatalogRoomLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
-	}
+    //get current language content for ROOM
+    public function getContent()
+    {
+        $lang_id = ($this->lang_id) ? $this->lang_id : Lang::getCurrent();
+        return $this->hasOne(CatalogRoomLang::className(), ['object_id' => 'id'])->where(['lang_id' => $lang_id]);
+    }
+
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
 
 	//get languages content for ROOM
 	public function getContents()

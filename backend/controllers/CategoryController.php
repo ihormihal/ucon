@@ -118,13 +118,13 @@ class CategoryController extends Controller
 	 */
 	public function actionUpdate($id, $lang_id = null)
 	{
-        $status = self::STATUS_EDIT;
-
-		$lang_id = $lang_id === null ? $this->defaultLang() : $lang_id;
-		$model = $this->findModel($id);
+        $model = $this->findModel($id);
+        $model->lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;; //for content
+        if($model->content === null){
+            $model->content = new CategoryLang(['object_id' => $model->id, 'lang_id' => $model->lang_id]);
+        }
 
 		$languages = Lang::find()->where(['published' => 1])->all();
-		$content = $model->getContent($lang_id);
 
 		$images = [];
 		foreach ($model->getImages() as $image) {
@@ -137,15 +137,12 @@ class CategoryController extends Controller
 			}
 		}
 
-		if($content === null){
-			$content = new CategoryLang(['category_id' => $id, 'lang_id' => $lang_id]);
-		}
+        $status = self::STATUS_EDIT;
 
 		if(Yii::$app->request->isPost){
 			if(
-				$model->load(Yii::$app->request->post()) &&
-				$content->load(Yii::$app->request->post()) &&
-				$model->save() && $content->save()
+				$model->load(Yii::$app->request->post()) && $model->content->load(Yii::$app->request->post()) &&
+				$model->save() && $model->content->save()
 			){
                 $status = self::STATUS_SUCCESS;
 			}else{
@@ -155,11 +152,9 @@ class CategoryController extends Controller
 
         return $this->render('update', [
             'status' => $status,
-            'lang_id' => $lang_id,
             'model' => $model,
             'images' => json_encode($images),
             'languages' => $languages,
-            'content' => $content,
         ]);
 	}
 
@@ -213,25 +208,6 @@ class CategoryController extends Controller
 		return $response;
 	}
 
-	
-	public function actionDelete($id)
-	{
-
-		$model = $this->findModel($id);
-        //delete languages
-        foreach ($model->contents as $key => $content) {
-            $content->delete();
-        }
-        //delete images
-        foreach ($model->getImages() as $image){
-            $model->removeImage($image);
-        }
-        //delete category
-        $model->delete();
-
-        return $this->redirect(['index']);
-	}
-
 	protected function findModel($id)
 	{
 		if (($model = Category::findOne($id)) !== null) {
@@ -240,12 +216,4 @@ class CategoryController extends Controller
 			throw new NotFoundHttpException('The requested page does not exist.');
 		}
 	}
-	protected function defaultLang()
-    {
-        if (($model = Lang::find()->where(['default' => 1, 'published' => 1])->one()) !== null) {
-            return $model->id;
-        } else {
-            return 1;
-        }
-    }
 }

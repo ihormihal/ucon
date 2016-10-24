@@ -11,7 +11,7 @@ use dosamigos\ckeditor\CKEditor;
 /* @var $model backend\models\CatalogSanatoriums */
 
 $this->params['breadcrumbs'][] = ['label' => 'Отели', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $model->getTitle($lang_id);
+$this->params['breadcrumbs'][] = $model->getTitle();
 ?>
 
 <section class="pt1 pb1 <?= $status ?>-bg">
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $model->getTitle($lang_id);
 			<div class="col-md-8">
 				<div class="btn-group">
 					<?php foreach ($languages as $key => $lang): ?>
-						<?php $class = $lang_id == $lang->id ? 'btn-primary' : 'btn-default'; ?>
+						<?php $class = $model->lang_id == $lang->id ? 'btn-primary' : 'btn-default'; ?>
 
 						<?= Html::a($lang->name, ['update', 'id' => $model->id, 'lang_id' => $lang->id], ['class' => 'btn '.$class.' ripple']) ?>
 					<?php endforeach ?>
@@ -119,21 +119,21 @@ $this->params['breadcrumbs'][] = $model->getTitle($lang_id);
 
 		<div class="tab-content" id="tabs-content">
 			<div class="tab fade active in">
-				<?= $form->field($content, 'lang_id')->hiddenInput()->label(false); ?>
+				<?= $form->field($model->content, 'lang_id')->hiddenInput()->label(false); ?>
 				<div class="row">
 					<div class="col-md-9">
-						<?= $form->field($content, 'title')->textInput(['class' => 'full default']) ?>
+						<?= $form->field($model->content, 'title')->textInput(['class' => 'full default']) ?>
 					</div>
 					<div class="col-md-3">
-						<?= $form->field($content, 'published', [
+						<?= $form->field($model->content, 'published', [
 							'options' => ['class' => 'form-group no-label'],
 							'template' => '<div class="checkbox"><label>{input}<span class="check"></span>{label}</label>{error}</div>'
 						])->checkbox([],false) ?>
 					</div>
 				</div>
 
-				<?= $form->field($content, 'description')->textArea(['class' => 'full default', 'rows' => '3']) ?>
-				<?= $form->field($content, 'content')->widget(CKEditor::className(), [
+				<?= $form->field($model->content, 'description')->textArea(['class' => 'full default', 'rows' => '3']) ?>
+				<?= $form->field($model->content, 'content')->widget(CKEditor::className(), [
 					'options' => ['rows' => 6],
 					'preset' => 'standart'
 				]) ?>
@@ -164,7 +164,7 @@ $this->params['breadcrumbs'][] = $model->getTitle($lang_id);
 				<?= $this->render('_rooms', [
 					'collection' => $collection, 
 					'accommodation_id' => $model->id, 
-					'lang_id' => $lang_id]
+					'lang_id' => $model->lang_id]
 				) ?>
 			</div>
 			<div class="tab fade" 

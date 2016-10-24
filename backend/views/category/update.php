@@ -9,8 +9,7 @@ use dosamigos\ckeditor\CKEditor;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Category */
 
-//$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $content->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->getTitle($model->lang_id), 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 
@@ -34,6 +33,27 @@ $this->params['breadcrumbs'][] = 'Update';
 	'id' => 'category-update-form'
 ]) ?>
 
+<section class="white-bg">
+	<div class="container wide">
+		<div class="row tile thin">
+			<div class="col-md-8">
+				<div class="btn-group">
+					<?php foreach ($languages as $key => $lang): ?>
+						<?php $class = $model->lang_id == $lang->id ? 'btn-primary' : 'btn-default'; ?>
+
+						<?= Html::a($lang->name, ['update', 'id' => $model->id, 'lang_id' => $lang->id], ['class' => 'btn '.$class.' ripple']) ?>
+					<?php endforeach ?>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="btn-group text-md-right">
+					<?= Html::submitButton('<i class="fa fa-save"></i> Сохранить', ['class' => 'btn btn-success ripple']) ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 
 <section class="mt2">
 	<div class="container wide">
@@ -52,7 +72,7 @@ $this->params['breadcrumbs'][] = 'Update';
 			</div>
 		</div>
 
-		<section class="images mt1 mb2">
+		<section class="images mt1">
 			<upload-images
 				template="/assets/app/templates/upload-images-mini.html"
 				url="<?= Url::toRoute(['upload-image', 'id' => $model->id]) ?>"
@@ -65,7 +85,6 @@ $this->params['breadcrumbs'][] = 'Update';
 			>
 			</upload-images>
 		</section>
-
 		
 	</div>
 </section>
@@ -73,37 +92,25 @@ $this->params['breadcrumbs'][] = 'Update';
 <section class="pt1 pb1">
 	<div class="container wide">
 
-		<div class="form-group btn-group">
-			<?php foreach ($languages as $key => $lang): ?>
-				<?php $class = $lang_id == $lang->id ? 'btn-primary' : 'btn-default'; ?>
-
-				<?= Html::a($lang->name, ['update', 'id' => $model->id, 'lang_id' => $lang->id], ['class' => 'btn '.$class.' ripple']) ?>
-			<?php endforeach ?>
-		</div>
-		
-		<?= $form->field($content, 'lang_id')->hiddenInput(['value'=> $content->lang_id])->label(false); ?>
+		<?= $form->field($model->content, 'lang_id')->hiddenInput()->label(false); ?>
 		<div class="row">
 			<div class="col-md-9">
-				<?= $form->field($content, 'title')->textInput(['class' => 'full default']) ?>
+				<?= $form->field($model->content, 'title')->textInput(['class' => 'full default']) ?>
 			</div>
 			<div class="col-md-3">
-				<?= $form->field($content, 'published', [
+				<?= $form->field($model->content, 'published', [
 					'options' => ['class' => 'form-group no-label'],
 					'template' => '<div class="checkbox"><label>{input}<span class="check"></span>{label}</label>{error}</div>'
 				])->checkbox([],false) ?>
 			</div>
 		</div>
 
-		<?= $form->field($content, 'description')->textArea(['class' => 'full default', 'rows' => '3']) ?>
-		<?= $form->field($content, 'content')->widget(CKEditor::className(), [
+		<?= $form->field($model->content, 'description')->textArea(['class' => 'full default', 'rows' => '3']) ?>
+		<?= $form->field($model->content, 'content')->widget(CKEditor::className(), [
 			'options' => ['rows' => 6],
 			'preset' => 'standart'
 		]) ?>
 
-
-		<div class="form-group">
-			<?= Html::submitButton('<i class="fa fa-save"></i> Сохранить', ['class' => 'btn btn-success ripple']) ?>
-		</div>
 
 	</div>
 </section>

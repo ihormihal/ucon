@@ -19,6 +19,7 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
 	 */
 
 	public $image;
+    public $lang_id;
 
 	public static function tableName()
 	{
@@ -64,9 +65,9 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
 	}
 
 	//get ACCOMMODATION title for current language
-	public function getTitle($lang_id = null)
+	public function getTitle()
 	{
-		$lang_id = ($lang_id === null) ? Lang::getCurrent() : (int)$lang_id;
+        $lang_id = ($this->lang_id) ? $this->lang_id : Lang::getCurrent();
 		$content = CatalogAccommodationLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
 		if($content){
 			return $content->title;
@@ -75,14 +76,17 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
 		}
 	}
 
-	//get current language content for ACCOMMODATION
-	public function getContent($lang_id = null)
-	{
-		$lang_id = ($lang_id === null) ? Lang::getCurrent() : (int)$lang_id;
-		return CatalogAccommodationLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
+    //get current language content for ACCOMMODATION
+    public function getContent()
+    {
+        $lang_id = ($this->lang_id) ? $this->lang_id : Lang::getCurrent();
+        return $this->hasOne(CatalogAccommodationLang::className(), ['object_id' => 'id'])->where(['lang_id' => $lang_id]);
+    }
 
-		//return $this->hasOne(CatalogAccommodationLang::className(), ['object_id' => 'id'])->where(['lang_id' => $lang_id]);
-	}
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
 
 	//get languages content for ACCOMMODATION
 	public function getContents()

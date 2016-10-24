@@ -32,8 +32,8 @@ class CategoryLang extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['lang_id', 'category_id', 'title'], 'required'],
-            [['lang_id', 'category_id', 'published'], 'integer'],
+            [['lang_id', 'object_id', 'title'], 'required'],
+            [['lang_id', 'object_id', 'published'], 'integer'],
             [['content'], 'string'],
             [['title', 'description'], 'string', 'max' => 255],
             [['lang_id'], 'exist', 'skipOnError' => true, 'targetClass' => Lang::className(), 'targetAttribute' => ['lang_id' => 'id']],
@@ -48,7 +48,7 @@ class CategoryLang extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'lang_id' => 'Lang ID',
-            'category_id' => 'Category ID',
+            'object_id' => 'Category ID',
             'title' => 'Title',
             'description' => 'Description',
             'content' => 'Content',

@@ -18,6 +18,7 @@ class Category extends \yii\db\ActiveRecord
 	 */
 
 	public $image;
+    public $lang_id;
 
 	public static function tableName()
 	{
@@ -61,25 +62,28 @@ class Category extends \yii\db\ActiveRecord
 		];
 	}
 
-	//langs
 
-	public function getTitle($lang_id = null)
+	public function getTitle()
 	{
-		$lang_id = ($lang_id === null) ? 2 : (int)$lang_id;
-		$content = CategoryLang::findOne(['category_id' => $this->id, 'lang_id' => $lang_id]);
+        $lang_id = ($this->lang_id) ? $this->lang_id : Lang::getCurrent();
+		$content = CategoryLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
 		if($content){
 			return $content->title;
 		}else{
-			return $this->id;
+			return 'Category #'.$this->id;
 		}
 	}
 
-	public function getContent($lang_id = null)
-	{
-		//$lang_id = ($lang_id === null)? Lang::getCurrent()->id: $lang_id;
-		$lang_id = ($lang_id === null) ? 1 : (int)$lang_id;
-		return CategoryLang::findOne(['category_id' => $this->id, 'lang_id' => $lang_id]);
-	}
+    public function getContent()
+    {
+        $lang_id = ($this->lang_id) ? $this->lang_id : Lang::getCurrent();
+        return $this->hasOne(CategoryLang::className(), ['object_id' => 'id'])->where(['lang_id' => $lang_id]);
+    }
+
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
 
 	public function getContents()
 	{

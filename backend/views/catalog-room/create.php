@@ -8,7 +8,7 @@ use dosamigos\ckeditor\CKEditor;
 
 
 $this->title = 'Новый номер';
-$this->params['breadcrumbs'][] = ['label' => $accommodation->getTitle(), 'url' => ['catalog-accommodation/update', 'id' => $accommodation->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->accommodation->getTitle(), 'url' => ['catalog-accommodation/update', 'id' => $model->accommodation->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -19,14 +19,33 @@ $this->params['breadcrumbs'][] = $this->title;
 	</div>
 </section>
 
+<?php $form = ActiveForm::begin(['id' => 'room-create-form']) ?>
+
+<section class="white-bg">
+	<div class="container wide">
+		<div class="row tile thin">
+			<div class="col-md-8">
+				<div class="btn-group">
+					<?php foreach ($languages as $key => $lang): ?>
+						<?php $class = $model->lang_id == $lang->id ? 'btn-primary' : 'btn-default'; ?>
+
+						<?= Html::a($lang->name, ['create', 'lang_id' => $lang->id, 'accommodation_id' => $model->accommodation->id], ['class' => 'btn '.$class.' ripple']) ?>
+					<?php endforeach ?>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="btn-group text-md-right">
+					<?= Html::submitButton('<i class="fa fa-save"></i> Создать', ['class' => 'btn btn-success ripple']) ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 <section class="pt1 pb1">
 	<div class="container wide">
 		<h1><?= Html::encode($this->title) ?></h1>
-		<?php
-			$form = ActiveForm::begin([
-			'id' => 'room-create-form',
-			'options' => ['class' => 'active-form']
-		]) ?>
+
 		<?= $form->field($model, 'author')->hiddenInput(['value'=> 1])->label(false); ?>
 
 		<div class="row">
@@ -43,36 +62,26 @@ $this->params['breadcrumbs'][] = $this->title;
 			</div>
 		</div>
 
-		<div class="form-group btn-group mt2">
-			<?php foreach ($languages as $key => $lang): ?>
-				<?php $class = $lang_id == $lang->id ? 'btn-primary' : 'btn-default'; ?>
-
-				<?= Html::a($lang->name, ['create', 'lang_id' => $lang->id], ['class' => 'btn '.$class.' ripple']) ?>
-			<?php endforeach ?>
-		</div>
-
-		<?= $form->field($content, 'lang_id')->hiddenInput()->label(false); ?>
+		<?= $form->field($model->content, 'lang_id')->hiddenInput()->label(false); ?>
 		<div class="row">
 			<div class="col-md-9">
-				<?= $form->field($content, 'title')->textInput(['class' => 'full default', 'ng-model' => 'toalias']) ?>
+				<?= $form->field($model->content, 'title')->textInput(['class' => 'full default', 'ng-model' => 'toalias']) ?>
 			</div>
 			<div class="col-md-3">
-				<?= $form->field($content, 'published', [
+				<?= $form->field($model->content, 'published', [
 					'options' => ['class' => 'form-group no-label'],
 					'template' => '<div class="checkbox"><label>{input}<span class="check"></span>{label}</label>{error}</div>'
 				])->checkbox([],false) ?>
 			</div>
 		</div>
 
-		<?= $form->field($content, 'description')->textArea(['class' => 'full default', 'rows' => '3']) ?>
-		<?= $form->field($content, 'content')->widget(CKEditor::className(), [
+		<?= $form->field($model->content, 'description')->textArea(['class' => 'full default', 'rows' => '3']) ?>
+		<?= $form->field($model->content, 'content')->widget(CKEditor::className(), [
 			'options' => ['rows' => 6],
 			'preset' => 'standart'
 		]) ?>
 
-		<div class="form-group btn-group pt1">
-			<?= Html::submitButton('<i class="fa fa-save"></i> Создать', ['class' => 'btn btn-success ripple']) ?>
-		</div>
-		<?php ActiveForm::end() ?>
 	</div>
 </section>
+
+<?php ActiveForm::end() ?>

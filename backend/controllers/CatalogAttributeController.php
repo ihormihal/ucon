@@ -7,8 +7,6 @@ use Yii;
 use backend\models\Category;
 use backend\models\CatalogAttribute;
 
-use yii\data\ActiveDataProvider;
-
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
