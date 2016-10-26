@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 ?>
-<div class="pt3 pb3 text-center">
+<div class="pt2 pb2 text-center">
 	<h2><?= Yii::t('translate','Rooms') ?></h2>
 </div>
 <div class="row tile">

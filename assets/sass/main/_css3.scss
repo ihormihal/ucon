@@ -1,158 +1,166 @@
 @mixin no-select {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 @mixin border-radius($radius: 0.5em) {
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-  border-radius: $radius;
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin blur($radius: 5px) {
+	-webkit-filter: blur($radius);
+	-moz-filter: blur($radius);
+	-o-filter: blur($radius);
+	-ms-filter: blur($radius);
+	filter: blur($radius);
 }
 
 @mixin linear-gradient($top, $bottom){
-  background: $top; /* Old browsers */
-  background: -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  $top 0%,$bottom 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  $top 0%,$bottom 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
-  //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+	background: $top; /* Old browsers */
+	background: -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  $top 0%,$bottom 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  $top 0%,$bottom 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
+	//filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
 
 @mixin linear-gradient-double($to, $from){
-  background-image: -webkit-gradient(linear, left top, left bottom, from($to), to($to)), -webkit-gradient(linear, left top, left bottom, from($from), to($from));
-  background-image: -webkit-linear-gradient($to, $to), -webkit-linear-gradient($from, $from);
-  background-image: -o-linear-gradient($to, $to), -o-linear-gradient($from, $from);
-  background-image: linear-gradient($to, $to), linear-gradient($from, $from);
+	background-image: -webkit-gradient(linear, left top, left bottom, from($to), to($to)), -webkit-gradient(linear, left top, left bottom, from($from), to($from));
+	background-image: -webkit-linear-gradient($to, $to), -webkit-linear-gradient($from, $from);
+	background-image: -o-linear-gradient($to, $to), -o-linear-gradient($from, $from);
+	background-image: linear-gradient($to, $to), linear-gradient($from, $from);
 }
 
 @mixin no-transition($property) {
-  -webkit-transition-#{$property}: none;
-  -moz-transition-#{$property}: none;
-  -o-transition-#{$property}: none;
-  transition-#{$property}: none;
+	-webkit-transition-#{$property}: none;
+	-moz-transition-#{$property}: none;
+	-o-transition-#{$property}: none;
+	transition-#{$property}: none;
 }
 
 @mixin transition-delay($time) {
-  -moz-transition-delay: $time;
-  -o-transition-delay: $time;
-  -webkit-transition-delay: $time;
-  transition-delay: $time;
+	-moz-transition-delay: $time;
+	-o-transition-delay: $time;
+	-webkit-transition-delay: $time;
+	transition-delay: $time;
 }
 
 @mixin transition-duration($time) {
-  -moz-transition-duration: $time;
-  -o-transition-duration: $time;
-  -webkit-transition-duration: $time;
-  transition-duration: $time;
+	-moz-transition-duration: $time;
+	-o-transition-duration: $time;
+	-webkit-transition-duration: $time;
+	transition-duration: $time;
 }
 
 @mixin transition-property($property) {
-  -moz-transition-property: $property;
-  -o-transition-property: $property;
-  -webkit-transition-property: $property;
-  transition-property: $property;
+	-moz-transition-property: $property;
+	-o-transition-property: $property;
+	-webkit-transition-property: $property;
+	transition-property: $property;
 }
 
 @mixin animation-duration($time) {
-  -moz-animation-duration: $time;
-  -o-animation-duration: $time;
-  -webkit-animation-duration: $time;
-  animation-duration: $time;
+	-moz-animation-duration: $time;
+	-o-animation-duration: $time;
+	-webkit-animation-duration: $time;
+	animation-duration: $time;
 }
 
 @mixin animation-iteration-count($value) {
-  -moz-animation-iteration-count: $value;
-  -webkit-animation-iteration-count: $value;
-  animation-iteration-count: $value;
+	-moz-animation-iteration-count: $value;
+	-webkit-animation-iteration-count: $value;
+	animation-iteration-count: $value;
 }
 
 @mixin animation-name($value) {
-  -moz-animation-name: $value;
-  -webkit-animation-name: $value;
-  animation-name: $value;
+	-moz-animation-name: $value;
+	-webkit-animation-name: $value;
+	animation-name: $value;
 }
 
 @mixin animation-timing-function($value) {
-  -moz-animation-timing-function: $value;
-  -webkit-animation-timing-function: $value;
-  animation-timing-function: $value;
+	-moz-animation-timing-function: $value;
+	-webkit-animation-timing-function: $value;
+	animation-timing-function: $value;
 }
 
 @mixin background-size($args...){
-  background-size: $args;
-  -webkit-background-size: $args;
+	background-size: $args;
+	-webkit-background-size: $args;
 }
 
 @mixin transition($args...) {
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-  transition: $args;
+	-webkit-transition: $args;
+	-moz-transition: $args;
+	-ms-transition: $args;
+	-o-transition: $args;
+	transition: $args;
 }
 
 @mixin box-shadow($shadow...) {
-  -webkit-box-shadow: $shadow;
-  -moz-box-shadow: $shadow;
-  box-shadow: $shadow;
+	-webkit-box-shadow: $shadow;
+	-moz-box-shadow: $shadow;
+	box-shadow: $shadow;
 }
 
 @mixin transform($transforms) {
-  -moz-transform: $transforms;
-  -o-transform: $transforms;
-  -ms-transform: $transforms;
-  -webkit-transform: $transforms;
-  transform: $transforms;
+	-moz-transform: $transforms;
+	-o-transform: $transforms;
+	-ms-transform: $transforms;
+	-webkit-transform: $transforms;
+	transform: $transforms;
 }
 
 @mixin opacity($opacity) {
-  opacity: $opacity;
-  $opacity-ie: $opacity * 100;
-  filter: alpha(opacity=$opacity-ie); //IE8
+	opacity: $opacity;
+	$opacity-ie: $opacity * 100;
+	filter: alpha(opacity=$opacity-ie); //IE8
 }
 
 @mixin flexbox {
-  display: flex;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: -moz-flex;
+	display: flex;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: -moz-flex;
 }
 
 @mixin placeholder {
-  ::-webkit-input-placeholder {@content}
-  :-moz-placeholder           {@content}
-  ::-moz-placeholder          {@content}
-  :-ms-input-placeholder      {@content}  
+	::-webkit-input-placeholder {@content}
+	:-moz-placeholder           {@content}
+	::-moz-placeholder          {@content}
+	:-ms-input-placeholder      {@content}  
 }
 
 @mixin keyframes($animation-name) {
-    @-webkit-keyframes #{$animation-name} {
-        @content;
-    }
-    @-moz-keyframes #{$animation-name} {
-        @content;
-    }  
-    @-ms-keyframes #{$animation-name} {
-        @content;
-    }
-    @-o-keyframes #{$animation-name} {
-        @content;
-    }  
-    @keyframes #{$animation-name} {
-        @content;
-    }
+		@-webkit-keyframes #{$animation-name} {
+				@content;
+		}
+		@-moz-keyframes #{$animation-name} {
+				@content;
+		}  
+		@-ms-keyframes #{$animation-name} {
+				@content;
+		}
+		@-o-keyframes #{$animation-name} {
+				@content;
+		}  
+		@keyframes #{$animation-name} {
+				@content;
+		}
 }
 
 @mixin animation($str) {
-  -webkit-animation: #{$str};
-  -moz-animation: #{$str};
-  -ms-animation: #{$str};
-  -o-animation: #{$str};
-  animation: #{$str};      
+	-webkit-animation: #{$str};
+	-moz-animation: #{$str};
+	-ms-animation: #{$str};
+	-o-animation: #{$str};
+	animation: #{$str};      
 }

@@ -7,7 +7,7 @@ $this->title = $model->content['title'];
 $this->params['breadcrumbs'][] = ['label' => 'Hotels', 'url' => ['catalog-accommodation/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<section class="main-bg pt1 pb1">
+<section class="page-header pt1 pb1">
     <div class="container wide">
         <div class="row">
             <div class="col-md-6">

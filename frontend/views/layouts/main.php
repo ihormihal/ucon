@@ -36,7 +36,7 @@ $menuItems = [
 	</head>
 	<body ng-app="app">
 		<?php $this->beginBody() ?>
-		<header>
+		<header class="shadow-1">
 			<?= $this->render('main/_navbar', ['menuItems' => $menuItems]); ?>
 		</header>
 		<main ng-controller="mainController">

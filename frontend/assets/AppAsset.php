@@ -19,7 +19,8 @@ class AppAsset extends AssetBundle
         'assets/plugins/toastr/toastr.min.css',
         'assets/plugins/fotorama/fotorama.css',
         'assets/css/style.css',
-        'assets/css/animate.css'
+        'assets/css/animate.css',
+        'assets/css/fade-slider.css',
     ];
     public $js = [
         'http://maps.google.com/maps/api/js?key=AIzaSyCtgv6ZsLiaUTE0xlRioaFXkGxcTfmXcQc&sensor=false',
