@@ -14,6 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-md-6">
                 <h1 class="white"><?= Html::encode($this->title) ?></h1>
+                <div class="stars">
+					<?php for ($i = 0; $i < $model->stars; $i++): ?>
+						<i class="fa fa-star"></i>
+					<?php endfor ?>
+				</div>
             </div>
             <div class="col-md-6">
                 <div class="white lh1 right-md">

@@ -37,8 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
 				<thead>
 					<tr>
 						<th data-type="numeric">ID</th>
-						<th>Alias</th>
+						<th>Title</th>
 						<th data-type="numeric">Author</th>
+						<th>Stars</th>
 						<th data-type="numeric">Published</th>
 					</tr>
 				</thead>
@@ -46,8 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
 					<?php foreach ($collection as $key => $item): ?>
 					<tr data-href="<?= Url::toRoute(['update', 'id' => $item->id, 'lang_id' => $lang->id]) ?>">
 						<td><?= $item->id ?></td>
-						<td><?= $item->alias ?></td>
+						<td><?= $item->content->title ?></td>
 						<td><?= $item->author ?></td>
+						<td>
+							<?php for ($i = 0; $i < $item->stars; $i++): ?>
+								<i class="fa fa-star"></i>
+							<?php endfor ?>
+						</td>
 						<td><?= $item->published ?></td>
 					</tr>
 					<?php endforeach ?>

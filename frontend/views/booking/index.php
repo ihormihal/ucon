@@ -48,9 +48,9 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="col-md-8">
 				<h3 class="title"><?= $room->accommodation->content['title'] ?>
 					<span class="stars">
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
-						<i class="fa fa-star"></i>
+						<?php for ($i = 0; $i < $room->accommodation->stars; $i++): ?>
+							<i class="fa fa-star"></i>
+						<?php endfor ?>
 					</span>
 				</h3>
 				<div class="details">

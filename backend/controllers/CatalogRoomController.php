@@ -149,8 +149,8 @@ class CatalogRoomController extends ImageController
 					$response['status'] = 'error';
 					continue;
 				}
-				$variant->period_from = $item['period_from'];
-				$variant->period_to = $item['period_to'];
+				$variant->period_from = $period_from->format('Y-m-d');
+				$variant->period_to = $period_to->format('Y-m-d');
 				$variant->discount = floatval($item['discount']);
 
 				if($variant->save()){

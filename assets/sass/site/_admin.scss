@@ -48,3 +48,41 @@ html.admin, html.admin body {
 		color: #fff;
 	}
 }
+
+header {
+	.notifications {
+		margin-top: 8px;
+		.note {
+			margin-right: $gap;
+			display: inline-block;
+			height: 32px;
+			width: 32px;
+			line-height: 32px;
+			text-align: center;
+			position: relative;
+			color: color(dark);
+			background-color: color(lighten);
+			@include border-radius(50%);
+			@include transition(background-color 0.3s ease);
+			&:after {
+				content: attr(data-count);
+				display: block;
+				position: absolute;
+				top: -3px;
+				right: -3px;
+				padding: 0 4px;
+				height: 15px;
+				line-height: 15px;
+				vertical-align: middle;
+				font-size: 11px;
+				color: #fff;
+				background-color: color(deep-orange);
+				@include border-radius(50%);
+			}
+			&:hover {
+				color: #fff;
+				background-color: $colorPrimary;
+			}
+		}
+	}
+}

@@ -13,6 +13,9 @@ return [
 	'book' => 'Book',
 	'buy' => 'Buy',
 	'choose' => 'Choose',
+	'choose_room' => 'Choose room',
+
+
 	'day' => 'day',
 	'reviews' => 'reviews',
 

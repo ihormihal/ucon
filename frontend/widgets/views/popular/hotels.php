@@ -14,6 +14,11 @@ use yii\helpers\Url;
 			<div class="card-box room shadow-2 shadow-3-hover">
 				<div class="header image hover-scale">
 					<?= Html::img($hotel->getImage()->getUrl('500x300'));?>
+					<div class="stars">
+						<?php for ($i = 0; $i < $hotel->stars; $i++): ?>
+							<i class="fa fa-star"></i>
+						<?php endfor ?>
+					</div>
 				</div>
 				<div class="content">
 					<div class="box">
@@ -48,7 +53,7 @@ use yii\helpers\Url;
 						<p class="grey"><?= $hotel->content['description'] ?></p>
 					</div>
 					<div class="actions">
-						<?= Html::a(Yii::t('translate','choose'), ['catalog-accommodation/view', 'id' => $hotel->id], ['class' => 'btn btn-flat btn-success']) ?>
+						<?= Html::a(Yii::t('translate','choose_room'), ['catalog-accommodation/view', 'id' => $hotel->id], ['class' => 'btn btn-flat btn-success']) ?>
 					</div>
 				</div>
 			</div>

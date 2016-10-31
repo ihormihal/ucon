@@ -21,16 +21,17 @@
 			margin-left: ($i / $columns)*100%;
 		}
 	}
-
-	//ширина колонки 20%
-	.col-#{$prefix}-five {
-		width : 20%;
-		padding-top: 0;
-		padding-bottom: 0;
-	}
-	//смещение колонок 20%
-	.col-#{$prefix}-offset-five {
-		margin-left: 20%;
+	@for $i from 1 through 10 {
+		//ширина колонки
+		.col-#{$prefix}-ten-#{$i} {
+			width : ($i / 10)*100%;
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+		//смещение колонок
+		.col-#{$prefix}-ten-offset-#{$i} {
+			margin-left: ($i / 10)*100%;
+		}
 	}
 
 	//показываем для экранов меньше $prefix

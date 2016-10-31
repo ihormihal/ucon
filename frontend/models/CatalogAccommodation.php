@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $alias
  * @property integer $author
+ * @property integer $stars
  * @property integer $published
  */
 class CatalogAccommodation extends \yii\db\ActiveRecord
@@ -32,7 +33,7 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
 	{
 		return [
 			[['alias', 'author'], 'required'],
-			[['author', 'published'], 'integer'],
+			[['author', 'stars', 'published'], 'integer'],
 			[['alias'], 'string', 'max' => 255],
 		];
 	}
@@ -46,6 +47,7 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
 			'id' => 'ID',
 			'alias' => 'Alias',
 			'author' => 'Author',
+			'stars' => 'Stars',
 			'published' => 'Published',
 			'contents' => 'Contents',
 			'attrs' => 'Attributes'

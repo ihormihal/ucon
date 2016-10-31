@@ -1,6 +1,6 @@
 /*
  * Angular - Directive "im-datepicker"
- * im-datepicker - v0.0.1 - 2016-10-23
+ * im-datepicker - v0.1.0 - 2016-10-31
  * https://github.com/ihormihal/IM-Framework
  * datepicker.php
  * Ihor Mykhalchenko (http://mycode.in.ua/)
@@ -54,6 +54,58 @@ angular.module('im-datepicker', [])
 		transclude: true,
 		link: function($scope, $element, $attrs, $ctrl, $transclude) {
 
+			var convertDateString = function(string, inputFormat, viewFormat){
+				inputFormat = inputFormat.toLowerCase();
+				viewFormat = viewFormat.toLowerCase();
+				if (inputFormat.length !== 10 || viewFormat.length !== 10) {
+					console.log('invalid date format!');
+					return new Date(string);
+				}
+				var re = /([^(d|m|y)])/g;
+				var divider = re.exec(inputFormat)[0];
+				var splitted_format = inputFormat.split(divider);
+				var indexes = {
+					day: inputFormat.indexOf('dd'),
+					month: inputFormat.indexOf('mm'),
+					year: inputFormat.indexOf('yyyy')
+				};
+				var date = {
+					day: string.substr(indexes.day, 2),
+					month: string.substr(indexes.month, 2),
+					year: string.substr(indexes.year, 4)
+				};
+				return viewFormat.replace('dd',date.day).replace('mm',date.month).replace('yyyy',date.year);
+			};
+
+			var getDMY = function(string, format) {
+				format = format.toLowerCase();
+				if (format.length !== 10) {
+					console.log('invalid date format!');
+					return false;
+				}
+
+				var re = /([^(d|m|y)])/g;
+				var divider = re.exec(format)[0];
+				var splitted_format = format.split(divider);
+				var indexes = {
+					day: format.indexOf('dd'),
+					month: format.indexOf('mm'),
+					year: format.indexOf('yyyy')
+				};
+				var date = {
+					day: string.substr(indexes.day, 2),
+					month: string.substr(indexes.month, 2),
+					year: string.substr(indexes.year, 4)
+				}
+
+				return {
+					day: parseInt(date.day),
+					month: parseInt(date.month) - 1,
+					year: parseInt(date.year)
+				}
+				
+			};
+
 			var config = {
 				weeks: 6, //visible weeks
 				month: [
@@ -89,6 +141,7 @@ angular.module('im-datepicker', [])
 			$scope.months = config.monthNames;
 
 			var input = $element[0].getElementsByTagName('input')[0];
+			var inputNgModel = input.hasAttribute('ng-model') ? angular.element(input).data('$ngModelController') : false;
 
 			$scope.current =  new Date();
 			$scope.datepicker = {
@@ -99,41 +152,50 @@ angular.module('im-datepicker', [])
 					year: $scope.current.getFullYear()
 				},
 				date: {
-					day: 19,
-					month: 9,
-					year: 2016
+					day: $scope.current.getDate(),
+					month: $scope.current.getMonth(),
+					year: $scope.current.getFullYear()
 				},
 				page: []
 			};
 
+			var inputFormat = $attrs.inputFormat || 'dd.mm.yyyy';
+			var viewFormat = $attrs.viewFormat || 'dd.mm.yyyy';
+			var modelFormat = $attrs.modelFormat || inputFormat;
+
 			function init() {
 				if(input.value){
-					var val = input.value.split('.');
-					$scope.datepicker.date = {
-						day: parseInt(val[0]),
-						month: parseInt(val[1]) - 1,
-						year: parseInt(val[2])
-					};
+					var date = getDMY(input.value, inputFormat);
+					if(date) $scope.datepicker.date = date;
 				}
 			}
-			init();
-			input.onchange = function(event){
-				init();
-				$scope.$apply();
-			};
 
-			document.onclick = function(event){
-				var outerClick = true;
-				for (var i = 0; i < event.path.length; i++) {
-					if(event.path[i].nodeName == 'IM-DATEPICKER'){
-						outerClick = false;
+			if(inputNgModel){
+				//set viewed value
+				inputNgModel.$formatters.push(function(modelValue) {
+					var date = getDMY(modelValue, inputFormat);
+					if(date){
+						$scope.datepicker.date = date;
+					}
+					return convertDateString(modelValue, inputFormat, viewFormat);
+				});
+				//set model value
+				inputNgModel.$parsers.push(function(viewValue) {
+					var date = getDMY(viewValue, viewFormat);
+					if(date){
+						$scope.datepicker.date = date;
+					}
+					return convertDateString(viewValue, viewFormat, modelFormat);
+				});
+			}else{
+				init();
+				input.onkeyup = function(){
+					var date = getDMY(input.value, viewFormat);
+					if(date){
+						$scope.datepicker.date = date;
 					}
 				}
-				if(outerClick){
-					$scope.datepicker.visible = false;
-					$scope.$apply();
-				}
-			};
+			}
 
 			var hideDelay;
 			var hidePopup = function(){
@@ -201,7 +263,7 @@ angular.module('im-datepicker', [])
 				$scope.yearSelection = !$scope.yearSelection;
 			};
 			
-
+			var initial = true;
 			$scope.$watch('datepicker.date', function(val){
 
 				if(val.month < 0){
@@ -314,13 +376,23 @@ angular.module('im-datepicker', [])
 				}
 
 				//output
-				var inputValues = {
+				var outputValues = {
 					day: (val.day < 10) ? ('0' + val.day) : val.day,
 					month: (val.month+1) < 10 ? '0' + (val.month+1) : (val.month+1),
 					year: val.year
 				};
 
-				input.value = inputValues.day + '.' + inputValues.month + '.' + inputValues.year;				
+				var viewValue = viewFormat.replace('dd',outputValues.day).replace('mm',outputValues.month).replace('yyyy',outputValues.year);
+				var modelValue = modelFormat.replace('dd',outputValues.day).replace('mm',outputValues.month).replace('yyyy',outputValues.year);
+
+
+				if(initial){
+					initial = false;
+					return false;
+				}
+
+				input.value = viewValue;
+				input.dispatchEvent(new Event('change'));
 
 
 			}, true);

@@ -18,7 +18,14 @@ use yii\helpers\Url;
 				<div class="box">
 					<div class="row thin">
 						<div class="col-xs-9">
-							<h3 class="title"><?= $hotel->content['title'] ?></h3>
+							<h3 class="title">
+								<?= $hotel->content['title'] ?>
+								<span class="stars">
+									<?php for ($i = 0; $i < $hotel->stars; $i++): ?>
+										<i class="fa fa-star"></i>
+									<?php endfor ?>
+								</span>
+							</h3>
 						</div>
 						<div class="col-xs-3">
 							
@@ -35,7 +42,7 @@ use yii\helpers\Url;
 				<div class="actions">
 					<div class="row thin">
 						<div class="col-xs-6">
-							<?= Html::a(Yii::t('translate','choose'), ['view', 'id' => $hotel->id], ['class' => 'btn btn-flat btn-success']) ?>
+							<?= Html::a(Yii::t('translate','choose_room'), ['view', 'id' => $hotel->id], ['class' => 'btn btn-flat btn-success']) ?>
 						</div>
 						<div class="col-xs-6">
 							<div class="price text-right pr1">

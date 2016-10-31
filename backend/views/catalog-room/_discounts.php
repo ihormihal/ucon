@@ -7,13 +7,17 @@ use yii\helpers\Url;
 		<div class="col-md-4">
 			<div class="form-group">
 				<label>От</label>
-				<input texttime="" type="date" class="default full" ng-model="variant.period_from">
+				<im-datepicker inpopup="true" input-format="yyyy-mm-dd" view-format="dd.mm.yyyy">
+					<input type="text" class="default full" ng-model="variant.period_from">
+				</im-datepicker>
 			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="form-group">
 				<label>До</label>
-				<input texttime="" type="date" class="default full" ng-model="variant.period_to">
+				<im-datepicker inpopup="true" input-format="yyyy-mm-dd" view-format="dd.mm.yyyy">
+					<input type="text" class="default full" ng-model="variant.period_to">
+				</im-datepicker>
 			</div>
 		</div>
 		<div class="col-md-2">
@@ -38,3 +42,4 @@ use yii\helpers\Url;
 		<a class="btn btn-success ripple" ng-click="save()"><i class="fa fa-save"></i> Сохранить</a>
 	</div>
 </div>
+<div style="height: 300px;"></div>

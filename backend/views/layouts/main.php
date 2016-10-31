@@ -33,14 +33,24 @@ AppAsset::register($this);
 			<div class="navbar fixed top left full white-bg shadow-2">
 				<div class="container wide">
 					<div class="row">
-						<div class="col-md-3 col-xs-8">
+						<div class="col-md-ten-2 col-xs-8">
 							<div class="">
 								<div class="logo">
 									<img src="/assets/images/logo.png" alt="">
 								</div>
 							</div>
 						</div>
-						<div class="col-md-9 col-xs-4">
+						<div class="col-md-ten-4 col-xs-4">
+							<div class="notifications">
+								<a href="javascript:void(0)" class="note" data-count="3">
+									<i class="fa fa-calendar"></i>
+								</a>
+								<a href="javascript:void(0)" class="note" data-count="9">
+									<i class="fa fa-envelope"></i>
+								</a>
+							</div>
+						</div>
+						<div class="col-md-ten-4 col-xs-12">
 							<div class="right">
 								<nav class="show-lg-over">
 									<ul class="nav nav-inline">

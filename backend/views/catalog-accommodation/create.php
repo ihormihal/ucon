@@ -51,8 +51,14 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?= $form->field($model, 'author')->hiddenInput(['value'=> 1])->label(false); ?>
 
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<?= $form->field($model, 'alias')->textinput(['ng-model' => 'alias', 'class' => 'full default']) ?>
+			</div>
+			<div class="col-md-2">
+				<?= $form->field($model, 'stars')->dropDownList(
+					[0 => 'None', 1 => '1', 2 => '2', 3 => '3', 4 => '4', 5 => '5'], 
+					['class' => 'default full']
+				) ?>
 			</div>
 			<?php if (Yii::$app->user->can('contentAccess')): ?>
 			<div class="col-md-3">

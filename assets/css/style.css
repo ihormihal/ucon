@@ -290,13 +290,85 @@ img {
 .col-xs-offset-12 {
   margin-left: 100%; }
 
-.col-xs-five {
+.col-xs-ten-1 {
+  width: 10%;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.col-xs-ten-offset-1 {
+  margin-left: 10%; }
+
+.col-xs-ten-2 {
   width: 20%;
   padding-top: 0;
   padding-bottom: 0; }
 
-.col-xs-offset-five {
+.col-xs-ten-offset-2 {
   margin-left: 20%; }
+
+.col-xs-ten-3 {
+  width: 30%;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.col-xs-ten-offset-3 {
+  margin-left: 30%; }
+
+.col-xs-ten-4 {
+  width: 40%;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.col-xs-ten-offset-4 {
+  margin-left: 40%; }
+
+.col-xs-ten-5 {
+  width: 50%;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.col-xs-ten-offset-5 {
+  margin-left: 50%; }
+
+.col-xs-ten-6 {
+  width: 60%;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.col-xs-ten-offset-6 {
+  margin-left: 60%; }
+
+.col-xs-ten-7 {
+  width: 70%;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.col-xs-ten-offset-7 {
+  margin-left: 70%; }
+
+.col-xs-ten-8 {
+  width: 80%;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.col-xs-ten-offset-8 {
+  margin-left: 80%; }
+
+.col-xs-ten-9 {
+  width: 90%;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.col-xs-ten-offset-9 {
+  margin-left: 90%; }
+
+.col-xs-ten-10 {
+  width: 100%;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+.col-xs-ten-offset-10 {
+  margin-left: 100%; }
 
 .show-xs-over {
   display: block; }
@@ -386,12 +458,66 @@ img {
     padding-bottom: 0; }
   .col-sm-offset-12 {
     margin-left: 100%; }
-  .col-sm-five {
+  .col-sm-ten-1 {
+    width: 10%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-sm-ten-offset-1 {
+    margin-left: 10%; }
+  .col-sm-ten-2 {
     width: 20%;
     padding-top: 0;
     padding-bottom: 0; }
-  .col-sm-offset-five {
+  .col-sm-ten-offset-2 {
     margin-left: 20%; }
+  .col-sm-ten-3 {
+    width: 30%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-sm-ten-offset-3 {
+    margin-left: 30%; }
+  .col-sm-ten-4 {
+    width: 40%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-sm-ten-offset-4 {
+    margin-left: 40%; }
+  .col-sm-ten-5 {
+    width: 50%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-sm-ten-offset-5 {
+    margin-left: 50%; }
+  .col-sm-ten-6 {
+    width: 60%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-sm-ten-offset-6 {
+    margin-left: 60%; }
+  .col-sm-ten-7 {
+    width: 70%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-sm-ten-offset-7 {
+    margin-left: 70%; }
+  .col-sm-ten-8 {
+    width: 80%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-sm-ten-offset-8 {
+    margin-left: 80%; }
+  .col-sm-ten-9 {
+    width: 90%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-sm-ten-offset-9 {
+    margin-left: 90%; }
+  .col-sm-ten-10 {
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-sm-ten-offset-10 {
+    margin-left: 100%; }
   .show-sm-over {
     display: block; }
   .hide-sm-over {
@@ -476,12 +602,66 @@ img {
     padding-bottom: 0; }
   .col-md-offset-12 {
     margin-left: 100%; }
-  .col-md-five {
+  .col-md-ten-1 {
+    width: 10%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-md-ten-offset-1 {
+    margin-left: 10%; }
+  .col-md-ten-2 {
     width: 20%;
     padding-top: 0;
     padding-bottom: 0; }
-  .col-md-offset-five {
+  .col-md-ten-offset-2 {
     margin-left: 20%; }
+  .col-md-ten-3 {
+    width: 30%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-md-ten-offset-3 {
+    margin-left: 30%; }
+  .col-md-ten-4 {
+    width: 40%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-md-ten-offset-4 {
+    margin-left: 40%; }
+  .col-md-ten-5 {
+    width: 50%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-md-ten-offset-5 {
+    margin-left: 50%; }
+  .col-md-ten-6 {
+    width: 60%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-md-ten-offset-6 {
+    margin-left: 60%; }
+  .col-md-ten-7 {
+    width: 70%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-md-ten-offset-7 {
+    margin-left: 70%; }
+  .col-md-ten-8 {
+    width: 80%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-md-ten-offset-8 {
+    margin-left: 80%; }
+  .col-md-ten-9 {
+    width: 90%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-md-ten-offset-9 {
+    margin-left: 90%; }
+  .col-md-ten-10 {
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-md-ten-offset-10 {
+    margin-left: 100%; }
   .show-md-over {
     display: block; }
   .hide-md-over {
@@ -566,12 +746,66 @@ img {
     padding-bottom: 0; }
   .col-lg-offset-12 {
     margin-left: 100%; }
-  .col-lg-five {
+  .col-lg-ten-1 {
+    width: 10%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-lg-ten-offset-1 {
+    margin-left: 10%; }
+  .col-lg-ten-2 {
     width: 20%;
     padding-top: 0;
     padding-bottom: 0; }
-  .col-lg-offset-five {
+  .col-lg-ten-offset-2 {
     margin-left: 20%; }
+  .col-lg-ten-3 {
+    width: 30%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-lg-ten-offset-3 {
+    margin-left: 30%; }
+  .col-lg-ten-4 {
+    width: 40%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-lg-ten-offset-4 {
+    margin-left: 40%; }
+  .col-lg-ten-5 {
+    width: 50%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-lg-ten-offset-5 {
+    margin-left: 50%; }
+  .col-lg-ten-6 {
+    width: 60%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-lg-ten-offset-6 {
+    margin-left: 60%; }
+  .col-lg-ten-7 {
+    width: 70%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-lg-ten-offset-7 {
+    margin-left: 70%; }
+  .col-lg-ten-8 {
+    width: 80%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-lg-ten-offset-8 {
+    margin-left: 80%; }
+  .col-lg-ten-9 {
+    width: 90%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-lg-ten-offset-9 {
+    margin-left: 90%; }
+  .col-lg-ten-10 {
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-lg-ten-offset-10 {
+    margin-left: 100%; }
   .show-lg-over {
     display: block; }
   .hide-lg-over {
@@ -656,12 +890,66 @@ img {
     padding-bottom: 0; }
   .col-xl-offset-12 {
     margin-left: 100%; }
-  .col-xl-five {
+  .col-xl-ten-1 {
+    width: 10%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-xl-ten-offset-1 {
+    margin-left: 10%; }
+  .col-xl-ten-2 {
     width: 20%;
     padding-top: 0;
     padding-bottom: 0; }
-  .col-xl-offset-five {
+  .col-xl-ten-offset-2 {
     margin-left: 20%; }
+  .col-xl-ten-3 {
+    width: 30%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-xl-ten-offset-3 {
+    margin-left: 30%; }
+  .col-xl-ten-4 {
+    width: 40%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-xl-ten-offset-4 {
+    margin-left: 40%; }
+  .col-xl-ten-5 {
+    width: 50%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-xl-ten-offset-5 {
+    margin-left: 50%; }
+  .col-xl-ten-6 {
+    width: 60%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-xl-ten-offset-6 {
+    margin-left: 60%; }
+  .col-xl-ten-7 {
+    width: 70%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-xl-ten-offset-7 {
+    margin-left: 70%; }
+  .col-xl-ten-8 {
+    width: 80%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-xl-ten-offset-8 {
+    margin-left: 80%; }
+  .col-xl-ten-9 {
+    width: 90%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-xl-ten-offset-9 {
+    margin-left: 90%; }
+  .col-xl-ten-10 {
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0; }
+  .col-xl-ten-offset-10 {
+    margin-left: 100%; }
   .show-xl-over {
     display: block; }
   .hide-xl-over {
@@ -4234,6 +4522,46 @@ html.admin, html.admin body {
   .im-autocomplete-multiple .selection .item i {
     color: #fff; }
 
+header .notifications {
+  margin-top: 8px; }
+  header .notifications .note {
+    margin-right: 16px;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    line-height: 32px;
+    text-align: center;
+    position: relative;
+    color: #3d3d3d;
+    background-color: #f0f0f0;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition: background-color 0.3s ease;
+    -moz-transition: background-color 0.3s ease;
+    -ms-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; }
+    header .notifications .note:after {
+      content: attr(data-count);
+      display: block;
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      padding: 0 4px;
+      height: 15px;
+      line-height: 15px;
+      vertical-align: middle;
+      font-size: 11px;
+      color: #fff;
+      background-color: #ff5722;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%; }
+    header .notifications .note:hover {
+      color: #fff;
+      background-color: #92c005; }
+
 body {
   min-height: 100vh;
   flex-direction: column;
@@ -4326,7 +4654,9 @@ a.phone, a.email {
 
 .stars {
   margin-left: 16px;
-  color: #ff9800; }
+  color: #ff9800;
+  font-size: 18px;
+  vertical-align: middle; }
   .stars i {
     margin-right: 3px; }
 
@@ -4408,20 +4738,31 @@ header {
   .room .price .currency, .hotel .price .currency {
     margin-right: 5px; }
 
-.card-box.room .rating {
+.card-box .rating {
   margin: 10px 0;
   padding: 5px 0;
   border: 1px solid #f0f0f0;
   border-width: 1px 0;
   line-height: 15px; }
 
-.card-box.room p {
+.card-box p {
   margin: 0; }
 
-.card-box.room .title {
+.card-box .title {
   font-size: 20px;
   line-height: 24px;
   padding: 0; }
+
+.card-box .header, .card-row .header {
+  position: relative; }
+  .card-box .header .stars, .card-row .header .stars {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1;
+    font-size: 20px;
+    color: #FFEB3B;
+    text-shadow: 1px 1px 2px #000; }
 
 .breadcrumbs li {
   color: rgba(255, 255, 255, 0.7); }
@@ -4431,6 +4772,15 @@ header {
 .page-header {
   background-image: url(../images/header-bg.jpg);
   background-size: cover; }
+  .page-header h1 {
+    display: inline-block; }
+  .page-header .stars {
+    display: inline-block;
+    line-height: 60px;
+    vertical-align: top;
+    font-size: 22px;
+    color: #fff;
+    margin-left: 32px; }
 
 .page-hotel .nav-inline.tab-control {
   border-bottom-width: 3px; }
