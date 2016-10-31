@@ -1,0 +1,63 @@
+.steps {
+	@include flexbox;
+	flex-direction: row;
+	justify-content: center;
+	.step {
+		flex: 1;
+		padding: 0 $gap;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		position: relative;
+		background-color: color(grey);
+		color: #fff;
+		&:before, &:after {
+			display: block;
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 0;
+			border: 20px solid transparent;
+		}
+		&:before {
+			left: 0;
+			border-left-color: #fff;
+		}
+		&:after {
+			right: -40px;
+			border-left-color: color(grey);
+		}
+		&.active {
+			background-color: $colorPrimary;
+			&:after {
+				border-left-color: $colorPrimary;
+			}
+		}
+		&:first-child:before, &:last-child:after { display: none; }
+
+		&.step-1 {
+			&:before, &:after {z-index: 3;}
+		}
+		&.step-2 {
+			&:before, &:after {z-index: 2;}
+		}
+		&.step-3 {
+			&:before, &:after {z-index: 1;}
+		}
+	}
+}
+
+.price-total {
+	background-color: $colorPrimary;
+	color: #fff;
+	font-size: 24px;
+	text-align: center;
+	padding: 8px;
+	margin-top: 10px;
+	position: relative;
+	@include border-radius(2px);
+	&:before {
+		@include triangleTop(10px, $colorPrimary);
+	}
+}

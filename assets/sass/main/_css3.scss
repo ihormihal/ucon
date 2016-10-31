@@ -164,3 +164,36 @@
 	-o-animation: #{$str};
 	animation: #{$str};      
 }
+
+@mixin triangleTop($size, $color) {
+	display: block;
+	content: '';
+	position: absolute;
+	top: -#{$size*2};
+	border: #{$size} solid transparent;
+	border-bottom-color: #{$color};
+}
+@mixin triangleRight($size, $color) {
+	display: block;
+	content: '';
+	position: absolute;
+	right: -#{$size*2};
+	border: #{$size} solid transparent;
+	border-left-color: #{$color};
+}
+@mixin triangleBottom($size, $color) {
+	display: block;
+	content: '';
+	position: absolute;
+	bottom: -#{$size*2};
+	border: #{$size} solid transparent;
+	border-top-color: #{$color};
+}
+@mixin triangleLeft($size, $color) {
+	display: block;
+	content: '';
+	position: absolute;
+	left: -#{$size*2};
+	border: #{$size} solid transparent;
+	border-right-color: #{$color};
+}

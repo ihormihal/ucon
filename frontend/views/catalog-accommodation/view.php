@@ -1,6 +1,8 @@
 <?php
+use frontend\models\Lang;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
+use frontend\widgets\SearchHotelsAside;
 
 $this->title = $model->content['title'];
 
@@ -42,14 +44,14 @@ $this->params['breadcrumbs'][] = $this->title;
 						class="map single"
 						data-location="<?= $model->attrs['location'] ?>"
 						data-zoom="14"
-						data-marker="/design/img/pin.svg"
+						data-marker="/assets/img/pin.svg"
 						style="height: 300px;"
 					>
 					</div>
 				</div>
 				<?php endif; ?>
 
-				<div class="box shadow-2 lighten-bg">
+				<div class="box shadow-2 white-bg mb1">
 					<div class="row">
 						<div class="col-xs-8">
 							<div class="rating">
@@ -82,6 +84,9 @@ $this->params['breadcrumbs'][] = $this->title;
 						</div>
 					</div>
 				</div>
+
+				<?= SearchHotelsAside::widget();?>
+
 			</div>
 		</div>
 

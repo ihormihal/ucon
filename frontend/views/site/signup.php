@@ -10,26 +10,30 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to signup:</p>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="box mt2 white-bg">
+				<h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+				<p>Please fill out the following fields to signup:</p>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+				<?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-                <?= $form->field($model, 'email') ?>
+					<?= $form->field($model, 'username')->textInput(['class' => 'full mt', 'autofocus' => true]) ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+					<?= $form->field($model, 'email')->textInput(['class' => 'full mt']) ?>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                </div>
+					<?= $form->field($model, 'password')->passwordInput(['class' => 'full mt']) ?>
 
-            <?php ActiveForm::end(); ?>
-        </div>
-    </div>
+					<div class="form-group">
+						<?= Html::submitButton('Signup', ['class' => 'btn btn-mt btn-primary', 'name' => 'signup-button']) ?>
+					</div>
+
+				<?php ActiveForm::end(); ?>
+			</div>
+		</div>
+	</div>
 </div>
+

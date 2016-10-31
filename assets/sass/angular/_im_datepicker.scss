@@ -1,0 +1,179 @@
+$dtCellHeight: 32px;
+$dtCellWidth: 40px;
+$dtCurrentColor: color(light-grey);
+
+im-datepicker {
+	position: relative;
+}
+
+.im-datepicker {
+	display: table;
+	@include no-select();
+	&.inpopup {
+		display: none;
+		position: absolute;
+		left: 0;
+		top: 40px;
+		z-index: 9000;
+		@include box-shadow(1px 1px 3px rgba(0,0,0,0.4));
+		@include fadeInUp;
+		&.visible {
+			display: table;
+		}
+		&:before {
+			@include triangleTop(10px, $colorPrimary);
+			left: 20px;
+		}
+		th, td {
+			&:last-child {
+				border-right: none;
+			}
+			&:first-child {
+				border-left: none;
+			}
+		}
+		tr:last-child td {
+			border-bottom: none;
+		}
+	}
+}
+
+.im-datepicker-years, .im-datepicker-table {
+	td, th {
+		height: $dtCellHeight;
+		line-height: $dtCellHeight;
+		text-align: center;
+		padding: 0;
+		border: 1px solid color(light);
+	}
+}
+
+.im-datepicker-years {
+	background-color: $colorPrimary;
+	width: 100%;
+	td {
+		width: 20%;
+		border-color: $colorPrimary;
+		color: #fff;
+		cursor: pointer;
+		span {
+			padding: 0 8px;
+			display: inline-block;
+			line-height: 24px;
+			@include border-radius(2px);
+		}
+		&.current {
+			color: color(yellow);
+		}
+		&.selected span {
+			background-color: rgba(#000, 0.2);
+		}
+	}
+}
+
+.im-datepicker-table {
+	background-color: #fff;
+	thead {
+		th {
+			width: $dtCellWidth;
+			background-color: $dtCurrentColor;
+			border-color: $dtCurrentColor;
+			color: #fff;
+			cursor: default;
+			// + th + th + th + th + th {
+			// 	color: lighten(color(orange), 40%);
+			// 	+ th {
+			// 		color: lighten(color(deep-orange), 30%);
+			// 	}
+			// }
+		}
+	}
+	tbody {
+		tr td {
+			width: $dtCellWidth;
+			color: color(dark);
+			cursor: pointer;
+			&.not-current {
+				color: color(light);
+			}
+			&.current {
+				background-color: rgba(#000, 0.2);
+				color: #fff;
+			}
+			&.selected {
+				background-color: $colorPrimary;
+				color: #fff;
+			}
+			// + td + td + td + td + td {
+			// 	background-color: rgba(color(orange), 0.05);
+			// 	+ td {
+			// 		background-color: rgba(color(deep-orange), 0.05);
+			// 	}
+			// }
+		}
+	}
+}
+
+.im-datepicker-controls {
+	.control-month {
+		position: relative;
+		height: $dtCellHeight;
+		line-height: $dtCellHeight;
+		background-color: $colorPrimary;
+		color: #fff;
+		.month {
+			padding: 0 $dtCellWidth;
+			text-align: center;
+			.year {
+				margin-left: 4px;
+				padding: 0 8px;
+				display: inline-block;
+				line-height: 24px;
+				cursor: pointer;
+				@include border-radius(2px);
+				&.active {
+					background-color: rgba(#000, 0.2);
+				}
+			}
+		}
+		.prev, .next {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: $dtCellWidth;
+			text-align: center;
+		}
+		.prev {
+			left: 0;
+		}
+		.next {
+			right: 0;
+		}
+	}
+	.control-years {
+		text-align: center;
+		background-color: $colorPrimary;
+		.prev, .next {
+			display: inline-block;
+			width: $dtCellWidth;
+			height: $dtCellHeight;
+			line-height: $dtCellHeight;
+			text-align: center;
+			color: #fff;
+		}
+		
+	}
+}
+
+.im-datepicker-controls {
+	.prev span, .next span {
+		padding: 0 8px;
+		display: inline-block;
+		line-height: 24px;
+		@include border-radius(2px);
+		@include transition(background-color 0.3s easy);
+		&:hover {
+			background-color: rgba(#000, 0.2);
+		}
+	}
+}

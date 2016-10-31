@@ -20,8 +20,10 @@
 										<div class="form-group">
 											<label>Приезжаю</label>
 											<div class="input-icon">
-												<input class="full mtr" type="text" placeholder="">
-												<i class="fa fa-calendar"></i>
+												<im-datepicker inpopup="true">
+													<input class="full mtr" type="text" value="">
+												</im-datepicker>
+												<i class="icon fa fa-calendar"></i>
 											</div>
 										</div>
 									</div>
@@ -29,8 +31,10 @@
 										<div class="form-group">
 											<label>Уезжаю</label>
 											<div class="input-icon">
-												<input class="full mtr" type="text" placeholder="">
-												<i class="fa fa-calendar"></i>
+												<im-datepicker inpopup="true">
+													<input class="full mtr" type="text" value="">
+												</im-datepicker>
+												<i class="icon fa fa-calendar"></i>
 											</div>
 										</div>
 									</div>
@@ -48,19 +52,19 @@
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label>Номеров</label>
-											<input type="number" class="full" value="1">
+											<input type="number" class="mtr full" value="1">
 										</div>
 									</div>
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label>Взрослых</label>
-											<input type="number" class="full" value="2">
+											<input type="number" class="mtr full" value="2">
 										</div>
 									</div>
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label>Детей</label>
-											<input type="number" class="full" value="0">
+											<input type="number" class="mtr full" value="0">
 										</div>
 									</div>
 								</div>
@@ -70,6 +74,45 @@
 							</div>
 						</div>
 						<div class="tab fade">
+							<div class="container">
+								<div class="form-group">
+									<label>Место, название или адрес варианта размещения</label>
+									<input type="text" class="full mtr">
+								</div>
+								
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" value="1" checked="">
+											<span class="check"></span>
+											У меня гибкие даты
+										</label>
+									</div>
+								</div>
+								<div class="row thin">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label>Номеров</label>
+											<input type="number" class="mtr full" value="1">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label>Взрослых</label>
+											<input type="number" class="mtr full" value="2">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label>Детей</label>
+											<input type="number" class="mtr full" value="0">
+										</div>
+									</div>
+								</div>
+								<div class="text-right mt1">
+									<button class="btn btn-primary">Найти санаторий!</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

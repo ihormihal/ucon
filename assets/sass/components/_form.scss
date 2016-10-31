@@ -116,6 +116,10 @@ select, .select, .selection, input[type=text], input[type=email], input[type=pas
 			@include background-size(100% 2px, 100% 1px);
 		}
 	}
+	&.full {
+		min-width: 10px;
+		width: 100%;
+	}
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -454,7 +458,7 @@ textarea {
 	input[type=text], input[type=email], input[type=password] {
 		padding-right: 16*$pt;
 	}
-	i {
+	.icon {
 		color: color(light);
 		position: absolute;
 		right: 0;

@@ -56,6 +56,7 @@ class AppAsset extends AssetBundle
         'assets/app/modules/im-img-uploader.js',
         'assets/app/modules/im-progress.js',
         'assets/app/modules/im-autocomplete.js',
+        'assets/app/modules/im-datepicker.js',
         'assets/app/app.js',
     ];
     public $depends = [

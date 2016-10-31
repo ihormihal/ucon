@@ -56,15 +56,19 @@ class CatalogVariant extends \yii\db\ActiveRecord
     }
 
     //get current language content for VARIANT
-    public function getContent()
+    public function getContent($lang_id = null)
     {
-        $lang_id = ($this->lang_id) ? $this->lang_id : Lang::getCurrent();
+        $lang_id = ($lang_id === null)? Lang::getCurrent()->id: $lang_id;
         return $this->hasOne(CatalogVariantLang::className(), ['object_id' => 'id'])->where(['lang_id' => $lang_id]);
     }
 
-    public function setContent($content)
+    //get attributes for VARIANT
+    public function getAttrs()
     {
-        $this->content = $content;
+        //$lang_id = ($this->lang_id) ? $this->lang_id : Lang::getCurrent();
+        $attributes = json_decode($this->attributes, true);
+        return CatalogAttribute::find()->where(['id' => $attributes, 'model_name' => 'CatalogRoom'])->all();
     }
+
 
 }

@@ -70,23 +70,21 @@ class CatalogAccommodation extends \yii\db\ActiveRecord
 		return $this->hasOne(CatalogAccommodationLang::className(), ['object_id' => 'id'])->where(['lang_id' => $lang_id, 'published' => 1]);
 	}
 
-	//attr
-	// public function getAttributeValue($alias = null)
-	// {	
-	// 	if($alias === null){
-	// 		return null;
-	// 	}
+	//get current season discount for ACCOMMODATION
+	public function getDiscount($date = null)
+	{
+		if($date === null) $date = date('Y-m-d');
 
-	// 	$location = CatalogAttributesValues::find()
-	// 		->alias('v')
-	// 		->innerJoinWith('attr AS a')
-	// 		->where(['v.object_id' => $this->id, 'a.model_name' => 'CatalogAccommodation', 'a.alias' => strval($alias)])
-	// 		->one();
+		// return CatalogDiscount::find()
+		// ->where(['model_name' => 'CatalogAccommodation', 'object_id' => $this->id])
+		// ->andWhere(['<=', 'period_from', $date])
+		// ->andWhere(['>=', 'period_to', $date])->all();
 
-	// 	if($location){
-	// 		return htmlentities($location->value, ENT_QUOTES, 'UTF-8'); //to json
-	// 	}
-	// }
+		return $this->hasOne(CatalogDiscount::className(), ['object_id' => 'id'])
+		->where(['model_name' => 'CatalogAccommodation'])
+		->andWhere(['<=', 'period_from', $date])
+		->andWhere(['>=', 'period_to', $date]);
+	}
 
 	public function getAttrs()
 	{

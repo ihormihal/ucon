@@ -5,7 +5,7 @@ namespace frontend\models;
 use Yii;
 
 /**
- * This is the model class for table "catalog_rooms".
+ * This is the model class for table "catalog_room".
  *
  * @property integer $id
  * @property string $alias
@@ -18,6 +18,7 @@ class CatalogRoom extends \yii\db\ActiveRecord
 	 */
 
 	public $image;
+    public $lang_id;
 
 	public static function tableName()
 	{
@@ -62,33 +63,78 @@ class CatalogRoom extends \yii\db\ActiveRecord
 		];
 	}
 
+	//get parent accommodation for ROOM
 	public function getAccommodation()
 	{
 		return $this->hasOne(CatalogAccommodation::className(), ['id' => 'accommodation_id']);
 	}
 
-	//langs
+    //get ROOM title for current language
+    public function getTitle()
+    {
+        $lang_id = ($this->lang_id) ? $this->lang_id : Lang::getCurrent();
+        $content = CatalogRoomLang::findOne(['object_id' => $this->id, 'lang_id' => $lang_id]);
+        if($content){
+            return $content->title;
+        }else{
+            return 'Room #'.$this->id;
+        }
+    }
 
-	public function getContent($lang_id=null)
+    //get current language content for ROOM
+    public function getContent($lang_id = null)
+    {
+        $lang_id = ($lang_id === null)? Lang::getCurrent()->id: $lang_id;
+        return $this->hasOne(CatalogRoomLang::className(), ['object_id' => 'id'])->where(['lang_id' => $lang_id]);
+    }
+
+
+	//get season discounts for ROOM
+	public function getDiscounts()
 	{
-		$lang_id = ($lang_id === null)? Lang::getCurrent()->id: $lang_id;
-		return $this->hasOne(CatalogRoomLang::className(), ['object_id' => 'id'])->where(['lang_id' => $lang_id, 'published' => 1]);
+		return $this->hasMany(CatalogDiscount::className(), ['object_id' => 'id'])->where(['model_name' => 'CatalogRoom']);
 	}
 
+	//get price variants for ROOM
+	public function getVariants()
+	{
+		return $this->hasMany(CatalogVariant::className(), ['object_id' => 'id'])->where(['model_name' => 'CatalogRoom']);
+	}
 
-	// public function getAttrs()
-	// {
-	//     $attributes = [];
-	//     $attrs = CatalogAttributes::find()->where(['model_name' => 'CatalogRooms'])->all();
-	//     //get values
-	//     foreach($attrs as $attr){
-	//         $values = CatalogAttributesValues::findOne(['attribute_id' => $attr->id, 'object_id' => $this->id]);
-	//         if($values === null){
-	//             $values = new CatalogAttributesValues(['attribute_id' => $attr->id, 'object_id' => $this->id]);
-	//         }
-	//         $values->config = $attr;
-	//         $attributes[$attr->alias] = $values;
-	//     }
-	//     return $attributes;
-	// }
+	//get discount for date
+	public function getDiscount($date = null)
+	{
+		if($date === null) $date = date('Y-m-d');
+
+		//get room discount
+		$discount = CatalogDiscount::find()
+		->where(['object_id' => $this->id])
+		->andWhere(['model_name' => 'CatalogRoom'])
+		->andWhere(['<=', 'period_from', $date])
+		->andWhere(['>=', 'period_to', $date])->one();
+
+		if($discount){
+			return $discount;
+		}else{
+			//get Accommodation discount
+			return $this->accommodation->getDiscount($date);
+		}
+	}
+
+	//get all attributes for ROOM and fill it by values
+	public function getAttrs()
+	{
+		$attributes = [];
+		$attrs = CatalogAttribute::find()->where(['model_name' => 'CatalogRoom'])->all();
+		//get values
+		foreach($attrs as $attr){
+			$values = CatalogAttributeValue::findOne(['attribute_id' => $attr->id, 'object_id' => $this->id]);
+			if($values === null){
+				$values = new CatalogAttributeValue(['attribute_id' => $attr->id, 'object_id' => $this->id]);
+			}
+			$values->config = $attr;
+			$attributes[$attr->alias] = $values;
+		}
+		return $attributes;
+	}
 }

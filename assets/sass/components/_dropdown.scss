@@ -4,14 +4,13 @@
 	.collection {
 		display: none;
 		visibility: hidden;
-		opacity: 0;
 		position: absolute;
 		z-index: 1000;
 		left: 0;
 		background-color: color(white);
 		overflow: hidden;
 		@include box-shadow(1px 1px 3px rgba(0,0,0,0.4));
-		@include transition(opacity 0.1s linear);
+		@include fadeInUp;
 		li {
 			white-space: nowrap;
 			padding: 0;
@@ -47,8 +46,5 @@
 	&.focus .collection {
 		display: block;
 		visibility: visible;
-	}
-	&.focus.in .collection {
-		opacity: 1;
 	}
 }

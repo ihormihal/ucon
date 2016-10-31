@@ -27,6 +27,10 @@ label {
 	font-weight: 300;
 }
 
+.im-datepicker {
+	width: 280px;
+}
+
 .icon-circle {
     height: 32px;
     width: 32px;
@@ -73,6 +77,23 @@ a.phone, a.email {
     line-height: 22px;
 }
 
+.stars {
+	margin-left: $gap;
+	color: color(orange);
+	i {
+		margin-right: 3px;
+	}
+}
+.details {
+	margin-top: $gap;
+	div {
+		margin-bottom: 8px;
+		i {
+			margin-right: 5px;
+		}
+	}
+}
+
 .rating	{
 	border-width: 1px 0;
 	color: color(grey);
@@ -115,38 +136,6 @@ a.phone, a.email {
 	}
 }
 
-.tooltip {
-	position: relative;
-	span.tip {
-		position: absolute;
-		width: 200px;
-		color: #fff;
-		background: $colorPrimary;
-		height: 25px;
-		line-height: 25px;
-		text-align: center;
-		visibility: hidden;
-		@include border-radius(2px);
-		&:after {
-			content: '';
-			position: absolute;
-			top: 100%;
-			left: 50%;
-			margin-left: -8px;
-			width: 0; height: 0;
-			border-top: 8px solid $colorPrimary;
-			border-right: 8px solid transparent;
-			border-left: 8px solid transparent;
-		}
-	}
-	&:hover span.tip {
-		visibility: visible;
-		bottom: 40px;
-		left: 50%;
-		z-index: 999;
-		@include transform(translate(-50%, 0));
-	}
-}
 
 header {
 	z-index: 100;
@@ -173,6 +162,7 @@ header {
 		a {
 			color: color(black);
 			text-transform: uppercase;
+			font-weight: 300;
 		}
 		.nav-inline > li {
 			> a {
@@ -188,88 +178,12 @@ header {
 	}
 }
 
-.header-home {
-	position: relative;
-	height: 620px;
-	.fade-slider {
-		height: 620px;
-		position: absolute;
-		top: 0; left: 0;
-		width: 100%;
-		overflow: hidden;
-	}
-	.slide {
-		position: absolute;
-		height: 620px;
-		width: 100%;
-		top: 0; left: 0;
-		//@include blur(2px);
-		
-		.slide-text {
-			padding-top: 140px;
-			color: #fff;
-			text-shadow: 1px 1px 3px #000;
-			text-align: right;
-		}
-		h2 {
-			font-size: 48px;
-			line-height: 60px;
-		}
-		h3 {
-			font-size: 28px;
-			line-height: 32px;
-		}
-	}
-	.fade-slider {
-		z-index: 5;
-	}
-	.form-home {
-		z-index: 10;
-	}
-}
 
-.form-home {
-	position: absolute;
-	top: 80px; left: 0;
-	width: 100%;
-	height: 300px;
-	.tab-control {border: none;}
-	.tab-control li {
-		a {
-			color: #fff;
-			background-color: transparent;
-			padding: 20px 42px 18px 42px;
-			font-size: 20px;
-			font-weight: 300;
-			border: none;
-			@include transition(background-color 0.3s ease);
-			.ink {
-				display: none;
-			}
-		}
-		&.active a {
-			color: #000;
-			background-color: rgba(#fff, 0.9);
-		}
-		&:first-child a {
-			@include border-radius(32px 0 0 0);
-		}
-		a {
-			@include border-radius(32px 32px 0 0);
-		}
-	}
-	.tab-content {
-		padding: 32px;
-		background-color: rgba(#fff, 0.9);
-		@include border-radius(0 0 32px 32px);
-	}
-}
 
 .room, .hotel {
 	.price {
 		font-size: 20px;
 		line-height: 24px;
-		font-weight: 300;
 		color: color(green);
 		.currency {
 			margin-right: 5px;
@@ -352,9 +266,42 @@ header {
 				color: $colorPrimary;
 			}
 		}
+		.list-item {
+			i {margin-right: 10px; color: $colorPrimary;}
+			padding: 5px 0;
+		}
 	}
 	.price {
 		line-height: 36px;
+	}
+	.discount {
+		background-color: color(orange);
+		margin-right: -$gap;
+		padding-right: $gap;
+		height: 32px;
+		line-height: 32px;
+		position: relative;
+		float: right;
+		width: 110px;
+		&:before, &:after {
+			display: block;
+			content: '';
+			position: absolute;
+			top: 0;
+			border: 16px solid transparent;
+		}
+		&:before {
+			left: 0;
+			border-left: 16px solid #fff;
+		}
+		.value {
+			color: #fff;
+			text-align: right;
+			font-size: 24px;
+			span {
+				font-size: 16px;
+			}
+		}
 	}
 }
 
@@ -366,10 +313,9 @@ header {
 	}
 	.variant {
 		padding: $gap 0;
-		border-bottom: 1px solid color(light);
+		border-top: 1px solid color(light);
 		&:last-child {
 			padding-bottom: 0;
-			border-bottom: 0;
 		}
 	}
 }
@@ -420,18 +366,5 @@ header {
 		display: block;
 		content: '';
 		clear: both;
-	}
-}
-
-.box.removed {
-	background-color: color(lighten);
-}
-
-.im-autocomplete-multiple .selection .item {
-	color: #fff;
-	background-color: $colorPrimary;
-	border-color: $colorPrimary;
-	i {
-		color: #fff;
 	}
 }

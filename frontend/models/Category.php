@@ -65,6 +65,6 @@ class Category extends \yii\db\ActiveRecord
 	public function getContent($lang_id = null)
     {
         $lang_id = ($lang_id === null)? Lang::getCurrent()->id: $lang_id;
-        return $this->hasOne(CategoryLang::className(), ['category_id' => 'id'])->where('lang_id = :lang_id', [':lang_id' => $lang_id]);
+        return $this->hasOne(CategoryLang::className(), ['object_id' => 'id'])->where('lang_id = :lang_id', [':lang_id' => $lang_id]);
     }
 }

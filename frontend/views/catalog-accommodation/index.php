@@ -1,13 +1,14 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
+use frontend\widgets\SearchHotelsAside;
 
 $this->title = $model->content['title'];
 
 //$this->params['breadcrumbs'][] = ['label' => 'Hotels', 'url' => ['catalog-accommodation/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<section class="main-bg pt1 pb1">
+<section class="page-header pt1 pb1">
     <div class="container wide">
         <div class="row">
             <div class="col-md-6">
@@ -29,8 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="container wide page-hotels">
 	<div class="row">
 		<div class="col-md-3">
-			<div class="aside">
 
+			<div class="aside">
+				
+				<?= SearchHotelsAside::widget();?>
 				
 			</div>
 		</div>

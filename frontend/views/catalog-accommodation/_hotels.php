@@ -11,7 +11,7 @@ use yii\helpers\Url;
 		<div class="row condensed">
 			<div class="col-md-4 header">
 				<div class="image hover-scale">
-					<?= Html::img($hotel->getImage()->getUrl('500x300')) ?>
+					<?= Html::img($hotel->getImage()->getUrl('480x420')) ?>
 				</div>
 			</div>
 			<div class="col-md-8 content">

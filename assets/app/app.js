@@ -1,4 +1,4 @@
-angular.module('app', ['im-dataTable', 'im-imgUpload', 'im-progress', 'im-autocomplete'])
+angular.module('app', ['im-dataTable', 'im-imgUpload', 'im-progress', 'im-autocomplete', 'im-datepicker'])
 
 .config([function () {
 

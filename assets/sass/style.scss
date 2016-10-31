@@ -23,7 +23,7 @@
 @import "components/breadcrumbs";
 
 @import "components/buttons";
-@import "components/btn_loading";
+//@import "components/btn_loading";
 @import "components/form";
 
 
@@ -42,8 +42,14 @@
 @import "components/tabs";
 
 @import "angular/im_img_uploader";
+@import "angular/im_datepicker";
 
-@import "components/admin";
 @import "components/aside_menu";
+@import "components/tooltip";
 
+/* Custom styles */
+@import "site/admin";
 @import "site/main";
+@import "site/booking";
+@import "site/homepage";
+
