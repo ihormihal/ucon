@@ -33,14 +33,14 @@ class CatalogRoomController extends ImageController
 	public $modelClass = 'backend\models\CatalogRoom';
 
 	const STATUS_EDIT = 'edit';
-    const STATUS_SUCCESS = 'success';
-    const STATUS_ERROR = 'error';
+	const STATUS_SUCCESS = 'success';
+	const STATUS_ERROR = 'error';
 
 
-    public function beforeAction($action) {
-        $this->enableCsrfValidation = false;
-        return parent::beforeAction($action);
-    }
+	public function beforeAction($action) {
+		$this->enableCsrfValidation = false;
+		return parent::beforeAction($action);
+	}
 
 	public function behaviors()
 	{
@@ -134,9 +134,9 @@ class CatalogRoomController extends ImageController
 					continue;
 				}
 			}else{
-                if(array_key_exists('removed', $item) && $item['removed'] == 1){
-                    continue;
-                }
+				if(array_key_exists('removed', $item) && $item['removed'] == 1){
+					continue;
+				}
 				$variant = new CatalogDiscount(['model_name' => 'CatalogRoom', 'object_id' => $id]);
 			}
 			if($variant){
@@ -172,7 +172,7 @@ class CatalogRoomController extends ImageController
 	//get AJAX
 	public function actionGetVariants($id, $lang_id = null)
 	{
-        $lang_id === null ? Lang::getCurrent() : $lang_id;
+		$lang_id === null ? Lang::getCurrent() : $lang_id;
 
 		$response = ['status' => 'success', 'data' => [], 'message' => 'Empty'];
 		$model = $this->findModel($id);
@@ -180,7 +180,7 @@ class CatalogRoomController extends ImageController
 		$response['message'] = 'Found: '.count($variants);
 
 		foreach($variants as $variant){
-            $variant->lang_id = $lang_id;
+			$variant->lang_id = $lang_id;
 			$response['data'][] = [
 				'id' => $variant->id,
 				'attributes' => CustomHelpers::autocompleteValues($variant->attributes, false),
@@ -196,7 +196,7 @@ class CatalogRoomController extends ImageController
 	//post AJAX
 	public function actionUpdateVariants($id, $lang_id = null)
 	{
-	    $lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;
+		$lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;
 
 		$model = $this->findModel($id); //author setted in accommodation
 		if(!($model->accommodation->author == Yii::$app->user->id || Yii::$app->user->can('contentAccess'))){
@@ -216,17 +216,17 @@ class CatalogRoomController extends ImageController
 			$variant = null;
 			if(array_key_exists('id', $item)){
 				$variant = CatalogVariant::findOne($item['id']);
-                $variant->lang_id = $lang_id;
+				$variant->lang_id = $lang_id;
 				//if removed -> delete them and continue cycle
-                if(array_key_exists('removed', $item) && $item['removed'] == 1){
-                    $variant->content->delete();
-                	$variant->delete();
-                	continue;
-                }
+				if(array_key_exists('removed', $item) && $item['removed'] == 1){
+					$variant->content->delete();
+					$variant->delete();
+					continue;
+				}
 			}else{
-                if(array_key_exists('removed', $item) && $item['removed'] == 1){
-                    continue;
-                }
+				if(array_key_exists('removed', $item) && $item['removed'] == 1){
+					continue;
+				}
 				$variant = new CatalogVariant(['model_name' => 'CatalogRoom', 'object_id' => $id, 'lang_id' => $lang_id]);
 			}
 			if($variant){
@@ -235,13 +235,13 @@ class CatalogRoomController extends ImageController
 
 				if($variant->save()){
 					//save content
-                    if($variant->content === null){
-                        $variant->content = new CatalogVariantLang([
-                            'lang_id' => $lang_id,
-                            'object_id' => $variant->id,
-                        ]);
-                    }
-                    $variant->content->description = $item['description'];
+					if($variant->content === null){
+						$variant->content = new CatalogVariantLang([
+							'lang_id' => $lang_id,
+							'object_id' => $variant->id,
+						]);
+					}
+					$variant->content->description = $item['description'];
 					$variant->content->save();
 					$response['status'] = 'success';
 					$response['message'] = 'Variants saved';
@@ -260,17 +260,20 @@ class CatalogRoomController extends ImageController
 
 	public function actionCreate($accommodation_id = null, $lang_id = null)
 	{
-        $accommodation = CatalogAccommodation::findOne(['id' => $accommodation_id]);
-        if($accommodation === null){
-            throw new NotFoundHttpException('Accommodation not found for this room');
-        }
+		$accommodation = CatalogAccommodation::findOne(['id' => $accommodation_id]);
+		if($accommodation === null){
+			throw new NotFoundHttpException('Accommodation not found for this room');
+		}
 
-        $model = new CatalogRoom(['accommodation_id' => $accommodation_id]);
-        $model->lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;
+		$model = new CatalogRoom([
+			'accommodation_id' => $accommodation_id,
+			'lang_id' => $lang_id === null ? Lang::getCurrent() : $lang_id
+		]);
+		$model->content = new CatalogRoomLang(['lang_id' => $model->lang_id]);
 
 		$languages = Lang::find()->where(['published' => 1])->all();
 
-		$model->content = new CatalogRoomLang(['lang_id' => $lang_id]);
+		
 
 		$success = false;
 
@@ -301,11 +304,11 @@ class CatalogRoomController extends ImageController
 
 	public function actionUpdate($id, $lang_id = null)
 	{
-        $model = $this->findModel($id);
-        $model->lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;
-        if($model->content === null){
-            $model->content = new CatalogRoomLang(['object_id' => $id, 'lang_id' => $lang_id]);
-        }
+		$model = $this->findModel($id);
+		$model->lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;
+		if($model->content === null){
+			$model->content = new CatalogRoomLang(['object_id' => $id, 'lang_id' => $lang_id]);
+		}
 
 		$languages = Lang::find()->where(['published' => 1])->all();
 
@@ -338,7 +341,7 @@ class CatalogRoomController extends ImageController
 
 			if(
 				$model->load(Yii::$app->request->post()) &&
-                $model->content->load(Yii::$app->request->post()) &&
+				$model->content->load(Yii::$app->request->post()) &&
 				$model->save() && $model->content->save()
 			){
 				$status = self::STATUS_SUCCESS;

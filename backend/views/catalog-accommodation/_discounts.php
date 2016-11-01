@@ -42,3 +42,4 @@ use yii\helpers\Url;
 		<a class="btn btn-success ripple" ng-click="save()"><i class="fa fa-save"></i> Сохранить</a>
 	</div>
 </div>
+<div style="height: 300px;"></div>

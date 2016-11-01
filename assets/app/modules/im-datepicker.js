@@ -1,6 +1,6 @@
 /*
  * Angular - Directive "im-datepicker"
- * im-datepicker - v0.1.0 - 2016-10-31
+ * im-datepicker - v0.1.1 - 2016-10-31
  * https://github.com/ihormihal/IM-Framework
  * datepicker.php
  * Ihor Mykhalchenko (http://mycode.in.ua/)
@@ -204,12 +204,12 @@ angular.module('im-datepicker', [])
 			};
 			if($scope.inpopup){
 				$scope.datepicker.visible = false;
-				input.onfocus = function(){
+				input.onfocus = function(event){
 					$scope.datepicker.visible = true;
 					$scope.$apply();
 				};
 				input.onblur = function(){
-					hideDelay = setTimeout(hidePopup, 100);
+					hideDelay = setTimeout(hidePopup, 200);
 				};
 			}
 
@@ -223,6 +223,17 @@ angular.module('im-datepicker', [])
 					return config.month[month];
 				}
 			}
+
+			document.onclick = function(event){
+				if(event.target.nodeName == 'I') return false; //fix for icon
+				for (var i = 0; i < event.path.length; i++) {
+					if(event.path[i].nodeName == 'IM-DATEPICKER'){
+						return false;
+					}
+				}
+				$scope.datepicker.visible = false;
+				$scope.$apply();
+			};
 
 			$scope.pickDate = function(date){
 				clearTimeout(hideDelay);
@@ -396,6 +407,10 @@ angular.module('im-datepicker', [])
 
 
 			}, true);
+
+			$scope.$watch('datepicker.visible', function(val){
+				$scope.yearSelection = false;
+			});
 			
 		}
 	}

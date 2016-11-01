@@ -177,11 +177,14 @@ class CatalogAccommodationController extends ImageController
 
 	public function actionCreate($lang_id = null)
 	{
-		$model = new CatalogAccommodation(['author' => Yii::$app->user->id]);
-        $model->lang_id = $lang_id === null ? Lang::getCurrent() : $lang_id;
-
+		$model = new CatalogAccommodation([
+        	'lang_id' => $lang_id === null ? Lang::getCurrent() : $lang_id,
+        	'author' => Yii::$app->user->id
+        ]);
+		$model->content = new CatalogAccommodationLang([
+			'lang_id' => $model->lang_id
+		]);
 		$languages = Lang::find()->where(['published' => 1])->all();
-		$model->content = new CatalogAccommodationLang(['lang_id' => $lang_id]);
 		$users = User::find()->orderBy('id')->all();
 
 		$success = false;

@@ -48,7 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <section class="pt1 pb1">
 	<div class="container wide">
 		<h1><?= Html::encode($this->title) ?></h1>
-		<?= $form->field($model, 'author')->hiddenInput(['value'=> 1])->label(false); ?>
 
 		<div class="row">
 			<div class="col-md-4">

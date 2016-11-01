@@ -114,7 +114,8 @@ $(document).on('click', 'table.clickable tr', function() {
 });
 
 //input-icon fix
-$(document).on('click', '.input-icon i', function() {
+$(document).on('click', '.input-icon i', function(event) {
+	event.stopPropagation();
 	$(this).parent().find('input').focus();
 });
 
