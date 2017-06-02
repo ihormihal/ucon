@@ -6,7 +6,7 @@ use backend\models\CatalogAccommodation;
 $this->title = 'My Yii Application';
 ?>
 
-<pre><?php  var_dump(array_keys(Yii::$app->authManager->getRolesByUser(1))); ?></pre>
+<pre><?php  var_dump(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->id))); ?></pre>
 
 <?php 
 
